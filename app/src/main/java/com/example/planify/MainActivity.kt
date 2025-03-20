@@ -46,8 +46,8 @@ fun GreetingPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun ExampleText() {
-    Text("Esto es una prueba2")
+    Text("Esto es una prueba")
 }
