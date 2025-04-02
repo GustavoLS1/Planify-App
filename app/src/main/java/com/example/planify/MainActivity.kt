@@ -1,6 +1,7 @@
 package com.example.planify
 
 import Views.Login1
+import Views.WelcomePlanify1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Login1(modifier = Modifier.padding(innerPadding))
+                    WelcomePlanify1(modifier = Modifier.padding(innerPadding))
+//
                 }
             }
         }

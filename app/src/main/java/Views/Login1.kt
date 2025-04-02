@@ -1,5 +1,5 @@
 package Views
-//package com.example.trainingcompose
+
 import androidx.compose.runtime.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
