@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.trainingcompose"
+    namespace = "com.example.planify"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.trainingcompose"
+        applicationId = "com.example.planify"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
