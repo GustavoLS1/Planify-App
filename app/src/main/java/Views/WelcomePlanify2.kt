@@ -67,7 +67,6 @@ fun WelcomePlanify2(modifier: Modifier = Modifier) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
-//                    .offset(x = 0.dp, y = -145.dp)
                     .clip(shape = RoundedCornerShape(topStart = 65.dp,topEnd = 65.dp,))
                     .fillMaxWidth()
                     .background(
