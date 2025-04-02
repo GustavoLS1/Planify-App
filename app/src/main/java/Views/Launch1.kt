@@ -21,8 +21,6 @@ fun Launch1(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-//            .fillMaxWidth()
-//            .fillMaxHeight()
             .background(
                 color = Color(0xFFFFFFFF),
             )
@@ -30,7 +28,6 @@ fun Launch1(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-//                .fillMaxWidth()
                 .weight(1f)
                 .background(
                     color = Color(0xFF070F2B),
