@@ -1,5 +1,6 @@
 package com.example.planify
 
+import Views.Launch1
 import Views.Login1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Login1(modifier = Modifier.padding(innerPadding))
+                    Launch1(Modifier.padding(innerPadding))
                 }
             }
         }
