@@ -1,7 +1,7 @@
-📱 Planify
-Planify es una aplicación de gestión financiera desarrollada en Android Studio con Jetpack Compose. Su objetivo es ayudar a los usuarios a administrar sus finanzas de manera intuitiva, permitiendo realizar seguimiento de ahorros, inversiones, pagos de recibos y metas.
+📱 **Planify**
+Es una aplicación de gestión financiera desarrollada en Android Studio con Jetpack Compose. Su objetivo es ayudar a los usuarios a administrar sus finanzas de manera intuitiva, permitiendo realizar seguimiento de ahorros, inversiones, pagos de recibos y metas.
 
-🚀 Tecnologías Utilizadas
+🚀 **Tecnologías Utilizadas**
 Lenguaje: Kotlin 2.0.0
 
 Framework UI: Jetpack Compose (BOM 2024.04.01)
@@ -10,7 +10,7 @@ Gestión de imágenes: Landscapist (Glide, Coil, Fresco) 2.2.1
 
 Material Design 3 para una interfaz moderna y accesible.
 
-📦 Configuración del Proyecto
+📦 **Configuración del Proyecto**
 Requisitos previos
 Android Studio Iguana | 2023.2.1 o superior
 
@@ -20,7 +20,7 @@ Compose BOM 2024.04.01
 
 JDK 11
 
-📂 Instalación
+📂 **Instalación**
 Clona el repositorio:
 
 bash
@@ -33,7 +33,7 @@ Sincroniza las dependencias en gradle.build.kts.
 
 Ejecuta el proyecto en un emulador o dispositivo físico.
 
-🛠️ Dependencias principales
+🛠️ **Dependencias principales**
 
 dependencies {
 
@@ -57,14 +57,14 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     
 }
-🎨 Diseño de la Aplicación
+🎨 **Diseño de la Aplicación**
 Planify utiliza Material 3 para brindar una experiencia de usuario fluida y moderna, asegurando accesibilidad y usabilidad en toda la aplicación.
 
-📌 Características Clave
+📌 **Características Clave**
 ✔ Gestión de ahorros y gastos
 ✔ Registro y seguimiento de inversiones
 ✔ Configuración de metas financieras
 ✔ Notificaciones para recordatorios de pagos
 
-📄 Licencia
+📄 **Licencia**
 Este proyecto está bajo la licencia MIT.
