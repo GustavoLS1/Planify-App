@@ -1,17 +1,21 @@
 📱 **Planify**
+
 Es una aplicación de gestión financiera desarrollada en Android Studio con Jetpack Compose. Su objetivo es ayudar a los usuarios a administrar sus finanzas de manera intuitiva, permitiendo realizar seguimiento de ahorros, inversiones, pagos de recibos y metas.
 
 🚀 **Tecnologías Utilizadas**
-Lenguaje: Kotlin 2.0.0
 
-Framework UI: Jetpack Compose (BOM 2024.04.01)
+**- Lenguaje:** Kotlin 2.0.0
 
-Gestión de imágenes: Landscapist (Glide, Coil, Fresco) 2.2.1
+**- Framework UI:** Jetpack Compose (BOM 2024.04.01)
+
+**- Gestión de imágenes:** Landscapist (Glide, Coil, Fresco) 2.2.1
 
 Material Design 3 para una interfaz moderna y accesible.
 
 📦 **Configuración del Proyecto**
+
 Requisitos previos
+
 Android Studio Iguana | 2023.2.1 o superior
 
 Kotlin 2.0.0
@@ -21,21 +25,21 @@ Compose BOM 2024.04.01
 JDK 11
 
 📂 **Instalación**
-Clona el repositorio:
 
-bash
-Copiar
-Editar
-git clone https://github.com/tu-usuario/planify.git
-Abre el proyecto en Android Studio.
-
-Sincroniza las dependencias en gradle.build.kts.
-
-Ejecuta el proyecto en un emulador o dispositivo físico.
+1. Clona el repositorio:
+    {
+    
+        git clone https://github.com/tu-usuario/planify.git
+    
+    }
+2. Abre el proyecto en Android Studio.
+3. Sincroniza las dependencias en gradle.build.kts.
+4. Ejecuta el proyecto en un emulador o dispositivo físico.
 
 🛠️ **Dependencias principales**
 
-dependencies {
+**dependencies** 
+{
 
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
@@ -58,13 +62,16 @@ dependencies {
     
 }
 🎨 **Diseño de la Aplicación**
+
 Planify utiliza Material 3 para brindar una experiencia de usuario fluida y moderna, asegurando accesibilidad y usabilidad en toda la aplicación.
 
 📌 **Características Clave**
+
 ✔ Gestión de ahorros y gastos
 ✔ Registro y seguimiento de inversiones
 ✔ Configuración de metas financieras
 ✔ Notificaciones para recordatorios de pagos
 
 📄 **Licencia**
+
 Este proyecto está bajo la licencia MIT.
