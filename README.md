@@ -34,10 +34,9 @@ Sincroniza las dependencias en gradle.build.kts.
 Ejecuta el proyecto en un emulador o dispositivo físico.
 
 🛠️ Dependencias principales
-kotlin
-Copiar
-Editar
+
 dependencies {
+
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.activity:activity-compose:1.10.1")
@@ -46,22 +45,17 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    
-    // Landscapist
     implementation("com.github.skydoves:landscapist-glide:2.2.1")
     implementation("com.github.skydoves:landscapist-coil:2.2.1")
     implementation("com.github.skydoves:landscapist-fresco:2.2.1")
-
-    // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.04.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-
-    // Debug
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    
 }
 🎨 Diseño de la Aplicación
 Planify utiliza Material 3 para brindar una experiencia de usuario fluida y moderna, asegurando accesibilidad y usabilidad en toda la aplicación.
