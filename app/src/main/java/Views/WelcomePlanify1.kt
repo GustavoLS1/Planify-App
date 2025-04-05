@@ -118,8 +118,8 @@ fun WelcomePlanify1(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun LaunchPreview() {
-    WelcomePlanify1()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun LaunchPreview() {
+//    WelcomePlanify1()
+//}

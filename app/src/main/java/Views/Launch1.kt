@@ -83,8 +83,8 @@ fun Launch1(modifier: Modifier = Modifier) {
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun LaunchPreview() {
-//    Launch1()
-//}
+@Preview(showBackground = true)
+@Composable
+fun LaunchPreview() {
+    Launch1()
+}
