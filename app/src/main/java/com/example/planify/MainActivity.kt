@@ -1,8 +1,5 @@
 package com.example.planify
 
-import Views.Launch1
-import Views.Login1
-import Views.WelcomePlanify1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,10 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.example.planify.launchView.launchView
+import com.example.planify.launchView.launchView2
+import com.example.planify.loginView.loginView
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,11 +20,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Launch1(Modifier.padding(innerPadding))
-                    WelcomePlanify1(modifier = Modifier.padding(innerPadding))
+                    launchView(Modifier.padding(innerPadding))
                 }
             }
         }
     }
 }
+
+
+
+
 
