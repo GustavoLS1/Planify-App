@@ -1,4 +1,4 @@
-package com.example.planify.Components
+package com.example.planify.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -41,12 +41,33 @@ fun buttonLogin(){
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
             color = PrimaryColor,
-            fontSize = 18.sp,
+            fontSize = 20.sp,
             fontFamily = letterStyles.AmaranthFont
         )
     }
 }
 
+@Composable
+fun buttonLoginEnable(loginEnabled: Boolean){
+    Button(
+        onClick = {"Click"},
+        enabled = loginEnabled,
+        modifier = Modifier
+            .fillMaxWidth(0.55f)
+            .height(45.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor)
+    ) {
+        Text(
+            text = "Iniciar Sesión",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = PrimaryColor,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont
+        )
+    }
+}
 @Composable
 fun buttonRegister(){
     Button(
@@ -56,6 +77,27 @@ fun buttonRegister(){
             .height(50.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(SecondColor),
+    ) {
+        Text(
+            text = "Registrarse",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.White,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont,
+        )
+    }
+}
+
+@Composable
+fun buttonRegister2(){
+    Button(
+        onClick = {"Click"},
+        modifier = Modifier
+            .fillMaxWidth(0.55f)
+            .height(50.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor),
     ) {
         Text(
             text = "Registrarse",

@@ -1,4 +1,4 @@
-package com.example.planify.launchView
+package com.example.planify.launchScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,19 +17,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.planify.Components.CircleWithImage
-import com.example.planify.Components.buttonLogin
-import com.example.planify.Components.buttonLoginGoogle
-import com.example.planify.Components.buttonRegister
-import com.example.planify.Components.eclipseBottom
-import com.example.planify.Components.eclipseTop
-import com.example.planify.Components.logo
+import com.example.planify.components.CircleWithImage
+import com.example.planify.components.buttonLogin
+import com.example.planify.components.buttonLoginGoogle
+import com.example.planify.components.buttonRegister
+import com.example.planify.components.eclipseBottom
+import com.example.planify.components.eclipseTop
+import com.example.planify.components.logo
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.PrimaryColor
 
 
 @Composable
-fun launchView2(modifier: Modifier) {
+fun launchScreen2(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -83,5 +83,5 @@ fun textWelcome(){
 @Preview(showBackground = true)
 @Composable
 fun PreviewLaunch2() {
-    launchView2(modifier = Modifier)
+    launchScreen2(modifier = Modifier)
 }

@@ -1,4 +1,4 @@
-package com.example.planify.Components
+package com.example.planify.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size

@@ -1,4 +1,4 @@
-package com.example.planify.launchView
+package com.example.planify.launchScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,14 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.planify.Components.CircleWithImage2
-import com.example.planify.Components.eclipseBottom
-import com.example.planify.Components.eclipseTop
-import com.example.planify.Components.logo
+import com.example.planify.components.CircleWithImage2
+import com.example.planify.components.eclipseBottom
+import com.example.planify.components.eclipseTop
+import com.example.planify.components.logo
 import com.example.planify.ui.theme.PrimaryColor
 
 @Composable
-fun launchView(modifier: Modifier) {
+fun launchScreen1(modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -52,5 +52,5 @@ fun launchView(modifier: Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun previewLaunch() {
-    launchView(modifier = Modifier)
+    launchScreen1(modifier = Modifier)
 }
