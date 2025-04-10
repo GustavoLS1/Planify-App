@@ -37,3 +37,13 @@ fun textforgetPassword() {
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 15.sp)
     )
 }
+
+@Composable
+fun textNombre() {
+    Text(
+        text = "Nombre completo:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp),
+        textAlign = TextAlign.Start
+    )
+}
