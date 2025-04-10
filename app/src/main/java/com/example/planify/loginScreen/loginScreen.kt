@@ -99,7 +99,10 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             ) {
                 textEmail()
                 Spacer(modifier = Modifier.size(8.dp))
-                Email(email) { email = it }
+                Email(email) {
+                    email = it
+                    isLoginEnabled = enableLoginButton(email,password)
+                }
             }
 
             Spacer(modifier = Modifier.size(55.dp))
@@ -111,7 +114,10 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             ) {
                 textPassword()
                 Spacer(modifier = Modifier.size(8.dp))
-                Password(password) { password = it }
+                Password(password) {
+                    password = it
+                    isLoginEnabled = enableLoginButton(email,password)
+                }
             }
 
             Spacer(modifier = Modifier.size(90.dp))
@@ -126,7 +132,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
 }
 
 fun enableLoginButton(email:String, password:String) =
-    Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length > 6
+    Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 6
 
 
 
