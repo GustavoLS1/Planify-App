@@ -36,8 +36,11 @@ fun Email(email: String, onTextChanged: (String) -> Unit) {
             .fillMaxWidth(1f)
             .heightIn(min = 45.dp)
             .clip(RoundedCornerShape(10.dp)),
-        textStyle = TextStyle(fontSize = 18.sp, color = Color.Black), // Texto negro para mejor visibilidad
-        placeholder = {Text(text = "Email")},
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            color = Color.Black
+        ), // Texto negro para mejor visibilidad
+        placeholder = { Text(text = "Email") },
         maxLines = 1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -61,7 +64,7 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             .heightIn(min = 45.dp)
             .clip(RoundedCornerShape(10.dp)),
         textStyle = TextStyle(fontSize = 18.sp, color = Color.Black),
-        placeholder = {Text(text = "Contraseña")},
+        placeholder = { Text(text = "Contraseña") },
         maxLines = 1,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -72,18 +75,111 @@ fun Password(password: String, onTextChanged: (String) -> Unit) {
             cursorColor = Color.Black
         ),
         trailingIcon = {
-            val imagen = if (passordVisibility){
+            val imagen = if (passordVisibility) {
                 Icons.Filled.VisibilityOff
-            }else{
+            } else {
                 Icons.Filled.Visibility
             }
-            IconButton(onClick = {passordVisibility =! passordVisibility}) {
+            IconButton(onClick = { passordVisibility = !passordVisibility }) {
                 Icon(imageVector = imagen, contentDescription = "show password")
             }
         },
-        visualTransformation = if (passordVisibility){
+        visualTransformation = if (passordVisibility) {
             VisualTransformation.None
-        }else{
+        } else {
+            PasswordVisualTransformation()
+        }
+    )
+}
+
+@Composable
+fun Name(name: String, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = name,
+        onValueChange = { onTextChanged(it) },
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .heightIn(min = 45.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            color = Color.Black
+        ), // Texto negro para mejor visibilidad
+        placeholder = { Text(text = "Nombre") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@Composable
+fun Number(number: String, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = number,
+        onValueChange = {
+            if (it.all { char -> char.isDigit() }) onTextChanged(it)
+        },
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .heightIn(min = 45.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            color = Color.Black
+        ), // Texto negro para mejor visibilidad
+        placeholder = { Text(text = "Número") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@Composable
+fun configPassword(configPassword: String, onTextChanged: (String) -> Unit) {
+    var passordVisibility by remember { mutableStateOf(false) }
+    TextField(
+        value = configPassword,
+        onValueChange = { onTextChanged(it) },
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .heightIn(min = 45.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        textStyle = TextStyle(fontSize = 18.sp, color = Color.Black),
+        placeholder = { Text(text = "Confirmar contraseña") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.Black
+        ),
+        trailingIcon = {
+            val imagen = if (passordVisibility) {
+                Icons.Filled.VisibilityOff
+            } else {
+                Icons.Filled.Visibility
+            }
+            IconButton(onClick = { passordVisibility = !passordVisibility }) {
+                Icon(imageVector = imagen, contentDescription = "show password")
+            }
+        },
+        visualTransformation = if (passordVisibility) {
+            VisualTransformation.None
+        } else {
             PasswordVisualTransformation()
         }
     )

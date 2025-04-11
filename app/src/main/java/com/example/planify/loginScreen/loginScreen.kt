@@ -70,14 +70,14 @@ fun header() {
             .fillMaxWidth()
             .padding(top = 65.dp)
     )
-
+    Spacer(modifier = Modifier.size(57.dp))
 }
 
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
     Box(
         modifier = Modifier
-            .size(412.dp, 700.dp) //Otra forma de destacar el ancho y el alto
+            .fillMaxSize() //Otra forma de destacar el ancho y el alto
             .padding()
             .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
             .background(ThirdColor),

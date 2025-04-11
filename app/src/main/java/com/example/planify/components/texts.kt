@@ -47,3 +47,29 @@ fun textNombre() {
         textAlign = TextAlign.Start
     )
 }
+
+@Composable
+fun textConfirmPassword() {
+    Text(
+        text = "Confirmar contraseña:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+@Composable
+fun textNumber() {
+    Text(
+        text = "Número de celular:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textDate() {
+    Text(
+        text = "Fecha de nacimiento:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}

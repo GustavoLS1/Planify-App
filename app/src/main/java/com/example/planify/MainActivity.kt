@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.example.planify.launchScreen.launchScreen1
 import com.example.planify.launchScreen.launchScreen2
 import com.example.planify.loginScreen.loginScreen
+import com.example.planify.registerScreen.registerScreen
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    loginScreen(Modifier.padding(innerPadding))
+                    registerScreen(Modifier.padding(innerPadding))
                 }
             }
         }
