@@ -1,4 +1,4 @@
-package com.example.planify.launchScreen
+package com.example.planify.screen.launch
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

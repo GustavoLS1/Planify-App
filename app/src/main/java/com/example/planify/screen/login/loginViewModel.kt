@@ -1,4 +1,4 @@
-package com.example.planify.loginScreen
+package com.example.planify.screen.login
 
 import androidx.lifecycle.ViewModel
 

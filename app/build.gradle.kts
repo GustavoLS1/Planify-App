@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime:1.5.1")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.compose.material:material-icons-extended:<versión>")
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.foundation.layout.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,4 +1,4 @@
-package com.example.planify.registerScreen
+package com.example.planify.screen.register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,7 +34,6 @@ import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Password
 import com.example.planify.components.Number
-import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.configPassword
 import com.example.planify.components.textConfirmPassword
@@ -43,7 +42,6 @@ import com.example.planify.components.textEmail
 import com.example.planify.components.textNombre
 import com.example.planify.components.textNumber
 import com.example.planify.components.textPassword
-import com.example.planify.components.textforgetPassword
 
 @Composable
 fun registerScreen(modifier: Modifier) {
