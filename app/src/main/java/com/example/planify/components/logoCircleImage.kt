@@ -63,6 +63,20 @@ fun CircleImageWelcome(){
 }
 
 @Composable
+fun CircleImageSecondWelcome(){
+    Box(
+        modifier = Modifier,
+        contentAlignment = Alignment.Center
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.image_secondwelcome),
+            contentDescription = "Image Center",
+            modifier = Modifier.size(283.dp)
+        )
+    }
+}
+
+@Composable
 fun logo(){
     Image(
         painter = painterResource(id = R.drawable.logolaunch),
