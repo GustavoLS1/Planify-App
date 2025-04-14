@@ -4,4 +4,8 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-object LoginScreen
+object launchScreen2
+
+@Serializable
+object loginScreen
+
