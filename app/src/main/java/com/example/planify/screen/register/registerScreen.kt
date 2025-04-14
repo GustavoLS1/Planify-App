@@ -168,7 +168,8 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             Spacer(modifier = Modifier.size(51.dp))
             buttonRegister2(navigateToRegister = {
                 println("Pantalla pendiente")
-            })
+            }) // Como el componente de navegación no está implementado, se deja un println para indicar que la pantalla está pendiente
+              // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
             Spacer(modifier = Modifier.size(51.dp))
 
         }

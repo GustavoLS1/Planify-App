@@ -130,7 +130,9 @@ fun buttonRegister(){
         )
     }
 }
-
+// Se agrega la navigateToRegister como una funcion lambda para que se pueda realizar la navegacion con el login
+// Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
+// Para evitar confuciones
 @Composable
 fun buttonRegister2(navigateToRegister: () -> Unit ) {
     Button(

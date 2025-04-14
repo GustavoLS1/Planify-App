@@ -36,6 +36,7 @@ import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
 import com.example.planify.navigation.navigationWrapper
 
+// Agregar navegateToRegister para habilitar la navegación a la screen de registro
 @Composable
 fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
 
@@ -51,7 +52,7 @@ fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
-            Body(onRegisterClick = navegateToRegister)
+            Body(onRegisterClick = navegateToRegister) // Se pasa la función de navegación como parámetro
         }
     }
 
@@ -73,6 +74,7 @@ fun header() {
     Spacer(modifier = Modifier.size(57.dp))
 }
 
+//Añadir onRegisterClick para habilitar la navegación a la screen de registro
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit) {
     Box(
@@ -123,7 +125,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: 
             Spacer(modifier = Modifier.size(90.dp))
             buttonLoginEnable(isLoginEnabled)
             Spacer(modifier = Modifier.size(28.dp))
-            buttonRegister2(navigateToRegister = onRegisterClick)
+            buttonRegister2(navigateToRegister = onRegisterClick)// Se pasa la función de navegación como parámetro
             Spacer(modifier = Modifier.size(28.dp))
             textforgetPassword()
         }
