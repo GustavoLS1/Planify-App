@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.planify.navigation.navigationWrapper
+import com.example.planify.screen.launch.launchScreen2
 import com.example.planify.screen.register.registerScreen
 import com.example.planify.screen.secondWelcome.secondWelcomePlanifyScreen
 import com.example.planify.screen.welcome.welcomePlanifyScreen
@@ -20,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    secondWelcomePlanifyScreen(Modifier.padding(innerPadding))
+                    navigationWrapper(Modifier.padding(innerPadding))
                 }
             }
         }

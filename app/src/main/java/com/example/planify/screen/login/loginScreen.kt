@@ -74,7 +74,7 @@ fun header() {
 }
 
 @Composable
-fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
+fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, ) {
     Box(
         modifier = Modifier
             .fillMaxSize() //Otra forma de destacar el ancho y el alto
@@ -92,6 +92,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             var email by rememberSaveable { mutableStateOf("") }
             var password by rememberSaveable { mutableStateOf("") }
             var isLoginEnabled by rememberSaveable { mutableStateOf(false) }
+
             // Grupo de Correo Electrónico
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f),
