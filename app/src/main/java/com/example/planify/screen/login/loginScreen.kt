@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import com.example.planify.ui.theme.PrimaryColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.letterStyles
@@ -35,9 +34,10 @@ import com.example.planify.components.buttonRegister2
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
+import com.example.planify.navigation.navigationWrapper
 
 @Composable
-fun loginScreen(modifier: Modifier) {
+fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
 
     Box(
         modifier = modifier
@@ -51,7 +51,7 @@ fun loginScreen(modifier: Modifier) {
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
-            Body()
+            Body(onRegisterClick = navegateToRegister)
         }
     }
 
@@ -74,7 +74,7 @@ fun header() {
 }
 
 @Composable
-fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
+fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize() //Otra forma de destacar el ancho y el alto
@@ -123,7 +123,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             Spacer(modifier = Modifier.size(90.dp))
             buttonLoginEnable(isLoginEnabled)
             Spacer(modifier = Modifier.size(28.dp))
-            buttonRegister2()
+            buttonRegister2(navigateToRegister = onRegisterClick)
             Spacer(modifier = Modifier.size(28.dp))
             textforgetPassword()
         }
@@ -133,12 +133,3 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
 
 fun enableLoginButton(email:String, password:String) =
     Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 6
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewloginView() {
-    loginScreen(modifier = Modifier)
-}

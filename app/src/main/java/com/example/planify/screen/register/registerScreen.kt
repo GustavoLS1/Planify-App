@@ -34,6 +34,7 @@ import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Password
 import com.example.planify.components.Number
+import com.example.planify.components.buttonRegister
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.configPassword
 import com.example.planify.components.textConfirmPassword
@@ -165,7 +166,9 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             }
 
             Spacer(modifier = Modifier.size(51.dp))
-            buttonRegister2()
+            buttonRegister2(navigateToRegister = {
+                println("Pantalla pendiente")
+            })
             Spacer(modifier = Modifier.size(51.dp))
 
         }
