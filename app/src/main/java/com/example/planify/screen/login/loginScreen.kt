@@ -125,7 +125,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: 
             Spacer(modifier = Modifier.size(90.dp))
             buttonLoginEnable(isLoginEnabled)
             Spacer(modifier = Modifier.size(28.dp))
-            buttonRegister2(navigateToRegister = onRegisterClick)// Se pasa la función de navegación como parámetro
+            buttonRegister2(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
             Spacer(modifier = Modifier.size(28.dp))
             textforgetPassword()
         }
