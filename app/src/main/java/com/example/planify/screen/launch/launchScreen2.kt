@@ -29,7 +29,7 @@ import com.example.planify.ui.theme.PrimaryColor
 
 
 @Composable
-fun launchScreen2(modifier: Modifier) {
+fun launchScreen2(modifier: Modifier, navigateToLoginScreen: () -> Unit ) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -51,7 +51,7 @@ fun launchScreen2(modifier: Modifier) {
             Spacer(modifier = Modifier.height(31.dp))
             textWelcome()
             Spacer(modifier = Modifier.height(30.dp))
-            buttonLogin()
+            buttonLogin(navigateTo = navigateToLoginScreen)
             Spacer(modifier = Modifier.height(7.dp))
             buttonLoginGoogle()
             Spacer(modifier = Modifier.height(7.dp))
@@ -80,8 +80,8 @@ fun textWelcome(){
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewLaunch2() {
-    launchScreen2(modifier = Modifier)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewLaunch2() {
+//    launchScreen2(modifier = Modifier)
+//}

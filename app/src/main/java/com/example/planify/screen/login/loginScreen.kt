@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import com.example.planify.ui.theme.PrimaryColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.letterStyles
@@ -76,7 +77,7 @@ fun header() {
 
 //Añadir onRegisterClick para habilitar la navegación a la screen de registro
 @Composable
-fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit) {
+fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit){
     Box(
         modifier = Modifier
             .fillMaxSize() //Otra forma de destacar el ancho y el alto
@@ -94,6 +95,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: 
             var email by rememberSaveable { mutableStateOf("") }
             var password by rememberSaveable { mutableStateOf("") }
             var isLoginEnabled by rememberSaveable { mutableStateOf(false) }
+
             // Grupo de Correo Electrónico
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f),

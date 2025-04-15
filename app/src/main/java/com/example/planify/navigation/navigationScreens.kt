@@ -3,7 +3,10 @@ package com.example.planify.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-object login
+object launchScreen2
+
+@Serializable
+object loginScreen
 
 @Serializable
 object register
