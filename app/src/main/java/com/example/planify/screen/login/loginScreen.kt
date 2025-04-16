@@ -30,8 +30,10 @@ import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.ThirdColor
 import com.example.planify.components.Email
 import com.example.planify.components.Password
+import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister2
+import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
@@ -41,12 +43,7 @@ import com.example.planify.navigation.navigationWrapper
 @Composable
 fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    backgroundScreen {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -78,14 +75,7 @@ fun header() {
 //Añadir onRegisterClick para habilitar la navegación a la screen de registro
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit){
-    Box(
-        modifier = Modifier
-            .fillMaxSize() //Otra forma de destacar el ancho y el alto
-            .padding()
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-            .background(ThirdColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    roundedContainerScreen{
         Column(
             modifier = Modifier
                 .fillMaxWidth()

@@ -2,6 +2,7 @@ package com.example.planify.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -83,6 +84,17 @@ fun textNext() {
 }
 
 @Composable
+fun textForgetPassword() {
+    Text(
+        text = "¿Olvido su contraseña?",
+        color = FourthColor,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 40.sp),
+        textAlign = TextAlign.Center,
+        modifier = Modifier.size(217.dp, 96.dp)
+    )
+}
+
+@Composable
 fun textPassword() {
     Text(
         text = "Contraseña:",
@@ -121,6 +133,15 @@ fun textConfirmPassword() {
 }
 
 @Composable
+fun textNewPassword() {
+    Text(
+        text = "Nueva contraseña:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
 fun textNumber() {
     Text(
         text = "Número de celular:",
@@ -134,6 +155,43 @@ fun textDate() {
     Text(
         text = "Fecha de nacimiento:",
         color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textDetailAccountForgetPassword() {
+    Text(
+        text = "Danos Mas detalles de tu cuenta",
+        color = FourthColor,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textForgetNewPassword() {
+    Text(
+        text = "Digite su nueva contraseña",
+        color = FourthColor,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textEmailOrNumPhoneForgetPassword() {
+    Text(
+        text = "Escribe tu correo electrónico o numero de telefónico",
+        color =Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textLinkResetForgetPassword() {
+    Text(
+        text = "Hemos enviado el enlace para restablecer tu contraseña a tu correo electrónico o " +
+                "como mensaje de texto, según la opción que seleccionaste.",
+        color =Color.White,
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
     )
 }

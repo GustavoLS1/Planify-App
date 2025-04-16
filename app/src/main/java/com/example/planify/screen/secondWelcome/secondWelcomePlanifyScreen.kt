@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.example.planify.components.CircleImageSecondWelcome
 import com.example.planify.components.CircleImageWelcome
 import com.example.planify.components.RadioButtonGroup
+import com.example.planify.components.backgroundScreen
+import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textNext
 import com.example.planify.components.textSecondWelcomePlanify
 import com.example.planify.components.textWelcomePlanify
@@ -26,12 +28,7 @@ import com.example.planify.ui.theme.ThirdColor
 
 @Composable
 fun secondWelcomePlanifyScreen(modifier: Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    backgroundScreen {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start
@@ -49,14 +46,7 @@ fun secondWelcomePlanifyScreen(modifier: Modifier) {
 
 @Composable
 fun BodySecondWelcomePlanify() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize() //Otra forma de destacar el ancho y el alto
-            .padding()
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-            .background(ThirdColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    roundedContainerScreen{
         Column(
             modifier = Modifier
                 .fillMaxWidth()

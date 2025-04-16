@@ -1,6 +1,5 @@
 package com.example.planify.screen.launch
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.components.CircleWithImage
+import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLogin
 import com.example.planify.components.buttonLoginGoogle
 import com.example.planify.components.buttonRegister
@@ -25,17 +24,15 @@ import com.example.planify.components.eclipseBottom
 import com.example.planify.components.eclipseTop
 import com.example.planify.components.logo
 import com.example.planify.letterStyles
-import com.example.planify.ui.theme.PrimaryColor
 
 
 @Composable
-fun launchScreen2(modifier: Modifier, navigateToLoginScreen: () -> Unit, navigateToWelcomePlanify: () -> Unit ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+fun launchScreen2(
+    modifier: Modifier,
+    navigateToLoginScreen: () -> Unit,
+    navigateToWelcomePlanify: () -> Unit
+) {
+    backgroundScreen{
         Box(
             modifier = Modifier.align(Alignment.TopEnd)
         ){
@@ -83,5 +80,5 @@ fun textWelcome(){
 //@Preview(showBackground = true)
 //@Composable
 //fun PreviewLaunch2() {
-//    launchScreen2(modifier = Modifier, navigateToLoginScreen = {})
+//    launchScreen2(modifier = Modifier)
 //}

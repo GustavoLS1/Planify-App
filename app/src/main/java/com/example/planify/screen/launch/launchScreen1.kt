@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.components.CircleWithImage2
+import com.example.planify.components.backgroundScreen
 import com.example.planify.components.eclipseBottom
 import com.example.planify.components.eclipseTop
 import com.example.planify.components.logo
@@ -19,12 +20,7 @@ import com.example.planify.ui.theme.PrimaryColor
 
 @Composable
 fun launchScreen1(modifier: Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    backgroundScreen{
         Box(
             modifier = Modifier.align(Alignment.TopEnd)
         ){

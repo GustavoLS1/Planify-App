@@ -1,5 +1,6 @@
 package com.example.planify.components
 
+import android.R.id.input
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -145,6 +146,38 @@ fun Number(number: String, onTextChanged: (String) -> Unit) {
         )
     )
 }
+
+@Composable
+fun EmailOrNum(value: String, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = value,
+        onValueChange = { input ->
+            // Permitir solo caracteres válidos para emails y números
+            if (input.all { it.isLetterOrDigit() || it in "@._-" }) {
+                onTextChanged(input)
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .heightIn(min = 45.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            color = Color.Black
+        ),
+        placeholder = { Text(text = "Correo o número") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.Black
+        )
+    )
+}
+
 
 @Composable
 fun configPassword(configPassword: String, onTextChanged: (String) -> Unit) {
