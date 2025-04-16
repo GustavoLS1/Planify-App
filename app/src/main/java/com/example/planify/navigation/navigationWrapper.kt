@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.planify.screen.launch.launchScreen2
 import com.example.planify.screen.login.loginScreen
 import com.example.planify.screen.register.registerScreen
+import com.example.planify.screen.secondWelcome.secondWelcomePlanifyScreen
+import com.example.planify.screen.welcome.welcomePlanifyScreen
 
 
 @Composable
@@ -19,18 +21,31 @@ fun navigationWrapper(modifier: Modifier) {
                 modifier = modifier, navigateToLoginScreen =
                     {
                         navController.navigate(loginScreen)
-                    }
+                    }, navigateToWelcomePlanify = {
+                        navController.navigate(welcomePlanifyScreen)
+                }
             )
         }
-        composable<loginScreen>{
-            loginScreen(modifier = modifier,
+        composable<loginScreen> {
+            loginScreen(
+                modifier = modifier,
                 navegateToRegister = {
                     navController.navigate(register)
                 }
             )
         }
-        composable<register>{
-            registerScreen(modifier = modifier)
+        composable<register> {
+            registerScreen(modifier = modifier){
+                navController.navigate(welcomePlanifyScreen)
+            }
+        }
+        composable<welcomePlanifyScreen> {
+            welcomePlanifyScreen(modifier = modifier) {
+                navController.navigate(secondWelcomePlanifyScreen)
+            }
+        }
+        composable<secondWelcomePlanifyScreen> {
+            secondWelcomePlanifyScreen(modifier = modifier)
         }
     }
 }

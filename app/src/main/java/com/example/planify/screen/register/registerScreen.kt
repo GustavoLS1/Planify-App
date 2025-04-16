@@ -34,7 +34,6 @@ import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Password
 import com.example.planify.components.Number
-import com.example.planify.components.buttonRegister
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.configPassword
 import com.example.planify.components.textConfirmPassword
@@ -43,9 +42,10 @@ import com.example.planify.components.textEmail
 import com.example.planify.components.textNombre
 import com.example.planify.components.textNumber
 import com.example.planify.components.textPassword
+import com.example.planify.navigation.welcomePlanifyScreen
 
 @Composable
-fun registerScreen(modifier: Modifier) {
+fun registerScreen(modifier: Modifier, function: () -> Unit) {
 
     val scrollState = rememberScrollState()
 
@@ -177,8 +177,10 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun previewRegisterScreen(){
-    registerScreen(modifier = Modifier)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun previewRegisterScreen(){
+//    registerScreen(modifier = Modifier, function = {
+//        navController.navigate(welcomePlanifyScreen)
+//    })
+//}

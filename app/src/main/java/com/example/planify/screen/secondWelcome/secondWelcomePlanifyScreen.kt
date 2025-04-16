@@ -39,7 +39,7 @@ fun secondWelcomePlanifyScreen(modifier: Modifier) {
             Spacer(modifier = Modifier.size(116.dp))
             textSecondWelcomePlanify()
             Spacer(modifier = Modifier.size(116.dp))
-            Body()
+            BodySecondWelcomePlanify()
 
 
         }
@@ -48,7 +48,7 @@ fun secondWelcomePlanifyScreen(modifier: Modifier) {
 
 
 @Composable
-fun Body() {
+fun BodySecondWelcomePlanify() {
     Box(
         modifier = Modifier
             .fillMaxSize() //Otra forma de destacar el ancho y el alto
@@ -66,7 +66,7 @@ fun Body() {
             CircleImageSecondWelcome()
             Spacer(modifier = Modifier.size(59.dp))
             textNext()
-            RadioButtonGroup()
+//            RadioButtonGroup()
         }
 
     }

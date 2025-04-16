@@ -10,3 +10,9 @@ object loginScreen
 
 @Serializable
 object register
+
+@Serializable
+object welcomePlanifyScreen
+
+@Serializable
+object secondWelcomePlanifyScreen

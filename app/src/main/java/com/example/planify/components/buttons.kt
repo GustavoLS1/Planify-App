@@ -56,7 +56,7 @@ fun buttonLogin(navigateTo: () -> Unit) {
 }
 
 @Composable
-fun RadioButtonGroup() {
+fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
     val selectedOption = remember { mutableStateOf(true) }
 
     Row(
@@ -66,8 +66,8 @@ fun RadioButtonGroup() {
         horizontalArrangement = Arrangement.spacedBy(0.dp)
     ) {
         RadioButton(
-            selected = selectedOption.value,
-            onClick = { selectedOption.value = true },
+            selected = selectedIndex == 1,
+            onClick = { onClick(1)},
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -76,8 +76,8 @@ fun RadioButtonGroup() {
             )
         )
         RadioButton(
-            selected = !selectedOption.value,
-            onClick = { selectedOption.value = false },
+            selected = selectedIndex == 2,
+            onClick = {onClick(2)},
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -112,9 +112,9 @@ fun buttonLoginEnable(loginEnabled: Boolean){
     }
 }
 @Composable
-fun buttonRegister(){
+fun buttonRegister(navigateTo: () -> Unit){
     Button(
-        onClick = {"Click"},
+        onClick = {navigateTo()},
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(50.dp),
