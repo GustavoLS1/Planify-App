@@ -28,6 +28,7 @@ import com.example.planify.components.RadioButtonGroup
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textNext
+import com.example.planify.components.textSecondWelcomePlanify
 import com.example.planify.components.textWelcomePlanify
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
@@ -44,11 +45,16 @@ fun welcomePlanifyScreen(modifier: Modifier, navigateToSecondWelcome: () -> Unit
             horizontalAlignment = Alignment.Start
         ) {
             Spacer(modifier = Modifier.size(116.dp))
-            textWelcomePlanify()
+            when (currentStep) {
+                1 -> {
+                    textWelcomePlanify()
+                }
+                2 -> {
+                    textSecondWelcomePlanify()
+                }
+            }
             Spacer(modifier = Modifier.size(116.dp))
             Body(currentStep = currentStep, onStepChange = { currentStep = it })
-
-
         }
     }
 }
