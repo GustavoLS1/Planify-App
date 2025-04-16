@@ -34,9 +34,11 @@ import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Password
 import com.example.planify.components.Number
+import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonRegister
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.configPassword
+import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textConfirmPassword
 import com.example.planify.components.textDate
 import com.example.planify.components.textEmail
@@ -49,12 +51,7 @@ fun registerScreen(modifier: Modifier) {
 
     val scrollState = rememberScrollState()
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    backgroundScreen{
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -88,14 +85,7 @@ fun header() {
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize() //Otra forma de destacar el ancho y el alto
-            .padding()
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
-            .background(ThirdColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    roundedContainerScreen{
         Column(
             modifier = Modifier
                 .fillMaxWidth()

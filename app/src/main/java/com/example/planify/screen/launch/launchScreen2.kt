@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.components.CircleWithImage
+import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLogin
 import com.example.planify.components.buttonLoginGoogle
 import com.example.planify.components.buttonRegister
@@ -30,12 +31,7 @@ import com.example.planify.ui.theme.PrimaryColor
 
 @Composable
 fun launchScreen2(modifier: Modifier, navigateToLoginScreen: () -> Unit ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(PrimaryColor),
-        contentAlignment = Alignment.TopCenter
-    ) {
+    backgroundScreen{
         Box(
             modifier = Modifier.align(Alignment.TopEnd)
         ){
