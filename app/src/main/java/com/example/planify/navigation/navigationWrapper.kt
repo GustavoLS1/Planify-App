@@ -19,7 +19,8 @@ fun navigationWrapper(modifier: Modifier) {
     NavHost(navController = navController, startDestination = launchScreen2) {
         composable<launchScreen2> {
             launchScreen2(
-                modifier = modifier, navigateToLoginScreen =
+                modifier = modifier,
+                navigateToLoginScreen =
                     {
                         navController.navigate(loginScreen)
                     }, navigateToWelcomePlanify = {
