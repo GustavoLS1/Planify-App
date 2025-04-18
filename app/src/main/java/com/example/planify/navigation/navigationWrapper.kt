@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.planify.screen.launch.launchScreen2
-import com.example.planify.screen.login.loginScreen
+import com.example.planify.screen.login.ui.loginScreen
 import com.example.planify.screen.register.registerScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel

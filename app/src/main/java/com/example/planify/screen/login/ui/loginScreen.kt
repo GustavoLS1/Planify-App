@@ -1,15 +1,12 @@
-package com.example.planify.screen.login
+package com.example.planify.screen.login.ui
 
 import android.util.Patterns
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,16 +15,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import com.example.planify.ui.theme.PrimaryColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
-import com.example.planify.ui.theme.ThirdColor
 import com.example.planify.components.Email
 import com.example.planify.components.Password
 import com.example.planify.components.backgroundScreen
@@ -37,11 +30,12 @@ import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
-import com.example.planify.navigation.navigationWrapper
+
+
 
 // Agregar navegateToRegister para habilitar la navegación a la screen de registro
 @Composable
-fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
+fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit, viewModel: loginViewModel) {
 
     backgroundScreen {
         Column(
@@ -50,7 +44,7 @@ fun loginScreen(modifier: Modifier, navegateToRegister: () -> Unit) {
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
-            Body(onRegisterClick = navegateToRegister) // Se pasa la función de navegación como parámetro
+            Body(onRegisterClick = navegateToRegister, viewModel = viewModel) // Se pasa la función de navegación como parámetro
         }
     }
 
@@ -74,7 +68,11 @@ fun header() {
 
 //Añadir onRegisterClick para habilitar la navegación a la screen de registro
 @Composable
-fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: () -> Unit){
+fun Body(
+    onLoginClick: (String, String) -> Unit = { _, _ -> },
+    onRegisterClick: () -> Unit,
+    loginViewModel: loginViewModel
+){
     roundedContainerScreen{
         Column(
             modifier = Modifier
@@ -82,7 +80,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, onRegisterClick: 
                 .padding(top=50.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var email by rememberSaveable { mutableStateOf("") }
+            val email by loginViewModel.email.observeAsState(initial = "")
             var password by rememberSaveable { mutableStateOf("") }
             var isLoginEnabled by rememberSaveable { mutableStateOf(false) }
 
