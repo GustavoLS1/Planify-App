@@ -34,7 +34,7 @@ fun launchScreen2(
 ) {
     backgroundScreen{
         Box(
-            modifier = Modifier.align(Alignment.TopEnd)
+            modifier = modifier.align(Alignment.TopEnd)
         ){
             eclipseTop()
         }

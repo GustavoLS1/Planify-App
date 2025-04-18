@@ -13,7 +13,7 @@ foundationLayoutAndroid = "1.7.0"
 lifecycle = "2.7.0"
 navigationCompose = "2.8.2"
 kotlinSerialization = "1.8.0"
-liveData = "2.6.2"
+liveData = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

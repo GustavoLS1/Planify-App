@@ -33,9 +33,9 @@ fun welcomePlanifyScreen(
     viewModel: welcomePlanifyViewModel = viewModel()
 ) {
     val currentStep by viewModel.currentStep
-    backgroundScreen {
+    backgroundScreen{
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start
         ) {
             Spacer(modifier = Modifier.size(116.dp))
@@ -57,7 +57,7 @@ fun welcomePlanifyScreen(
 
 @Composable
 fun Body(currentStep: Int, onStepChange: (Int) -> Unit) {
-    roundedContainerScreen {
+    roundedContainerScreen{
         Column(
             modifier = Modifier
                 .fillMaxWidth()
