@@ -18,6 +18,9 @@ class registerViewModel : ViewModel() {
     private val _confirmPassword = mutableStateOf("")
     val confirmPassword: State<String> = _confirmPassword
 
+    private val _number = mutableStateOf("")
+    val number: State<String> = _number
+
     private val _isRegisterEnabled = mutableStateOf(false)
     val isRegisterEnabled: State<Boolean> = _isRegisterEnabled
 

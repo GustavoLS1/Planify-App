@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.components.DatePicker
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
@@ -39,7 +40,9 @@ import com.example.planify.components.textNumber
 import com.example.planify.components.textPassword
 
 @Composable
-fun registerScreen(modifier: Modifier, function: () -> Unit) {
+fun registerScreen(modifier: Modifier,
+                   function: () -> Unit,
+                   viewModel: registerViewModel = viewModel()) {
 
     val scrollState = rememberScrollState()
 
@@ -50,7 +53,7 @@ fun registerScreen(modifier: Modifier, function: () -> Unit) {
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
-            Body()
+            Body(registerViewModel = viewModel)
         }
     }
 
@@ -75,7 +78,7 @@ fun header() {
 }
 
 @Composable
-fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
+fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, registerViewModel: registerViewModel) {
 
     roundedContainerScreen{
         Column(
@@ -84,12 +87,12 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
                 .padding(top=50.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var email by rememberSaveable { mutableStateOf("") }
-            var name by rememberSaveable { mutableStateOf("") }
-            var password by rememberSaveable { mutableStateOf("") }
-            var configPassword by rememberSaveable { mutableStateOf("") }
-            var number by rememberSaveable { mutableStateOf("") }
-            var isLoginEnabled by rememberSaveable { mutableStateOf(false) }
+            val email:String by registerViewModel.email
+            val name:String by registerViewModel.name
+            val password:String by registerViewModel.password
+            val configPassword:String by registerViewModel.confirmPassword
+            val number:String by registerViewModel.number
+            val isRegisterEnabled:Boolean by registerViewModel.isRegisterEnabled
             // Grupo de Correo Electrónico y nombre
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -98,13 +101,13 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
                 textEmail()
                 Spacer(modifier = Modifier.size(13.dp))
                 Email(email) {
-                    email = it
+                    registerViewModel.onRegisterChange(email = it, password = password, confirmPassword = configPassword)
                 }
                 Spacer(modifier = Modifier.size(11.dp))
                 textNombre()
                 Spacer(modifier = Modifier.size(13.dp))
                 Name(name) {
-                    name = it
+                    registerViewModel.name
                 }
             }
 
@@ -118,13 +121,13 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
                 textPassword()
                 Spacer(modifier = Modifier.size(13.dp))
                 Password(password) {
-                    password = it
+                    registerViewModel.onRegisterChange(email = email, password = it, confirmPassword = configPassword)
                 }
                 Spacer(modifier = Modifier.size(13.dp))
                 textConfirmPassword()
                 Spacer(modifier = Modifier.size(13.dp))
                 configPassword(configPassword) {
-                    configPassword = it
+                    registerViewModel.onRegisterChange(email = email, password = password, confirmPassword = it)
                 }
             }
 
@@ -142,7 +145,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
                 textNumber()
                 Spacer(modifier = Modifier.size(13.dp))
                 Number(number){
-                    number = it
+                    registerViewModel.number
                 }
 
             }
@@ -153,7 +156,6 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }) {
             }) // Como el componente de navegación no está implementado, se deja un println para indicar que la pantalla está pendiente
               // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
             Spacer(modifier = Modifier.size(51.dp))
-
         }
 
     }
