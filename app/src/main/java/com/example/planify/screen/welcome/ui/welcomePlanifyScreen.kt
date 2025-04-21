@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -24,6 +25,7 @@ import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textNext
 import com.example.planify.components.textSecondWelcomePlanify
 import com.example.planify.components.textWelcomePlanify
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -49,14 +51,18 @@ fun welcomePlanifyScreen(
                 }
             }
             Spacer(modifier = Modifier.size(116.dp))
-            Body(currentStep = currentStep, onStepChange = { viewModel.setStep(it) })
+            Body(currentStep = currentStep,
+                onStepChange = { viewModel.setStep(it) },
+                navigateToSecondWelcome = navigateToSecondWelcome)
         }
     }
 }
 
 
 @Composable
-fun Body(currentStep: Int, onStepChange: (Int) -> Unit) {
+fun Body(currentStep: Int,
+         onStepChange: (Int) -> Unit,
+         navigateToSecondWelcome: () -> Unit) {
     roundedContainerScreen{
         Column(
             modifier = Modifier
@@ -76,6 +82,11 @@ fun Body(currentStep: Int, onStepChange: (Int) -> Unit) {
                     CircleImageSecondWelcome()
                     Spacer(modifier = Modifier.size(59.dp))
                     textNext()
+
+                    LaunchedEffect(Unit) {
+                        delay(5000L) // Espera 5 segundos
+                        navigateToSecondWelcome()
+                    }
 
                 }
             }
