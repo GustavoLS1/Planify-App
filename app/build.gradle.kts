@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.constraint.layout)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.livedata)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlin.serialization.json)
     implementation("androidx.compose.ui:ui")

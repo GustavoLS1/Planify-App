@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.planify.screen.launch.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen
-import com.example.planify.screen.register.registerScreen
+import com.example.planify.screen.register.ui.registerScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel
 
@@ -37,10 +37,13 @@ fun navigationWrapper(modifier: Modifier) {
             )
         }
         composable<register> {
-            registerScreen(modifier = modifier) {
-                navController.navigate(welcomePlanifyScreen)
-            }
+            registerScreen(modifier = modifier
+            , function ={
+                    navController.navigate(welcomePlanifyScreen)
+                }
+            )
         }
+
         composable<welcomePlanifyScreen> { navBackStackEntry ->
             val viewModel: welcomePlanifyViewModel = viewModel(navBackStackEntry)
             welcomePlanifyScreen(

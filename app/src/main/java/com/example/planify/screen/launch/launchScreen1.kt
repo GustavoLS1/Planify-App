@@ -22,7 +22,7 @@ import com.example.planify.ui.theme.PrimaryColor
 fun launchScreen1(modifier: Modifier) {
     backgroundScreen{
         Box(
-            modifier = Modifier.align(Alignment.TopEnd)
+            modifier = modifier.align(Alignment.TopEnd)
         ){
             eclipseTop()
         }

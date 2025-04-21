@@ -37,7 +37,7 @@ fun forgetPasswordScreen(modifier: Modifier){
     var emailOrNum by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var configPassword by rememberSaveable { mutableStateOf("") }
-    backgroundScreen {
+    backgroundScreen{
         Column (
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -45,7 +45,7 @@ fun forgetPasswordScreen(modifier: Modifier){
             Spacer(modifier = Modifier.size(50.dp))
             textForgetPassword()
             Spacer(modifier = Modifier.size(50.dp))
-            roundedContainerScreen {
+            roundedContainerScreen{
                 when(currentStep){
                     1 -> {
                         Column(
