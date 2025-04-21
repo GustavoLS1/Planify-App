@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
-
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -71,4 +72,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.pagingCompose)
+    implementation(libs.dagger.hilt)
+    implementation(libs.dagger.hilt.navigation)
+    kapt(libs.dagger.hilt.compiler)
+
+    implementation(libs.coil.compose)
+
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
 }
