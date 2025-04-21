@@ -58,7 +58,7 @@ fun navigationWrapper(modifier: Modifier) {
         composable<register> {
             registerScreen(modifier = modifier
             , function ={
-                    navController.navigate(welcomePlanifyScreen)
+
                 }
             )
         }
@@ -69,7 +69,7 @@ fun navigationWrapper(modifier: Modifier) {
                 modifier = modifier,
                 viewModel = viewModel,
                 navigateToSecondWelcome = {
-
+                    navController.navigate(register)
                 }
             )
 
