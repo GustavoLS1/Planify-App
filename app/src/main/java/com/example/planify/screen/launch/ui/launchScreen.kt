@@ -1,4 +1,4 @@
-package com.example.planify.screen.launch
+package com.example.planify.screen.launch.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.components.CircleWithImage
+import com.example.planify.components.CircleWithImage2
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLogin
 import com.example.planify.components.buttonLoginGoogle
@@ -24,7 +26,39 @@ import com.example.planify.components.eclipseBottom
 import com.example.planify.components.eclipseTop
 import com.example.planify.components.logo
 import com.example.planify.letterStyles
+import kotlinx.coroutines.delay
 
+@Composable
+fun launchScreen1(
+    modifier: Modifier,
+    navigateTolaunchScreen2: () -> Unit) {
+
+    LaunchedEffect(Unit) {
+        delay(2000L) // Espera 2 segundos
+        navigateTolaunchScreen2()
+    }
+    backgroundScreen{
+        Box(
+            modifier = modifier.align(Alignment.TopEnd)
+        ){
+            eclipseTop()
+        }
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            Spacer(modifier = Modifier.height(250.dp))
+            logo()
+            CircleWithImage2()
+            Spacer(modifier = Modifier.height(30.dp))
+        }
+        Box(
+            modifier = Modifier.align(Alignment.BottomStart)
+        ){
+            eclipseBottom()
+        }
+    }
+}
 
 @Composable
 fun launchScreen2(

@@ -1,5 +1,6 @@
 package com.example.planify.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -105,11 +106,16 @@ fun textPassword() {
 
 
 @Composable
-fun textforgetPassword() {
+fun textforgetPassword(navigateToForgetPasswordScreen: () -> Unit) {
     Text(
         text = "¿Olvidó su correo electronico o contraseña?",
         color = FourthColor,
-        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 15.sp)
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 15.sp),
+        modifier = Modifier
+            .padding(16.dp)
+            .clickable(
+                onClick = {navigateToForgetPasswordScreen()}
+            )
     )
 }
 

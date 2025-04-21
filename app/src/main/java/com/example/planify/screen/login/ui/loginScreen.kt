@@ -32,6 +32,7 @@ import com.example.planify.components.textforgetPassword
 @Composable
 fun loginScreen(modifier: Modifier,
                 navegateToRegister: () -> Unit,
+                navegateToForgetPassword: () -> Unit,
                 viewModel : loginViewModel = viewModel()) {
 
     backgroundScreen{
@@ -42,6 +43,7 @@ fun loginScreen(modifier: Modifier,
             header()
             Spacer(modifier = Modifier.weight(1f))
             Body(onRegisterClick = navegateToRegister,
+                navegateToForgetPassword = navegateToForgetPassword,
                 loginViewModel = viewModel) // Se pasa la función de navegación como parámetro
         }
     }
@@ -68,6 +70,7 @@ fun header() {
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
          onRegisterClick: () -> Unit,
+         navegateToForgetPassword: () -> Unit,
          loginViewModel: loginViewModel) {
     roundedContainerScreen{
         Column(
@@ -111,7 +114,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
             Spacer(modifier = Modifier.size(28.dp))
             buttonRegister2(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
             Spacer(modifier = Modifier.size(28.dp))
-            textforgetPassword()
+            textforgetPassword(navigateToForgetPasswordScreen = navegateToForgetPassword)
         }
 
     }

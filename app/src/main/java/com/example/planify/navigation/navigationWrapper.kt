@@ -6,7 +6,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.planify.screen.launch.launchScreen2
+import com.example.planify.screen.forgetPassword.ui.forgetPasswordScreen
+import com.example.planify.screen.launch.ui.launchScreen1
+import com.example.planify.screen.launch.ui.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen
 import com.example.planify.screen.register.ui.registerScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
@@ -16,7 +18,16 @@ import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel
 @Composable
 fun navigationWrapper(modifier: Modifier) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = launchScreen2) {
+    NavHost(navController = navController, startDestination = launchScreen1) {
+        composable<launchScreen1> {
+            launchScreen1(
+                modifier = modifier,
+                navigateTolaunchScreen2 = {
+                    navController.navigate(launchScreen2)
+                }
+            )
+        }
+
         composable<launchScreen2> {
             launchScreen2(
                 modifier = modifier,
@@ -33,9 +44,17 @@ fun navigationWrapper(modifier: Modifier) {
                 modifier = modifier,
                 navegateToRegister = {
                     navController.navigate(register)
+                },
+                navegateToForgetPassword = {
+                    navController.navigate(forgetPasswordScreen)
                 }
             )
         }
+
+        composable<forgetPasswordScreen> {
+            forgetPasswordScreen(modifier = modifier)
+        }
+
         composable<register> {
             registerScreen(modifier = modifier
             , function ={
