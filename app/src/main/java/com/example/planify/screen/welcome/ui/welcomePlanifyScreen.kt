@@ -84,7 +84,7 @@ fun Body(currentStep: Int,
                     textNext()
 
                     LaunchedEffect(Unit) {
-                        delay(5000L) // Espera 5 segundos
+                        delay(3000L) // Espera 3 segundos
                         navigateToSecondWelcome()
                     }
 
