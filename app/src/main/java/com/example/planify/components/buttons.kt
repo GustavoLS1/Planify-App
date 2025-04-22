@@ -11,12 +11,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsWalk
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MultiChoiceSegmentedButtonRow
+import androidx.compose.material3.MultiChoiceSegmentedButtonRowScope
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,12 +40,15 @@ import com.example.planify.R
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
 
 //Boton de iniciar sesion de la vista de launchScreen2
 @Composable
 fun buttonLogin(navigateTo: () -> Unit) {
     Button(
-        onClick = {navigateTo()},
+        onClick = { navigateTo() },
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(45.dp),
@@ -67,7 +78,7 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
     ) {
         RadioButton(
             selected = selectedIndex == 1,
-            onClick = { onClick(1)},
+            onClick = { onClick(1) },
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -77,7 +88,7 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
         )
         RadioButton(
             selected = selectedIndex == 2,
-            onClick = {onClick(2)},
+            onClick = { onClick(2) },
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -91,9 +102,9 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
 
 //Boton de iniciar sesion de la vista de LoginScreen
 @Composable
-fun buttonLoginEnable(loginEnabled: Boolean){
+fun buttonLoginEnable(loginEnabled: Boolean) {
     Button(
-        onClick = {"Click"},
+        onClick = { "Click" },
         enabled = loginEnabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)
@@ -111,10 +122,11 @@ fun buttonLoginEnable(loginEnabled: Boolean){
         )
     }
 }
+
 @Composable
-fun buttonRegister(navigateTo: () -> Unit){
+fun buttonRegister(navigateTo: () -> Unit) {
     Button(
-        onClick = {navigateTo()},
+        onClick = { navigateTo() },
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(50.dp),
@@ -131,13 +143,14 @@ fun buttonRegister(navigateTo: () -> Unit){
         )
     }
 }
+
 // Se agrega la navigateToRegister como una funcion lambda para que se pueda realizar la navegacion con el login
 // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
 // Para evitar confuciones
 @Composable
-fun buttonRegister2(navigateTo: () -> Unit ) {
+fun buttonRegister2(navigateTo: () -> Unit) {
     Button(
-        onClick = {navigateTo()},
+        onClick = { navigateTo() },
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(50.dp),
@@ -156,16 +169,17 @@ fun buttonRegister2(navigateTo: () -> Unit ) {
 }
 
 @Composable
-fun buttonLoginGoogle(){
+fun buttonLoginGoogle() {
     Button(
-        onClick = {"Click"},
+        onClick = { "Click" },
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(45.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color.White)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Image(
@@ -177,7 +191,9 @@ fun buttonLoginGoogle(){
             Text(
                 text = "Iniciar sesión Google",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 color = PrimaryColor,
                 fontSize = 16.sp,
                 fontFamily = letterStyles.AmaranthFont,
@@ -192,7 +208,7 @@ fun buttonLoginGoogle(){
 @Composable
 fun buttonNext(onClick: () -> Unit) {
     Button(
-        onClick = {onClick()},
+        onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(45.dp),
@@ -211,7 +227,7 @@ fun buttonNext(onClick: () -> Unit) {
 }
 
 @Composable
-fun segmentedButtonGroup(){
+fun segmentedButtonGroup() {
     Button(
         onClick = {},
         modifier = Modifier
@@ -219,7 +235,7 @@ fun segmentedButtonGroup(){
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
-    ){
+    ) {
         Text(
             text = "Siguiente",
             textAlign = TextAlign.Center,
@@ -230,3 +246,53 @@ fun segmentedButtonGroup(){
         )
     }
 }
+
+@Composable
+fun SingleChoiceSegmentedButton(modifier: Modifier = Modifier) {
+    var selectedIndex by remember{ mutableStateOf(0) }
+    val options = listOf("Diario", "Semanalmente", "Mensualmente")
+
+    val activeBg = Color.White
+    val activeText = Color(0xFF1B1464) // Azul oscuro
+    val inactiveBg = Color(0xFF1B1464)
+    val inactiveText = Color.White
+
+    SingleChoiceSegmentedButtonRow (
+        modifier = modifier
+            .padding(18.dp)
+            .background(inactiveBg, RoundedCornerShape(200.dp))
+            .fillMaxWidth()
+    ){
+        options.forEachIndexed { index, label ->
+            SegmentedButton(
+                shape = SegmentedButtonDefaults.itemShape(
+                    index = index,
+                    count = options.size
+                ),
+                onClick = { selectedIndex = index },
+                selected = index == selectedIndex,
+                label = { Text(label) }
+            )
+        }
+    }
+}
+
+@Composable
+@Preview
+fun singleChoiceSegmentedButtonPreview() {
+    SingleChoiceSegmentedButton()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
