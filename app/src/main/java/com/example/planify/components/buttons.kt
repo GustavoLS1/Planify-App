@@ -209,3 +209,24 @@ fun buttonNext(onClick: () -> Unit) {
         )
     }
 }
+
+@Composable
+fun segmentedButtonGroup(){
+    Button(
+        onClick = {},
+        modifier = Modifier
+            .fillMaxWidth(0.55f)
+            .height(45.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor)
+    ){
+        Text(
+            text = "Siguiente",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = PrimaryColor,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont
+        )
+    }
+}

@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     navigationWrapper(Modifier.padding(innerPadding))
+
                 }
             }
         }

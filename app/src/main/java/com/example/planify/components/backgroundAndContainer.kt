@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.ThirdColor
@@ -37,3 +38,4 @@ fun roundedContainerScreen(content: @Composable BoxScope.() -> Unit){
         content()
     }
 }
+
