@@ -1,5 +1,6 @@
 package com.example.planify.screen.login.ui
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -110,7 +111,9 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
             }
 
             Spacer(modifier = Modifier.size(90.dp))
-            buttonLoginEnable(isLoginEnabled)
+            buttonLoginEnable(isLoginEnabled){
+                loginViewModel.login()
+            }
             Spacer(modifier = Modifier.size(28.dp))
             buttonRegister2(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
             Spacer(modifier = Modifier.size(28.dp))

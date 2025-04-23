@@ -32,6 +32,7 @@ import com.example.planify.R
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
+import com.example.planify.screen.login.ui.loginViewModel
 
 //Boton de iniciar sesion de la vista de launchScreen2
 @Composable
@@ -91,10 +92,10 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
 
 //Boton de iniciar sesion de la vista de LoginScreen
 @Composable
-fun buttonLoginEnable(loginEnabled: Boolean){
+fun buttonLoginEnable(enabled: Boolean, onClick: () -> Unit){
     Button(
-        onClick = {"Click"},
-        enabled = loginEnabled,
+        onClick = onClick,
+        enabled = enabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(45.dp),
