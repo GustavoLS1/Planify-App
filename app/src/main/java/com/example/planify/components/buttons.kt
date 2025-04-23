@@ -136,9 +136,10 @@ fun buttonRegister(navigateTo: () -> Unit){
 // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
 // Para evitar confuciones
 @Composable
-fun buttonRegister2(navigateTo: () -> Unit ) {
+fun buttonRegister2(enabled: Boolean, navigateTo: () -> Unit ) {
     Button(
         onClick = {navigateTo()},
+        enabled = enabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(50.dp),

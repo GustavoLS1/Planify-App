@@ -1,8 +1,15 @@
 package com.example.planify.screen.register.ui
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.planify.screen.login.ui.di.retrofitHelper
+import com.example.planify.screen.register.ui.data.authRegisterApiService
+import com.example.planify.screen.register.ui.data.response.registerDto
+import com.example.planify.screen.register.ui.di.registerRetrofitHelper
+import kotlinx.coroutines.launch
 
 class registerViewModel : ViewModel() {
 
@@ -24,13 +31,54 @@ class registerViewModel : ViewModel() {
     private val _isRegisterEnabled = mutableStateOf(false)
     val isRegisterEnabled: State<Boolean> = _isRegisterEnabled
 
-    fun onRegisterChange(email: String, password: String, confirmPassword: String) {
+    fun onRegisterChange(
+        email: String,
+        name: String,
+        password: String,
+        confirmPassword: String,
+        number: String
+    ) {
         _email.value = email
+        _name.value = name
         _password.value = password
         _confirmPassword.value = confirmPassword
+        _number.value = number
         _isRegisterEnabled.value = enableRegisterButton(email, password, confirmPassword)
     }
 
-    fun enableRegisterButton(email: String, password: String, confirmPassword: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 6 && password == confirmPassword
+
+    fun enableRegisterButton(email: String, password: String, confirmPassword: String): Boolean{
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
+                password.isNotBlank() && password == confirmPassword
+
+    }
+
+    fun register() {
+        viewModelScope.launch {
+            try {
+                val registerDto = registerDto(
+                    email = email.value,
+                    name = name.value,
+                    password = password.value,
+                    confirmPassword = confirmPassword.value,
+                    dateOfBrith = " ",
+                    number = number.value
+                )
+                val authRegisterService = registerRetrofitHelper.getRegisterService()
+                val response = authRegisterService.getRegisterService(registerDto)
+
+                if (response.isSuccessful) {
+                    val body = response.body()
+                    val message = body?.message
+
+                    Log.d("Register", "Registro exitoso: $message")
+                } else {
+                    Log.e("Register", "Error en registro: ${response.errorBody()?.string()}")
+                }
+            } catch (e: Exception) {
+                Log.e("Register", "Excepción: ${e.message}", e)
+            }
+        }
+    }
+
 }

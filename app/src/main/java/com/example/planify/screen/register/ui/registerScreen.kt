@@ -101,13 +101,25 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, registerViewModel
                 textEmail()
                 Spacer(modifier = Modifier.size(13.dp))
                 Email(email) {
-                    registerViewModel.onRegisterChange(email = it, password = password, confirmPassword = configPassword)
+                    registerViewModel.onRegisterChange(
+                        email = it,
+                        password = password,
+                        confirmPassword = configPassword,
+                        name = name,
+                        number = number
+                    )
                 }
                 Spacer(modifier = Modifier.size(11.dp))
                 textNombre()
                 Spacer(modifier = Modifier.size(13.dp))
                 Name(name) {
-                    registerViewModel.name
+                    registerViewModel.onRegisterChange(
+                        email = email,
+                        password = password,
+                        confirmPassword = configPassword,
+                        name = it,
+                        number = number
+                    )
                 }
             }
 
@@ -121,13 +133,25 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, registerViewModel
                 textPassword()
                 Spacer(modifier = Modifier.size(13.dp))
                 Password(password) {
-                    registerViewModel.onRegisterChange(email = email, password = it, confirmPassword = configPassword)
+                    registerViewModel.onRegisterChange(
+                        email = email,
+                        password = it,
+                        confirmPassword = configPassword,
+                        name = name,
+                        number = number
+                    )
                 }
                 Spacer(modifier = Modifier.size(13.dp))
                 textConfirmPassword()
                 Spacer(modifier = Modifier.size(13.dp))
                 configPassword(configPassword) {
-                    registerViewModel.onRegisterChange(email = email, password = password, confirmPassword = it)
+                    registerViewModel.onRegisterChange(
+                        email = email,
+                        password = password,
+                        confirmPassword = it,
+                        name = name,
+                        number = number
+                    )
                 }
             }
 
@@ -145,15 +169,21 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, registerViewModel
                 textNumber()
                 Spacer(modifier = Modifier.size(13.dp))
                 Number(number){
-                    registerViewModel.number
+                    registerViewModel.onRegisterChange(
+                        email = email,
+                        password = password,
+                        confirmPassword = configPassword,
+                        name = name,
+                        number = it
+                    )
                 }
 
             }
 
             Spacer(modifier = Modifier.size(51.dp))
-            buttonRegister2(navigateTo = {
-                println("Pantalla pendiente")
-            }) // Como el componente de navegación no está implementado, se deja un println para indicar que la pantalla está pendiente
+            buttonRegister2(isRegisterEnabled) {
+                registerViewModel.register()
+            } // Como el componente de navegación no está implementado, se deja un println para indicar que la pantalla está pendiente
               // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
             Spacer(modifier = Modifier.size(51.dp))
         }

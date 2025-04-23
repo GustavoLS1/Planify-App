@@ -23,11 +23,13 @@ import com.example.planify.components.Email
 import com.example.planify.components.Password
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
+import com.example.planify.components.buttonRegister
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
+import com.example.planify.screen.register.ui.registerViewModel
 
 // Agregar navegateToRegister para habilitar la navegación a la screen de registro
 @Composable
@@ -115,7 +117,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
                 loginViewModel.login()
             }
             Spacer(modifier = Modifier.size(28.dp))
-            buttonRegister2(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
+            buttonRegister(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
             Spacer(modifier = Modifier.size(28.dp))
             textforgetPassword(navigateToForgetPasswordScreen = navegateToForgetPassword)
         }
