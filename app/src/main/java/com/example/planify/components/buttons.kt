@@ -227,40 +227,13 @@ fun buttonNext(onClick: () -> Unit) {
 }
 
 @Composable
-fun segmentedButtonGroup() {
-    Button(
-        onClick = {},
-        modifier = Modifier
-            .fillMaxWidth(0.55f)
-            .height(45.dp),
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(FourthColor)
-    ) {
-        Text(
-            text = "Siguiente",
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth(),
-            color = PrimaryColor,
-            fontSize = 20.sp,
-            fontFamily = letterStyles.AmaranthFont
-        )
-    }
-}
-
-@Composable
 fun SingleChoiceSegmentedButton(modifier: Modifier = Modifier) {
     var selectedIndex by remember{ mutableStateOf(0) }
     val options = listOf("Diario", "Semanalmente", "Mensualmente")
 
-    val activeBg = Color.White
-    val activeText = Color(0xFF1B1464) // Azul oscuro
-    val inactiveBg = Color(0xFF1B1464)
-    val inactiveText = Color.White
-
     SingleChoiceSegmentedButtonRow (
         modifier = modifier
             .padding(18.dp)
-            .background(inactiveBg, RoundedCornerShape(200.dp))
             .fillMaxWidth()
     ){
         options.forEachIndexed { index, label ->

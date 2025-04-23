@@ -54,8 +54,8 @@ fun iconHome(){
     Image(
         painter = painterResource(id = R.drawable.icon_home),
         contentDescription = "Icon home",
-        modifier = Modifier.size(30.dp),
-        contentScale = ContentScale.Crop
+        modifier = Modifier.size(36.dp),
+        contentScale = ContentScale.Fit
     )
 }
 
@@ -64,8 +64,8 @@ fun iconCategory(){
     Image(
         painter = painterResource(id = R.drawable.icon_category),
         contentDescription = "Icon category",
-        modifier = Modifier.size(30.dp),
-        contentScale = ContentScale.Crop
+        modifier = Modifier.size(36.dp),
+        contentScale = ContentScale.Fit
     )
 }
 
@@ -74,8 +74,8 @@ fun iconNoteBook(){
     Image(
         painter = painterResource(id = R.drawable.icon_notebook),
         contentDescription = "Icon notebook",
-        modifier = Modifier.size(30.dp),
-        contentScale = ContentScale.Crop
+        modifier = Modifier.size(36.dp),
+        contentScale = ContentScale.Fit
     )
 }
 
@@ -84,7 +84,7 @@ fun iconSettings(){
     Image(
         painter = painterResource(id = R.drawable.icon_settings),
         contentDescription = "Icon settings",
-        modifier = Modifier.size(30.dp),
-        contentScale = ContentScale.Crop
+        modifier = Modifier.size(36.dp),
+        contentScale = ContentScale.Fit
     )
 }
