@@ -41,59 +41,125 @@ import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
 
+//@Composable
+//fun homePageScreen(modifier: Modifier = Modifier) {
+//    Scaffold(
+//        modifier = modifier,
+//        bottomBar = {
+//            CustomBottomBar()
+//        } // Aquí inyectás la barra inferior
+//    ) { paddingValues -> // Este padding se pasa para que el contenido no choque con la barra
+//
+//        Box(modifier = Modifier.fillMaxSize()) {
+//            roundedContainerScreen {
+//                Column(
+//                    modifier = Modifier
+//                        .fillMaxSize(),
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//
+//                ) {
+//                    Text(text = "Contenido del RoundedContainerScreen")
+//
+//                }
+//            }
+//        }
+//
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .background(PrimaryColor)
+//                .padding(paddingValues), // 👈 Importantísimo
+//            horizontalAlignment = Alignment.CenterHorizontally
+//
+//        ) {
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .padding(25.dp)
+//            ) {
+//                iconProfile()
+//                Spacer(modifier = Modifier.width(15.dp))
+//                iconNotifications()
+//                Spacer(modifier = Modifier.width(130.dp))
+//                iconSearch()
+//                Spacer(modifier = Modifier.width(15.dp))
+//                iconStatistics()
+//            }
+//
+//            Row(modifier = Modifier.fillMaxWidth()) {
+//                SingleChoiceSegmentedButton()
+//            }
+//            // Coloca todo el contenido dentro del RoundedContainerScreen
+//
+//        }
+//    }
+//}
 
 @Composable
 fun homePageScreen(modifier: Modifier = Modifier) {
-//    Box(modifier = Modifier.fillMaxSize()) {
     Scaffold(
         modifier = modifier,
         bottomBar = {
             CustomBottomBar()
-        } // Aquí inyectás la barra inferior
-    ) { paddingValues -> // Este padding se pasa para que el contenido no choque con la barra
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(PrimaryColor)
-                .padding(paddingValues), // 👈 Importantísimo
-            horizontalAlignment = Alignment.CenterHorizontally
+        }
+    ) { paddingValues ->
 
-        ) {
-            Row(
+        // 👉 Ahora usamos un Box para manejar fondo y contenido separados
+        Box(modifier = Modifier.fillMaxWidth()) {
+
+            backgroundScreen(){
+
+            }
+            roundedContainerScreen(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(25.dp)
+                    .height(1000.dp)
+                    .padding(top = 230.dp)
             ) {
-                iconProfile()
-                Spacer(modifier = Modifier.width(15.dp))
-                iconNotifications()
-                Spacer(modifier = Modifier.width(130.dp))
-                iconSearch()
-                Spacer(modifier = Modifier.width(15.dp))
-                iconStatistics()
+                // Podés dejar vacío o meter fondo de pantalla acá
+
             }
 
-            Row(modifier = Modifier.fillMaxWidth()) {
-                SingleChoiceSegmentedButton()
-            }
-//                 Coloca todo el contenido dentro del RoundedContainerScreen
-            roundedContainerScreen {
+            // Contenido principal: Column que respeta el padding
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues), // 👈 Ahora SOLO este contenido respeta el BottomBar
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(25.dp)
+                ) {
+                    iconProfile()
+                    Spacer(modifier = Modifier.width(15.dp))
+                    iconNotifications()
+                    Spacer(modifier = Modifier.width(130.dp))
+                    iconSearch()
+                    Spacer(modifier = Modifier.width(15.dp))
+                    iconStatistics()
+                }
+
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    SingleChoiceSegmentedButton()
+                }
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
-
                 ) {
-                    Text(text = "Contenido del RoundedContainerScreen")
+                    Text(text = "Contenido dentro del RoundedContainerScreen",
+                        color = Color.White)
 
                 }
-                // Aquí podés seguir agregando más contenido de tu pantalla
             }
         }
     }
 }
-
 
 
 
