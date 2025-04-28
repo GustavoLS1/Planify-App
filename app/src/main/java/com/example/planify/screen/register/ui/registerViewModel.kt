@@ -1,15 +1,16 @@
 package com.example.planify.screen.register.ui
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.planify.screen.login.ui.di.retrofitHelper
-import com.example.planify.screen.register.ui.data.authRegisterApiService
 import com.example.planify.screen.register.ui.data.response.registerDto
 import com.example.planify.screen.register.ui.di.registerRetrofitHelper
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 class registerViewModel : ViewModel() {
 
@@ -53,6 +54,7 @@ class registerViewModel : ViewModel() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun register() {
         viewModelScope.launch {
             try {
@@ -61,7 +63,7 @@ class registerViewModel : ViewModel() {
                     name = name.value,
                     password = password.value,
                     confirmPassword = confirmPassword.value,
-                    dateOfBrith = " ",
+                    dateOfBrith = LocalDate.now(),
                     number = number.value
                 )
                 val authRegisterService = registerRetrofitHelper.getRegisterService()

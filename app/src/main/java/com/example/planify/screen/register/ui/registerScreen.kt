@@ -1,5 +1,7 @@
 package com.example.planify.screen.register.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +13,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -39,6 +38,7 @@ import com.example.planify.components.textNombre
 import com.example.planify.components.textNumber
 import com.example.planify.components.textPassword
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun registerScreen(modifier: Modifier,
                    function: () -> Unit,
@@ -77,6 +77,7 @@ fun header() {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> }, registerViewModel: registerViewModel) {
 

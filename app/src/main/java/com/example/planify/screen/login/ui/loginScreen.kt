@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -85,7 +86,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
             val email:String by loginViewModel.email
             val password:String by loginViewModel.password
             val isLoginEnabled:Boolean by loginViewModel.isLoginEnabled
-
+            val context = LocalContext.current // Obtener el contexto actual
             // Grupo de Correo Electrónico
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -114,7 +115,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
 
             Spacer(modifier = Modifier.size(90.dp))
             buttonLoginEnable(isLoginEnabled){
-                loginViewModel.login()
+                loginViewModel.login(context = context) // Se pasa el contexto actual
             }
             Spacer(modifier = Modifier.size(28.dp))
             buttonRegister(navigateTo = onRegisterClick)// Se pasa la función de navegación como parámetro
