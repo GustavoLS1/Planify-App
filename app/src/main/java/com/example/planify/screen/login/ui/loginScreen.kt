@@ -26,7 +26,10 @@ import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister
 import com.example.planify.components.buttonRegister2
+import com.example.planify.components.fail
+import com.example.planify.components.loading
 import com.example.planify.components.roundedContainerScreen
+import com.example.planify.components.success
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
@@ -39,20 +42,35 @@ fun loginScreen(modifier: Modifier,
                 navegateToForgetPassword: () -> Unit,
                 viewModel : loginViewModel = viewModel()) {
 
-    backgroundScreen{
-        Column(
-            modifier = modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            header()
-            Spacer(modifier = Modifier.weight(1f))
-            Body(onRegisterClick = navegateToRegister,
-                navegateToForgetPassword = navegateToForgetPassword,
-                loginViewModel = viewModel) // Se pasa la función de navegación como parámetro
+    val loginState by viewModel.login_State
+
+    backgroundScreen {
+        when (loginState) {
+            is loginState.loading -> {
+                loading()
+            }
+            is loginState.success -> {
+                success()
+            }
+            is loginState.error ->{
+                fail()
+            }
+            else -> {
+                Column(
+                    modifier = modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    header()
+                    Spacer(modifier = Modifier.weight(1f))
+                    Body(
+                        onRegisterClick = navegateToRegister,
+                        navegateToForgetPassword = navegateToForgetPassword,
+                        loginViewModel = viewModel
+                    )
+                }
+            }
         }
     }
-
-
 }
 
 @Composable

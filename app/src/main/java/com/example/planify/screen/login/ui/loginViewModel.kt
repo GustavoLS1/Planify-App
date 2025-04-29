@@ -78,13 +78,15 @@ class loginViewModel : ViewModel() {
                         _loginState.value = loginState.success // Cambia el estado a éxito
                     } else {
                         Log.e("Login", "Token vacío o nulo")
+                        _loginState.value = loginState.error("Token vacío o inválido")
                     }
                 } else {
                     Log.e("Login", "Error en login: ${response.errorBody()?.string()}")
-                    _errorMessage.value = "Error en el inicio de sesión. Inténtalo de nuevo."
+                    _loginState.value = loginState.error("Credenciales inválidas")
                 }
             } catch (e: Exception) {
                 Log.e("Login", "Excepción: ${e.message}", e)
+                _loginState.value = loginState.error(e.localizedMessage ?: "Error desconocido")
             }
         }
     }
