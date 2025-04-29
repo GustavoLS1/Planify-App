@@ -30,7 +30,7 @@ fun backgroundScreen(content: @Composable BoxScope.() -> Unit){
 fun roundedContainerScreen(modifier: Modifier = Modifier, content: @Composable BoxScope.() -> Unit){
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
+            .clip(RoundedCornerShape(topStart = 58.dp, topEnd = 58.dp))
             .background(ThirdColor),
         contentAlignment = Alignment.TopCenter
     ){
