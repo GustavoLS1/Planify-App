@@ -40,62 +40,6 @@ import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
-
-//@Composable
-//fun homePageScreen(modifier: Modifier = Modifier) {
-//    Scaffold(
-//        modifier = modifier,
-//        bottomBar = {
-//            CustomBottomBar()
-//        } // Aquí inyectás la barra inferior
-//    ) { paddingValues -> // Este padding se pasa para que el contenido no choque con la barra
-//
-//        Box(modifier = Modifier.fillMaxSize()) {
-//            roundedContainerScreen {
-//                Column(
-//                    modifier = Modifier
-//                        .fillMaxSize(),
-//                    verticalArrangement = Arrangement.Center,
-//                    horizontalAlignment = Alignment.CenterHorizontally
-//
-//                ) {
-//                    Text(text = "Contenido del RoundedContainerScreen")
-//
-//                }
-//            }
-//        }
-//
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .background(PrimaryColor)
-//                .padding(paddingValues), // 👈 Importantísimo
-//            horizontalAlignment = Alignment.CenterHorizontally
-//
-//        ) {
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(25.dp)
-//            ) {
-//                iconProfile()
-//                Spacer(modifier = Modifier.width(15.dp))
-//                iconNotifications()
-//                Spacer(modifier = Modifier.width(130.dp))
-//                iconSearch()
-//                Spacer(modifier = Modifier.width(15.dp))
-//                iconStatistics()
-//            }
-//
-//            Row(modifier = Modifier.fillMaxWidth()) {
-//                SingleChoiceSegmentedButton()
-//            }
-//            // Coloca todo el contenido dentro del RoundedContainerScreen
-//
-//        }
-//    }
-//}
-
 @Composable
 fun homePageScreen(modifier: Modifier = Modifier) {
     Scaffold(
@@ -131,15 +75,15 @@ fun homePageScreen(modifier: Modifier = Modifier) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(25.dp)
+                        .padding(27.dp)
                 ) {
-                    iconProfile()
+                    iconProfile{println("Profile presionado")}
                     Spacer(modifier = Modifier.width(15.dp))
-                    iconNotifications()
+                    iconNotifications{ println("Notifications presionado")}
                     Spacer(modifier = Modifier.width(130.dp))
-                    iconSearch()
+                    iconSearch{ println("Search presionado") }
                     Spacer(modifier = Modifier.width(15.dp))
-                    iconStatistics()
+                    iconStatistics{ println("Statistics presionado") }
                 }
 
                 Row(modifier = Modifier.fillMaxWidth()) {
@@ -178,10 +122,10 @@ fun CustomBottomBar(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                iconHome()
-                iconCategory()
-                iconNoteBook()
-                iconSettings()
+                iconHome{println("Home presionado")} // -> aca iran las navegaciones
+                iconCategory{println("Category presionado")}
+                iconNoteBook{println("NoteBook presionado")}
+                iconSettings{println("Settings presionado")}
             }
         })
 }
