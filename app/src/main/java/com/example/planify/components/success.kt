@@ -45,16 +45,9 @@ fun success() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Cargando",
+                text = "Satisfactorio",
                 color = Color.White,
                 style = TextStyle(fontSize = 20.sp, fontFamily = letterStyles.AmaranthFont)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Tu aventura está a punto de comenzar",
-                color = Color.LightGray,
-                style = TextStyle(fontSize = 14.sp, fontFamily = letterStyles.AmaranthFont),
-                textAlign = TextAlign.Center
             )
         }
     }

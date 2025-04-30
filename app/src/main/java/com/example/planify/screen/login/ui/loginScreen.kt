@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +26,6 @@ import com.example.planify.components.Password
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister
-import com.example.planify.components.buttonRegister2
 import com.example.planify.components.fail
 import com.example.planify.components.loading
 import com.example.planify.components.roundedContainerScreen
@@ -33,7 +33,7 @@ import com.example.planify.components.success
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
-import com.example.planify.screen.register.ui.registerViewModel
+import kotlinx.coroutines.delay
 
 // Agregar navegateToRegister para habilitar la navegación a la screen de registro
 @Composable
@@ -43,6 +43,14 @@ fun loginScreen(modifier: Modifier,
                 viewModel : loginViewModel = viewModel()) {
 
     val loginState by viewModel.login_State
+
+    LaunchedEffect(loginState){
+        if (loginState is loginState.error) {
+            delay(2000)
+            viewModel.resetLoginState()
+        }
+
+    }
 
     backgroundScreen {
         when (loginState) {

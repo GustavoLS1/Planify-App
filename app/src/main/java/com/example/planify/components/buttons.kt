@@ -211,3 +211,25 @@ fun buttonNext(onClick: () -> Unit) {
         )
     }
 }
+
+@Composable
+fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
+    Button(
+        onClick = {navigateTo()},
+        enabled = enabled,
+        modifier = Modifier
+            .fillMaxWidth(0.55f)
+            .height(45.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor)
+    ) {
+        Text(
+            text = "Siguiente",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = PrimaryColor,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont
+        )
+    }
+}

@@ -38,8 +38,8 @@ import kotlinx.coroutines.delay
 fun loading() {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black.copy(0.5f)),// fondo transparente oscuro
+            .fillMaxSize(),
+            //.background(Color.Black.copy(0.5f)),// fondo transparente oscuro
         contentAlignment = Alignment.Center
     ){
         Column(

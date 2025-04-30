@@ -8,17 +8,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.planify.components.EmailOrNum
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.planify.components.Code
+import com.example.planify.components.Email
 import com.example.planify.components.Password
 import com.example.planify.components.backgroundScreen
-import com.example.planify.components.buttonNext
+import com.example.planify.components.buttonNextEnabled
 import com.example.planify.components.configPassword
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textConfirmPassword
@@ -31,11 +30,15 @@ import com.example.planify.components.textNewPassword
 
 
 @Composable
-fun forgetPasswordScreen(modifier: Modifier){
-    var currentStep by rememberSaveable { mutableStateOf(1) }
-    var emailOrNum by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    var configPassword by rememberSaveable { mutableStateOf("") }
+fun forgetPasswordScreen(modifier: Modifier,
+                         navigateToLogin: () -> Unit = {},
+                         viewModel : forgetPasswordViewModel = viewModel()){
+    val currentStep by viewModel.currentStep
+    val email by viewModel.email
+    val password by viewModel.password
+    val code by viewModel.code
+    val configPassword by viewModel.confirmPassword
+    val isforgetPasswordEnabled by viewModel.isforgetPasswordEnabled
     backgroundScreen{
         Column (
             modifier = modifier.fillMaxSize(),
@@ -58,15 +61,22 @@ fun forgetPasswordScreen(modifier: Modifier){
                                 horizontalAlignment = Alignment.Start
                             ){
                                 textDetailAccountForgetPassword()
-                                Spacer(modifier = Modifier.size(39.dp))
+                                Spacer(modifier = Modifier.size(43.dp))
                                 textEmailOrNumPhoneForgetPassword()
                                 Spacer(modifier = Modifier.size(17.dp))
-                                EmailOrNum(emailOrNum){
-                                    emailOrNum = it
+                                Email(email){
+                                    viewModel.onforgetPasswordChange(
+                                        email = it,
+                                        password = password,
+                                        confirmPassword = configPassword,
+                                        code = code
+                                    )
                                 }
-                                Spacer(modifier = Modifier.size(234.dp))
+                                Spacer(modifier = Modifier.size(254.dp))
                             }
-                            buttonNext { currentStep = 2}
+                            buttonNextEnabled(isforgetPasswordEnabled) {
+                                viewModel.goToStep(2)
+                            }
                         }
                     }
                     2 -> {
@@ -81,11 +91,22 @@ fun forgetPasswordScreen(modifier: Modifier){
                                 horizontalAlignment = Alignment.Start
                             ){
                                 textDetailAccountForgetPassword()
-                                Spacer(modifier = Modifier.size(39.dp))
+                                Spacer(modifier = Modifier.size(28.dp))
                                 textLinkResetForgetPassword()
+                                Spacer(modifier = Modifier.size(27.dp))
+                                Code(code) {
+                                    viewModel.onforgetPasswordChange(
+                                        email = email,
+                                        password = password,
+                                        confirmPassword = configPassword,
+                                        code = it
+                                    )
+                                }
                                 Spacer(modifier = Modifier.size(244.dp))
                             }
-                            buttonNext { currentStep = 3}
+                            buttonNextEnabled(isforgetPasswordEnabled) {
+                                viewModel.goToStep(3)
+                            }
                         }
                     }
                     3 -> {
@@ -104,17 +125,27 @@ fun forgetPasswordScreen(modifier: Modifier){
                                 textNewPassword()
                                 Spacer(modifier = Modifier.size(9.dp))
                                 Password(password) {
-                                    password = it
+                                    viewModel.onforgetPasswordChange(
+                                        email = email,
+                                        password = it,
+                                        confirmPassword = configPassword,
+                                        code = code
+                                    )
                                 }
                                 Spacer(modifier = Modifier.size(38.dp))
                                 textConfirmPassword()
                                 Spacer(modifier = Modifier.size(9.dp))
                                 configPassword(configPassword) {
-                                    configPassword = it
+                                    viewModel.onforgetPasswordChange(
+                                        email = email,
+                                        password = password,
+                                        confirmPassword = it,
+                                        code = code
+                                    )
                                 }
                                 Spacer(modifier = Modifier.size(152.dp))
                             }
-                            buttonNext { currentStep = 1 }
+                            buttonNextEnabled(isforgetPasswordEnabled, navigateToLogin)
                         }
                     }
                 }
@@ -127,5 +158,7 @@ fun forgetPasswordScreen(modifier: Modifier){
 @Preview
 @Composable
 fun previewForgetPasswordScreen(){
-    forgetPasswordScreen(modifier = Modifier)
+    forgetPasswordScreen(modifier = Modifier,
+        navigateToLogin = {},
+    )
 }

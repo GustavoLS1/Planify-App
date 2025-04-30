@@ -8,6 +8,6 @@ data class registerDto(
     @SerializedName("name") val name: String,
     @SerializedName("password") val password: String,
     @SerializedName("confirmPassword") val confirmPassword: String,
-    @SerializedName("dateOfBrith") val dateOfBrith: LocalDate,
+    @SerializedName("dateOfBirth") val dateOfBirth: String,
     @SerializedName("phoneNumber") val number: String
 )

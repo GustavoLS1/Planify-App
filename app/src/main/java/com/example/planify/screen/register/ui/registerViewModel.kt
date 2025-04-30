@@ -39,12 +39,12 @@ class registerViewModel : ViewModel() {
         confirmPassword: String,
         number: String
     ) {
-        _email.value = email
-        _name.value = name
-        _password.value = password
-        _confirmPassword.value = confirmPassword
-        _number.value = number
-        _isRegisterEnabled.value = enableRegisterButton(email, password, confirmPassword)
+        _email.value = email.take(50) // Limita un maximo de 50 caracteres
+        _name.value = name.take(50) // Limita un maximo de 50 caracteres
+        _password.value = password.take(8) // Limita un maximo de 8 caracteres
+        _confirmPassword.value = confirmPassword.take(8) // Limita un maximo de 8 caracteres
+        _number.value = number.take(10) // Limita un maximo de 10 caracteres
+        _isRegisterEnabled.value = enableRegisterButton(_email.value, _password.value, _confirmPassword.value)
     }
 
 
@@ -63,7 +63,7 @@ class registerViewModel : ViewModel() {
                     name = name.value,
                     password = password.value,
                     confirmPassword = confirmPassword.value,
-                    dateOfBrith = LocalDate.now(),
+                    dateOfBirth = LocalDate.now().toString(),
                     number = number.value
                 )
                 val authRegisterService = registerRetrofitHelper.getRegisterService()

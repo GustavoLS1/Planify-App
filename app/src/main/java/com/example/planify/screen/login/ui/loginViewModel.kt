@@ -24,16 +24,20 @@ class loginViewModel : ViewModel() {
     private val _loginState = mutableStateOf<loginState>(loginState.idle)
     val login_State: State<loginState> = _loginState
 
+
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 
 
     fun onLoginChange(email: String, password: String) {
         _email.value = email.take(50) // Limita un maximo de 50 caracteres
-        _password.value = password.take(20) // Limita un maximo de 20 caracteres
+        _password.value = password.take(8) // Limita un maximo de 8 caracteres
         _isLoginEnabled.value = enableLoginButton(_email.value, _password.value)
     }
 
+    fun resetLoginState(){
+        _loginState.value = loginState.idle
+    }
 
     fun enableLoginButton(email: String, password: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&

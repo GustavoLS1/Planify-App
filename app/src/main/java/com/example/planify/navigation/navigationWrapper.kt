@@ -1,5 +1,7 @@
 package com.example.planify.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -15,6 +17,7 @@ import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun navigationWrapper(modifier: Modifier) {
     val navController = rememberNavController()
@@ -52,7 +55,11 @@ fun navigationWrapper(modifier: Modifier) {
         }
 
         composable<forgetPasswordScreen> {
-            forgetPasswordScreen(modifier = modifier)
+            forgetPasswordScreen(modifier = modifier,
+                navigateToLogin = {
+                    navController.navigate(loginScreen)
+                }
+            )
         }
 
         composable<register> {
