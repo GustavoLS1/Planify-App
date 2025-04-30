@@ -75,6 +75,7 @@ fun forgetPasswordScreen(modifier: Modifier,
                                 Spacer(modifier = Modifier.size(254.dp))
                             }
                             buttonNextEnabled(isforgetPasswordEnabled) {
+                                viewModel.requestReset()
                                 viewModel.goToStep(2)
                             }
                         }

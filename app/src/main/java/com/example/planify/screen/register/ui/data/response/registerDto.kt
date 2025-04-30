@@ -1,7 +1,7 @@
 package com.example.planify.screen.register.ui.data.response
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
+
 
 data class registerDto(
     @SerializedName("email") val email: String,

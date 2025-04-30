@@ -1,8 +1,15 @@
 package com.example.planify.screen.forgetPassword.ui
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.planify.screen.forgetPassword.ui.data.response.RequestResetDto
+import com.example.planify.screen.forgetPassword.ui.data.response.ResetPasswordDto
+import com.example.planify.screen.forgetPassword.ui.data.response.VerifyCodeDto
+import com.example.planify.screen.forgetPassword.ui.di.forgetPasswordRetrofitHelper
+import kotlinx.coroutines.launch
 
 class forgetPasswordViewModel: ViewModel() {
     private val _email = mutableStateOf("")
@@ -19,6 +26,12 @@ class forgetPasswordViewModel: ViewModel() {
 
     private val _currentStep = mutableStateOf(1)
     val currentStep: State<Int> = _currentStep
+
+    private val _uiState = mutableStateOf<forgetPasswordState>(forgetPasswordState.idle)
+    val uiState: State<forgetPasswordState> = _uiState
+
+    private val _errorMessage = mutableStateOf<String?>(null)
+    val errorMessage: State<String?> = _errorMessage
 
     private val _isforgetPasswordEnabled = mutableStateOf(false)
     val isforgetPasswordEnabled: State<Boolean> = _isforgetPasswordEnabled
@@ -55,4 +68,66 @@ class forgetPasswordViewModel: ViewModel() {
         }
     }
 
+    fun requestReset(){
+        viewModelScope.launch {
+            _uiState.value = forgetPasswordState.loading
+            try {
+                val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
+                val response = service.requestReset(RequestResetDto(email = _email.value))
+
+                if (response.isSuccessful){
+                    _uiState.value = forgetPasswordState.success
+                }else{
+                    _uiState.value = forgetPasswordState.error("No se pudo enviar el código")
+                }
+            } catch (e: Exception){
+                _uiState.value = forgetPasswordState.error("Error de conexión")
+                Log.e("ForgetPassword", "requestReset: ${e.message}", e)
+            }
+        }
+    }
+
+    fun verifyCode(){
+        viewModelScope.launch {
+            _uiState.value = forgetPasswordState.loading
+            try {
+                val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
+                val response = service.verifyCode(VerifyCodeDto(email = _email.value, code= _code.value))
+
+                if (response.isSuccessful){
+                    _uiState.value = forgetPasswordState.success
+                } else{
+                    _uiState.value = forgetPasswordState.error("Código inválido")
+                }
+            }catch (e: Exception){
+                _uiState.value = forgetPasswordState.error("Error de conexión")
+                Log.e("ForgetPassword", "verifyCode: ${e.message}", e)
+            }
+        }
+    }
+
+    fun resetPassword(){
+        viewModelScope.launch {
+            _uiState.value = forgetPasswordState.loading
+            try {
+                val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
+                val response = service.resetPassword(
+                    ResetPasswordDto(
+                        email = _email.value,
+                        code = _code.value,
+                        newPassword = _password.value
+                    )
+                )
+
+                if (response.isSuccessful){
+                    _uiState.value = forgetPasswordState.success
+                } else{
+                    _uiState.value = forgetPasswordState.error("No se pudo restablecer la contraseña")
+                }
+            }catch (e: Exception){
+                _uiState.value = forgetPasswordState.error("Error de conexión")
+                Log.e("ForgetPassword", "resetPassword: ${e.message}", e)
+            }
+        }
+    }
 }
