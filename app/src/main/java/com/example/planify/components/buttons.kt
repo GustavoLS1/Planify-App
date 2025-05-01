@@ -32,7 +32,6 @@ import com.example.planify.R
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
-import com.example.planify.screen.login.ui.loginViewModel
 
 //Boton de iniciar sesion de la vista de launchScreen2
 @Composable

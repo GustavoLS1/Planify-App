@@ -37,33 +37,29 @@ class forgetPasswordViewModel: ViewModel() {
     val isforgetPasswordEnabled: State<Boolean> = _isforgetPasswordEnabled
 
     fun onforgetPasswordChange(
-        email: String,
-        code: String,
-        password: String,
-        confirmPassword: String
+        email: String = _email.value,
+        code: String = _code.value,
+        password: String = _password.value,
+        confirmPassword: String = _confirmPassword.value
     ) {
-        _email.value = email.take(50) // Limita un maximo de 50 caracteres
-        _password.value = password.take(8) // Limita un maximo de 8 caracteres
-        _confirmPassword.value = confirmPassword.take(8) // Limita un maximo de 8 caracteres
-        _code.value = code.take(6) // Limita un maximo de 6 caracteres
-        _isforgetPasswordEnabled.value = enableforgetPasswordButton(
-            step = _currentStep.value,
-            email = _email.value,
-            code = _code.value,
-            password = _password.value,
-            confirmPassword = _confirmPassword.value)
+        _email.value = email.take(50)
+        _code.value = code.take(6)
+        _password.value = password.take(8)
+        _confirmPassword.value = confirmPassword.take(8)
+        validateFields()
     }
 
 
     fun goToStep(step: Int) {
         _currentStep.value = step
+        validateFields()
     }
 
-    fun enableforgetPasswordButton(step: Int,email: String,code: String, password: String, confirmPassword: String): Boolean{
-        return when(step){
-            1 -> android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-            2 -> code.length == 6
-            3 -> password.isNotBlank() && password == confirmPassword
+    private fun validateFields() {
+        _isforgetPasswordEnabled.value = when (_currentStep.value) {
+            1 -> android.util.Patterns.EMAIL_ADDRESS.matcher(_email.value).matches()
+            2 -> _code.value.length == 6
+            3 -> _password.value.isNotBlank() && _password.value == _confirmPassword.value
             else -> false
         }
     }

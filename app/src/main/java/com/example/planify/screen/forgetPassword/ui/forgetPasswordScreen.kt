@@ -106,6 +106,7 @@ fun forgetPasswordScreen(modifier: Modifier,
                                 Spacer(modifier = Modifier.size(244.dp))
                             }
                             buttonNextEnabled(isforgetPasswordEnabled) {
+                                viewModel.verifyCode()
                                 viewModel.goToStep(3)
                             }
                         }
@@ -146,7 +147,11 @@ fun forgetPasswordScreen(modifier: Modifier,
                                 }
                                 Spacer(modifier = Modifier.size(152.dp))
                             }
-                            buttonNextEnabled(isforgetPasswordEnabled, navigateToLogin)
+                            buttonNextEnabled(
+                                enabled = isforgetPasswordEnabled
+                            ) { navigateToLogin()
+                                viewModel.resetPassword()
+                            }
                         }
                     }
                 }

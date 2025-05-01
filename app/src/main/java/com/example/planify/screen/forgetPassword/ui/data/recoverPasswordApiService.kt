@@ -10,11 +10,12 @@ import retrofit2.http.POST
 
 interface recoverPasswordApiService {
     @POST("/recover-password/verify-code")
-    suspend fun requestReset(@Body forgetPasswordDto: RequestResetDto): Response<apiResponseForgetPassword>
-
-    @POST("/recover-password/reset-password")
     suspend fun verifyCode(@Body forgetPasswordDto: VerifyCodeDto): Response<apiResponseForgetPassword>
 
-    @POST("/recover-password/request-reset")
+    @POST("/recover-password/reset-password")
     suspend fun resetPassword(@Body forgetPasswordDto: ResetPasswordDto): Response<apiResponseForgetPassword>
+
+    @POST("/recover-password/request-reset")
+    suspend fun requestReset(@Body forgetPasswordDto: RequestResetDto): Response<apiResponseForgetPassword>
+
 }
