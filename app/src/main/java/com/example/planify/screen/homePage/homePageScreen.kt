@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.planify.components.BalanceSummaryCard
 import com.example.planify.components.SelectableIcon
 import com.example.planify.components.SingleChoiceSegmentedButton
 import com.example.planify.components.backgroundScreen
@@ -117,7 +118,11 @@ fun homePageScreen(modifier: Modifier = Modifier) {
                 }
 
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    SingleChoiceSegmentedButton()
+                    BalanceSummaryCard(
+                        saldoTotal = "50.000",
+                        ingresos = "5000",
+                        gastos = "5000"
+                    )
                 }
 
                 Column(
@@ -191,4 +196,6 @@ fun CustomBottomBar(modifier: Modifier = Modifier) {
 fun previewHomePageScreen() {
     homePageScreen(Modifier)
 }
+
+
 
