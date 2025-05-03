@@ -89,8 +89,8 @@ fun homePageScreen(modifier: Modifier = Modifier) {
             roundedContainerScreen(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(1000.dp)
-                    .padding(top = 230.dp)
+                    .height(900.dp)
+                    .padding(top = 300.dp)
             ) {
                 // Podés dejar vacío o meter fondo de pantalla acá
 
@@ -113,8 +113,8 @@ fun homePageScreen(modifier: Modifier = Modifier) {
                     iconNotifications { println("Notifications presionado") }
                     Spacer(modifier = Modifier.width(130.dp))
                     iconSearch { println("Search presionado") }
-                    Spacer(modifier = Modifier.width(15.dp))
-                    iconStatistics { println("Statistics presionado") }
+//                    Spacer(modifier = Modifier.width(15.dp))
+//                    iconStatistics { println("Statistics presionado") }
                 }
 
                 Row(modifier = Modifier.fillMaxWidth()) {

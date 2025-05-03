@@ -24,7 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.R
-import com.example.planify.ui.theme.PrimaryColor
+import com.example.planify.ui.theme.ThirdColor
 
 @Composable
 fun BalanceSummaryCard(
@@ -36,7 +36,7 @@ fun BalanceSummaryCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
-            .background(PrimaryColor, shape = RoundedCornerShape(20.dp))
+            .background(ThirdColor, shape = RoundedCornerShape(20.dp))
             .padding(16.dp)
     ) {
         Row(
