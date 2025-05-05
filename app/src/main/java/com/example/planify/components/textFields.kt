@@ -1,6 +1,7 @@
 package com.example.planify.components
 
 import android.R.id.input
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,12 +22,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.text.NumberFormat
+import java.util.Locale
 
 @Composable
 fun Email(email: String, onTextChanged: (String) -> Unit) {
@@ -215,5 +220,80 @@ fun configPassword(configPassword: String, onTextChanged: (String) -> Unit) {
         } else {
             PasswordVisualTransformation()
         }
+    )
+}
+
+@Composable
+fun CurrencyTextField() {
+    var rawInput by remember { mutableStateOf("") }
+    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
+    TextField(
+        value = textFieldValue,
+        placeholder = { Text(text = "Cantidad") },
+        onValueChange = { newValue ->
+            val digits = newValue.text.filter { it.isDigit() }
+
+            // Actualizar el input limpio
+            rawInput = digits
+
+            // Formatear con pesos
+            val formatted = formatPesos(digits)
+
+            // Colocar el cursor al final del texto formateado
+            textFieldValue = TextFieldValue(
+                text = formatted,
+                selection = TextRange(formatted.length)
+            )
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black
+        ),
+        shape = RoundedCornerShape(12.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true
+    )
+}
+
+fun formatPesos(input: String): String {
+    return if (input.isNotEmpty()) {
+        try {
+            val number = input.toLong()
+            "$" + NumberFormat.getNumberInstance(Locale("es", "CO")).format(number)
+        } catch (e: NumberFormatException) {
+            ""
+        }
+    } else ""
+}
+
+@Composable
+fun NombreTextField() {
+    var nombre by remember { mutableStateOf("") }
+
+    TextField(
+        value = nombre,
+        onValueChange = { nombre = it },
+        placeholder = { Text("Nombre") },
+        modifier = Modifier.fillMaxWidth(),
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black
+        ),
+        shape = RoundedCornerShape(12.dp),
+        singleLine = true
     )
 }
