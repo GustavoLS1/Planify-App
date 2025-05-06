@@ -32,7 +32,6 @@ import com.example.planify.R
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
-import com.example.planify.screen.login.ui.loginViewModel
 
 //Boton de iniciar sesion de la vista de launchScreen2
 @Composable
@@ -136,9 +135,10 @@ fun buttonRegister(navigateTo: () -> Unit){
 // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
 // Para evitar confuciones
 @Composable
-fun buttonRegister2(navigateTo: () -> Unit ) {
+fun buttonRegister2(enabled: Boolean, navigateTo: () -> Unit ) {
     Button(
         onClick = {navigateTo()},
+        enabled = enabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(50.dp),
@@ -194,6 +194,28 @@ fun buttonLoginGoogle(){
 fun buttonNext(onClick: () -> Unit) {
     Button(
         onClick = {onClick()},
+        modifier = Modifier
+            .fillMaxWidth(0.55f)
+            .height(45.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor)
+    ) {
+        Text(
+            text = "Siguiente",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = PrimaryColor,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont
+        )
+    }
+}
+
+@Composable
+fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
+    Button(
+        onClick = {navigateTo()},
+        enabled = enabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)
             .height(45.dp),

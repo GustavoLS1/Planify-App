@@ -148,6 +148,34 @@ fun Number(number: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
+fun Code(code: String, onTextChanged: (String) -> Unit) {
+    TextField(
+        value = code,
+        onValueChange = {
+            if (it.all { char -> char.isDigit() }) onTextChanged(it)
+        },
+        modifier = Modifier
+            .fillMaxWidth(1f)
+            .heightIn(min = 45.dp)
+            .clip(RoundedCornerShape(10.dp)),
+        textStyle = TextStyle(
+            fontSize = 18.sp,
+            color = Color.Black
+        ), // Texto negro para mejor visibilidad
+        placeholder = { Text(text = "código") },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.Black
+        )
+    )
+}
+
+@Composable
 fun EmailOrNum(value: String, onTextChanged: (String) -> Unit) {
     TextField(
         value = value,

@@ -108,7 +108,7 @@ fun textPassword() {
 @Composable
 fun textforgetPassword(navigateToForgetPasswordScreen: () -> Unit) {
     Text(
-        text = "¿Olvidó su correo electronico o contraseña?",
+        text = "¿Olvidó su correo contraseña?",
         color = FourthColor,
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 15.sp),
         modifier = Modifier
@@ -186,7 +186,7 @@ fun textForgetNewPassword() {
 @Composable
 fun textEmailOrNumPhoneForgetPassword() {
     Text(
-        text = "Escribe tu correo electrónico o numero de telefónico",
+        text = "Escribe tu correo electrónico",
         color =Color.White,
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
     )
@@ -195,8 +195,7 @@ fun textEmailOrNumPhoneForgetPassword() {
 @Composable
 fun textLinkResetForgetPassword() {
     Text(
-        text = "Hemos enviado el enlace para restablecer tu contraseña a tu correo electrónico o " +
-                "como mensaje de texto, según la opción que seleccionaste.",
+        text = "Hemos enviado un código a tu correo electrónico  para restablecer tu contraseña.",
         color =Color.White,
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
     )
