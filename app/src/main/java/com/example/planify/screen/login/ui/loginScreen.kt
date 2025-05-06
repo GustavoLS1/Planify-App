@@ -1,6 +1,7 @@
 package com.example.planify.screen.login.ui
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +15,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.planify.R
+import com.example.planify.components.BouncingDotsAnimation
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.components.Email
@@ -26,10 +30,8 @@ import com.example.planify.components.Password
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister
-import com.example.planify.components.fail
-import com.example.planify.components.loading
+import com.example.planify.components.customDialog
 import com.example.planify.components.roundedContainerScreen
-import com.example.planify.components.success
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
@@ -53,33 +55,61 @@ fun loginScreen(modifier: Modifier,
     }
 
     backgroundScreen {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            header()
+            Spacer(modifier = Modifier.weight(1f))
+            Body(
+                onRegisterClick = navegateToRegister,
+                navegateToForgetPassword = navegateToForgetPassword,
+                loginViewModel = viewModel
+            )
+        }
+
         when (loginState) {
             is loginState.loading -> {
-                loading()
+                customDialog(
+                    title = "Cargando",
+                    subtitle = "Tu aventura está a punto de comenzar",
+                    icon = { BouncingDotsAnimation() },
+                    onDismiss = {}
+                )
             }
             is loginState.success -> {
-                success()
+                customDialog(
+                    title = "Satisfactorio",
+                    subtitle = "",
+                    icon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.success),
+                            contentDescription = "success",
+                            modifier = Modifier.size(95.dp)
+                        )
+                    },
+                    onDismiss = { viewModel.resetLoginState() }
+                )
             }
-            is loginState.error ->{
-                fail()
+            is loginState.error -> {
+                customDialog(
+                    title = "Credenciales incorrectas",
+                    subtitle = "",
+                    icon = {
+                        Image(
+                            painter = painterResource(id = R.drawable.fail),
+                            contentDescription = "error",
+                            modifier = Modifier.size(95.dp)
+                        )
+                    },
+                    onDismiss = { viewModel.resetLoginState() }
+                )
             }
-            else -> {
-                Column(
-                    modifier = modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    header()
-                    Spacer(modifier = Modifier.weight(1f))
-                    Body(
-                        onRegisterClick = navegateToRegister,
-                        navegateToForgetPassword = navegateToForgetPassword,
-                        loginViewModel = viewModel
-                    )
-                }
-            }
+            else -> Unit
         }
     }
 }
+
 
 @Composable
 fun header() {

@@ -24,7 +24,6 @@ class loginViewModel : ViewModel() {
     private val _loginState = mutableStateOf<loginState>(loginState.idle)
     val login_State: State<loginState> = _loginState
 
-
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 

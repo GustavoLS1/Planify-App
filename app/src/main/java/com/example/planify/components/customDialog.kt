@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -24,51 +26,56 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.ThirdColor
 import kotlinx.coroutines.delay
 
 @Composable
-fun loading() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-            //.background(Color.Black.copy(0.5f)),// fondo transparente oscuro
-        contentAlignment = Alignment.Center
-    ){
-        Column(
+fun customDialog(
+    title: String,
+    subtitle: String,
+    icon: @Composable () -> Unit,
+    onDismiss: () -> Unit,
+) {
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            dismissOnClickOutside = true,
+            usePlatformDefaultWidth = false
+        )) {
+        Box(
             modifier = Modifier
-                .background(ThirdColor, shape = RoundedCornerShape(30.dp))
-                .padding(40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BouncingDotsAnimation()
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.1f))
+                .wrapContentSize(Alignment.Center)
+        ){
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(0.8f)
+                    .background(ThirdColor, shape = RoundedCornerShape(30.dp))
+                    .padding(40.dp),
+                contentAlignment = Alignment.Center
+            ){
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    icon()
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Text(text = title, color = Color.White, fontSize = 20.sp, fontFamily = letterStyles.AmaranthFont, textAlign = TextAlign.Center)
+                    if (subtitle.isNotEmpty()){
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(text = subtitle, color = Color.LightGray, fontSize = 14.sp, fontFamily = letterStyles.AmaranthFont, textAlign = TextAlign.Center)
+                    }
+                }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Cargando",
-                color = Color.White,
-                style = TextStyle(fontSize = 20.sp, fontFamily = letterStyles.AmaranthFont)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Tu aventura está a punto de comenzar",
-                color = Color.LightGray,
-                style = TextStyle(fontSize = 14.sp, fontFamily = letterStyles.AmaranthFont),
-                textAlign = TextAlign.Center
-            )
         }
-
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.planify.screen.register.ui
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -7,6 +8,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.planify.screen.login.ui.data.response.loginDto
+import com.example.planify.screen.login.ui.di.retrofitHelper
+import com.example.planify.screen.login.ui.loginState
 import com.example.planify.screen.register.ui.data.response.registerDto
 import com.example.planify.screen.register.ui.di.registerRetrofitHelper
 import kotlinx.coroutines.launch
@@ -28,6 +32,12 @@ class registerViewModel : ViewModel() {
 
     private val _number = mutableStateOf("")
     val number: State<String> = _number
+
+    private val _registerState = mutableStateOf<registerState>(registerState.idle)
+    val register_State: State<registerState> = _registerState
+
+    private val _errorMessage = mutableStateOf<String?>(null)
+    val errorMessage: State<String?> = _errorMessage
 
     private val _isRegisterEnabled = mutableStateOf(false)
     val isRegisterEnabled: State<Boolean> = _isRegisterEnabled
@@ -54,9 +64,18 @@ class registerViewModel : ViewModel() {
 
     }
 
+    fun resetRegisterState(){
+        _registerState.value = registerState.idle
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun register() {
+        if (!enableRegisterButton(email.value, password.value, confirmPassword.value)) {
+            _errorMessage.value = "Por favor, llena todos los campos correctamente."
+            return
+        }
         viewModelScope.launch {
+            _registerState.value = registerState.loading // Cambia el estado a cargando
             try {
                 val registerDto = registerDto(
                     email = email.value,
@@ -74,11 +93,14 @@ class registerViewModel : ViewModel() {
                     val message = body?.message
 
                     Log.d("Register", "Registro exitoso: $message")
+                    _registerState.value = registerState.success // Cambia el estado a éxito
                 } else {
                     Log.e("Register", "Error en registro: ${response.errorBody()?.string()}")
+                    _registerState.value = registerState.error("Error en el registro")
                 }
             } catch (e: Exception) {
                 Log.e("Register", "Excepción: ${e.message}", e)
+                _registerState.value = registerState.error(e.localizedMessage ?: "Error desconocido")
             }
         }
     }

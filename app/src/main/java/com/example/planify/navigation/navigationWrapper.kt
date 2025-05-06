@@ -63,9 +63,9 @@ fun navigationWrapper(modifier: Modifier) {
         }
 
         composable<register> {
-            registerScreen(modifier = modifier
-            , function ={
-
+            registerScreen(modifier = modifier,
+                navigateToLogin ={
+                    navController.navigate(loginScreen)
                 }
             )
         }
