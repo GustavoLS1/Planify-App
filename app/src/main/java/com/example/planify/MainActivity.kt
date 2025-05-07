@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.planify.navigation.navigationWrapper
-import com.example.planify.screen.categories.ui.CategoriasScreen
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,8 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    CategoriasScreen()
-                    //navigationWrapper(Modifier.padding(innerPadding))
+                    navigationWrapper(Modifier.padding(innerPadding))
                 }
             }
         }
