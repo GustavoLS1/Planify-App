@@ -2,11 +2,17 @@ package com.example.planify.components
 
 import android.R.id.input
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Icon
@@ -19,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -296,4 +303,55 @@ fun NombreTextField() {
         shape = RoundedCornerShape(12.dp),
         singleLine = true
     )
+}
+
+@Composable
+fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onAddClick: () -> Unit) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextField(
+            value = query,
+            onValueChange = onQueryChanged,
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Buscar",
+                    tint = Color.Black
+                )
+            },
+            placeholder = {
+                Text("Buscar", color = Color.DarkGray)
+            },
+            singleLine = true,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = Color.Black,
+                focusedContainerColor = Color.LightGray,
+                unfocusedContainerColor = Color.LightGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent
+            ),
+            modifier = Modifier
+                .weight(1f)
+                .clip(RoundedCornerShape(12.dp))
+        )
+
+        Spacer(Modifier.width(8.dp))
+
+        IconButton(
+            onClick = onAddClick,
+            modifier = Modifier
+                .clip(RoundedCornerShape(50))
+                .background(Color(0xFF3F3FFD))
+                .size(40.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "Agregar",
+                tint = Color.White
+            )
+        }
+    }
 }
