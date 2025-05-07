@@ -19,8 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LibretaScreen()
-                //navigationWrapper(Modifier.padding(innerPadding))
+                    navigationWrapper(Modifier.padding(innerPadding))
                 }
             }
         }
