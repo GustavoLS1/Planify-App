@@ -137,10 +137,10 @@ fun ProfileEditScreen(onBackClick: () -> Unit) {
     }
 }
 
-@Preview
-@Composable
-fun previe() {
-    ProfileEditScreen(
-        onBackClick = {}
-    )
-}
+//@Preview
+//@Composable
+//fun previe() {
+//    ProfileEditScreen(
+//        onBackClick = {}
+//    )
+//}
