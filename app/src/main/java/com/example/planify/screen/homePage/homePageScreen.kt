@@ -119,7 +119,7 @@ fun homePageScreen(modifier: Modifier = Modifier) {
 
                 Row(modifier = Modifier.fillMaxWidth()) {
                     BalanceSummaryCard(
-                        saldoTotal = "",
+                        saldoTotal = "$50.000",
                         ingresos = "",
                         gastos = ""
                     )

@@ -27,6 +27,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.R
 import com.example.planify.ui.theme.ThirdColor
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun BalanceSummaryCard(
@@ -76,15 +78,19 @@ fun BalanceSummaryCard(
                 .align(Alignment.CenterStart)
                 .padding(start = 35.dp, bottom = 10.dp)
         )
-        Divider(
+        VerticalDivider(
             color = Color.Gray,
+            thickness = 2.dp,
             modifier = Modifier
                 .width(2.dp)
                 .height(140.dp)
-                .offset(x = 150.dp)
+                .offset(x = 123.dp)
         )
-        Box(modifier = Modifier.fillMaxSize()
-            .padding(end = 16.dp)) {
+//        Box(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(end = 16.dp)
+//        ) {
             Column(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
@@ -93,16 +99,23 @@ fun BalanceSummaryCard(
                 verticalArrangement = Arrangement.Center
             ) {
                 // INGRESOS
-                Image(
-                    painter = painterResource(id = R.drawable.ingresos_tag),
-                    contentDescription = "Ingresos",
+                Column(
                     modifier = Modifier
-                        .height(30.dp)
-                        .padding(bottom = 4.dp) // Espaciado inferior para separarlo del divider
-                )
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.End
+
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ingresos_tag),
+                        contentDescription = "Ingresos",
+                        modifier = Modifier
+                            .height(30.dp)
+                            .padding(bottom = 1.dp) // Espaciado inferior para separarlo del divider
+                    )
+                }
 
                 // DIVIDER HORIZONTAL
-                Divider(
+                HorizontalDivider(
                     color = Color.White,
                     thickness = 1.dp,
                     modifier = Modifier
@@ -110,17 +123,23 @@ fun BalanceSummaryCard(
                         .padding(vertical = 4.dp)
                         .align(Alignment.End) // Opcional si quieres alinearlo a la derecha
                 )
-
-                // GASTOS
-                Image(
-                    painter = painterResource(id = R.drawable.gastos_tag),
-                    contentDescription = "Gastos",
+                Column(
                     modifier = Modifier
-                        .height(30.dp)
-                        .padding(top = 4.dp)
-                )
-            }
-    }
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // GASTOS
+                    Image(
+                        painter = painterResource(id = R.drawable.gastos_tag),
+                        contentDescription = "Gastos",
+                        modifier = Modifier
+                            .height(30.dp)
+                            .padding(top = 1.dp)
+                    )
+                }
+
+//            }
+        }
 
 
     }
