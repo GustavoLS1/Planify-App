@@ -42,7 +42,7 @@ import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
+
 
 @Composable
 fun BalanceSummaryCard(

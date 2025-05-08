@@ -100,7 +100,7 @@ fun homePageScreen(modifier: Modifier = Modifier) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues), // 👈 Ahora SOLO este contenido respeta el BottomBar
+                    .padding(paddingValues), // Ahora SOLO este contenido respeta el BottomBar
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
@@ -111,10 +111,8 @@ fun homePageScreen(modifier: Modifier = Modifier) {
                     iconProfile { println("Profile presionado") }
                     Spacer(modifier = Modifier.width(15.dp))
                     iconNotifications { println("Notifications presionado") }
-                    Spacer(modifier = Modifier.width(130.dp))
+                    Spacer(modifier = Modifier.width(190.dp))
                     iconSearch { println("Search presionado") }
-//                    Spacer(modifier = Modifier.width(15.dp))
-//                    iconStatistics { println("Statistics presionado") }
                 }
 
                 Row(modifier = Modifier.fillMaxWidth()) {
