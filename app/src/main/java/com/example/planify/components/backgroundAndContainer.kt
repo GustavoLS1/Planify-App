@@ -18,7 +18,7 @@ import com.example.planify.ui.theme.ThirdColor
 @Composable
 fun backgroundScreen(modifier: Modifier, content: @Composable BoxScope.() -> Unit){
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(PrimaryColor),
         contentAlignment = Alignment.TopCenter
