@@ -54,9 +54,9 @@ fun loginScreen(modifier: Modifier,
 
     }
 
-    backgroundScreen {
+    backgroundScreen(modifier) {
         Column(
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header()
@@ -64,7 +64,8 @@ fun loginScreen(modifier: Modifier,
             Body(
                 onRegisterClick = navegateToRegister,
                 navegateToForgetPassword = navegateToForgetPassword,
-                loginViewModel = viewModel
+                loginViewModel = viewModel,
+                modifier = Modifier
             )
         }
 
@@ -129,12 +130,13 @@ fun header() {
 //Añadir onRegisterClick para habilitar la navegación a la screen de registro
 @Composable
 fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
+         modifier: Modifier,
          onRegisterClick: () -> Unit,
          navegateToForgetPassword: () -> Unit,
          loginViewModel: loginViewModel) {
-    roundedContainerScreen{
+    roundedContainerScreen(modifier){
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(top=50.dp),
             horizontalAlignment = Alignment.CenterHorizontally

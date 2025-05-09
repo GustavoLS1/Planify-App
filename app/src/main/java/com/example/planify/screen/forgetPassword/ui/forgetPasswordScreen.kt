@@ -39,15 +39,15 @@ fun forgetPasswordScreen(modifier: Modifier,
     val code by viewModel.code
     val configPassword by viewModel.confirmPassword
     val isforgetPasswordEnabled by viewModel.isforgetPasswordEnabled
-    backgroundScreen{
+    backgroundScreen(modifier){
         Column (
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Spacer(modifier = Modifier.size(50.dp))
             textForgetPassword()
             Spacer(modifier = Modifier.size(50.dp))
-            roundedContainerScreen{
+            roundedContainerScreen(modifier = Modifier){
                 when(currentStep){
                     1 -> {
                         Column(
