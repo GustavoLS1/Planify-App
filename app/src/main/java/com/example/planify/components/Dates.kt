@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import java.util.Calendar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.TranparentColor
@@ -46,6 +48,7 @@ fun DatePicker() {
     OutlinedTextField(
         value = selectedDate,
         onValueChange = {},
+        placeholder = { Text(text = "Fecha") },
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(10.dp))
@@ -61,7 +64,6 @@ fun DatePicker() {
             unfocusedContainerColor = Color.White,
             disabledContainerColor = Color.White,
             cursorColor = Color.White,
-
             disabledTextColor = PrimaryColor,
             disabledLabelColor = PrimaryColor,
             disabledTrailingIconColor = TranparentColor

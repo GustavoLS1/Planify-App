@@ -3,6 +3,7 @@ package com.example.planify.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +38,7 @@ import com.example.planify.ui.theme.SecondColor
 @Composable
 fun buttonLogin(navigateTo: () -> Unit) {
     Button(
-        onClick = {navigateTo()},
+        onClick = { navigateTo() },
         modifier = Modifier
             .fillMaxWidth(0.60f)
             .height(45.dp),
@@ -67,7 +68,7 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
     ) {
         RadioButton(
             selected = selectedIndex == 1,
-            onClick = { onClick(1)},
+            onClick = { onClick(1) },
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -77,7 +78,7 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
         )
         RadioButton(
             selected = selectedIndex == 2,
-            onClick = {onClick(2)},
+            onClick = { onClick(2) },
             modifier = Modifier.scale(1.5f),
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color(0xFFB1AFE5),
@@ -111,10 +112,11 @@ fun buttonLoginEnable(enabled: Boolean, onClick: () -> Unit){
         )
     }
 }
+
 @Composable
-fun buttonRegister(navigateTo: () -> Unit){
+fun buttonRegister(navigateTo: () -> Unit) {
     Button(
-        onClick = {navigateTo()},
+        onClick = { navigateTo() },
         modifier = Modifier
             .fillMaxWidth(0.60f)
             .height(50.dp),
@@ -131,6 +133,7 @@ fun buttonRegister(navigateTo: () -> Unit){
         )
     }
 }
+
 // Se agrega la navigateToRegister como una funcion lambda para que se pueda realizar la navegacion con el login
 // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
 // Para evitar confuciones
@@ -157,16 +160,17 @@ fun buttonRegister2(enabled: Boolean, navigateTo: () -> Unit ) {
 }
 
 @Composable
-fun buttonLoginGoogle(){
+fun buttonLoginGoogle() {
     Button(
-        onClick = {"Click"},
+        onClick = { "Click" },
         modifier = Modifier
             .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color.White)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically,
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Image(
@@ -178,7 +182,9 @@ fun buttonLoginGoogle(){
             Text(
                 text = "Iniciar sesión Google",
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth().weight(1f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
                 color = PrimaryColor,
                 fontSize = 16.sp,
                 fontFamily = letterStyles.AmaranthFont,
@@ -193,7 +199,7 @@ fun buttonLoginGoogle(){
 @Composable
 fun buttonNext(onClick: () -> Unit) {
     Button(
-        onClick = {onClick()},
+        onClick = { onClick() },
         modifier = Modifier
             .fillMaxWidth(0.60f)
             .height(45.dp),
@@ -230,5 +236,46 @@ fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
             fontSize = 20.sp,
             fontFamily = letterStyles.AmaranthFont
         )
+    }
+}
+
+@Composable
+fun buttonCreate(onClick: () -> Unit) {
+    Button(
+        onClick = { onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(Color(0xFFA29BFE)),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Text("Crear")
+    }
+}
+
+@Composable
+fun buttonCancel(onClick: () -> Unit){
+    Button(
+        onClick = { onClick() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(Color(0xFF3A2F9E)),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Text("Cancelar", color = Color.White)
+    }
+}
+
+@Composable
+fun buttonClouse(onClick: () -> Unit){
+    Button(
+        modifier = Modifier.size(25.dp, 25.dp),
+        onClick = { onClick() },
+        colors = ButtonDefaults.buttonColors(Color.Transparent),
+        contentPadding = PaddingValues(0.dp),
+        elevation = ButtonDefaults.buttonElevation(0.dp)
+    ) {
+        Text("✕", color = Color.Gray, fontSize = 15.sp)
     }
 }
