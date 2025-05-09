@@ -40,7 +40,7 @@ fun buttonLogin(navigateTo: () -> Unit) {
     Button(
         onClick = { navigateTo() },
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
@@ -92,12 +92,12 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
 
 //Boton de iniciar sesion de la vista de LoginScreen
 @Composable
-fun buttonLoginEnable(loginEnabled: Boolean) {
+fun buttonLoginEnable(enabled: Boolean, onClick: () -> Unit){
     Button(
-        onClick = { "Click" },
-        enabled = loginEnabled,
+        onClick = onClick,
+        enabled = enabled,
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
@@ -118,7 +118,7 @@ fun buttonRegister(navigateTo: () -> Unit) {
     Button(
         onClick = { navigateTo() },
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(50.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(SecondColor),
@@ -138,11 +138,12 @@ fun buttonRegister(navigateTo: () -> Unit) {
 // Ademas se recomienda cambiar navigateToRegister por navigateTo ya que es mas general y poderla usar en otros Screens
 // Para evitar confuciones
 @Composable
-fun buttonRegister2(navigateTo: () -> Unit) {
+fun buttonRegister2(enabled: Boolean, navigateTo: () -> Unit ) {
     Button(
-        onClick = { navigateTo() },
+        onClick = {navigateTo()},
+        enabled = enabled,
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(50.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor),
@@ -163,7 +164,7 @@ fun buttonLoginGoogle() {
     Button(
         onClick = { "Click" },
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color.White)
@@ -200,7 +201,29 @@ fun buttonNext(onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
+            .height(45.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(FourthColor)
+    ) {
+        Text(
+            text = "Siguiente",
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
+            color = PrimaryColor,
+            fontSize = 20.sp,
+            fontFamily = letterStyles.AmaranthFont
+        )
+    }
+}
+
+@Composable
+fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
+    Button(
+        onClick = {navigateTo()},
+        enabled = enabled,
+        modifier = Modifier
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)

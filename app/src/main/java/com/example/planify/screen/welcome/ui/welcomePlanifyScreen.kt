@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,25 +36,29 @@ fun welcomePlanifyScreen(
     viewModel: welcomePlanifyViewModel = viewModel()
 ) {
     val currentStep by viewModel.currentStep
-    backgroundScreen{
-        Column(
-            modifier = modifier.fillMaxSize(),
+    backgroundScreen(modifier){
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start
         ) {
-            Spacer(modifier = Modifier.size(116.dp))
-            when (currentStep) {
-                1 -> {
-                    textWelcomePlanify()
-                }
+            item {
+                Spacer(modifier = Modifier.size(116.dp))
+                when (currentStep) {
+                    1 -> {
+                        textWelcomePlanify()
+                    }
 
-                2 -> {
-                    textSecondWelcomePlanify()
+                    2 -> {
+                        textSecondWelcomePlanify()
+                    }
                 }
+                Spacer(modifier = Modifier.size(116.dp))
+                Body(currentStep = currentStep,
+                    onStepChange = { viewModel.setStep(it) },
+                    navigateToSecondWelcome = navigateToSecondWelcome,
+                    modifier = Modifier)
             }
-            Spacer(modifier = Modifier.size(116.dp))
-            Body(currentStep = currentStep,
-                onStepChange = { viewModel.setStep(it) },
-                navigateToSecondWelcome = navigateToSecondWelcome)
+
         }
     }
 }
@@ -62,8 +67,9 @@ fun welcomePlanifyScreen(
 @Composable
 fun Body(currentStep: Int,
          onStepChange: (Int) -> Unit,
+         modifier: Modifier,
          navigateToSecondWelcome: () -> Unit) {
-    roundedContainerScreen{
+    roundedContainerScreen(modifier){
         Column(
             modifier = Modifier
                 .fillMaxWidth()

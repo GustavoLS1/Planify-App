@@ -3,8 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
-    kotlin("kapt")
-    alias(libs.plugins.hilt)
+
 }
 
 android {
@@ -17,7 +16,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,8 +26,21 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_BASE_URL", "\"https://planify-app.onrender.com/\"")
+        }
+        debug {
+            initWith(getByName("release"))
+            buildConfigField("String", "API_BASE_URL", "\"https://planify-app.onrender.com/\"")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
+
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -39,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -72,14 +84,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(libs.pagingCompose)
-    implementation(libs.dagger.hilt)
-    implementation(libs.dagger.hilt.navigation)
-    kapt(libs.dagger.hilt.compiler)
-
-    implementation(libs.coil.compose)
-
-    implementation(libs.retrofit2.retrofit)
-    implementation(libs.converter.gson)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 }

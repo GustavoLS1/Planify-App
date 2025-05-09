@@ -9,19 +9,19 @@ import androidx.compose.ui.unit.dp
 import com.example.planify.R
 
 @Composable
-fun eclipseTop(){
+fun eclipseTop(modifier: Modifier){
     Image(
         painter = painterResource(id = R.drawable.eclipse),
         contentDescription = "Top Eclipse",
-        modifier = Modifier.size(120.dp)
+        modifier = modifier.size(120.dp)
     )
 }
 
 @Composable
-fun eclipseBottom(){
+fun eclipseBottom(modifier: Modifier){
     Image(
         painter = painterResource(id = R.drawable.eclipse2),
         contentDescription = "Top Eclipse",
-        modifier = Modifier.size(120.dp)
+        modifier = modifier.size(120.dp)
     )
 }
