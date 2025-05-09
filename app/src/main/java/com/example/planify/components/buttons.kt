@@ -103,9 +103,9 @@ fun RadioButtonGroup(selectedIndex: Int, onClick: (Int) -> Unit) {
 
 //Boton de iniciar sesion de la vista de LoginScreen
 @Composable
-fun buttonLoginEnable(loginEnabled: Boolean) {
+fun buttonLoginEnable(loginEnabled: Boolean, onClick: () -> Unit) {
     Button(
-        onClick = { "Click" },
+        onClick = onClick,
         enabled = loginEnabled,
         modifier = Modifier
             .fillMaxWidth(0.55f)

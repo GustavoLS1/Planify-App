@@ -83,7 +83,7 @@ fun homePageScreen(modifier: Modifier = Modifier) {
         // 👉 Ahora usamos un Box para manejar fondo y contenido separados
         Box(modifier = Modifier.fillMaxWidth()) {
 
-            backgroundScreen() {
+            backgroundScreen(modifier) {
 
             }
             roundedContainerScreen(
