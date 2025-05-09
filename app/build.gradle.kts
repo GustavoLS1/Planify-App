@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrainsKotlinSerialization)
-
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -16,6 +17,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -88,4 +90,15 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation(libs.pagingCompose)
+    implementation(libs.dagger.hilt)
+    implementation(libs.dagger.hilt.navigation)
+    kapt(libs.dagger.hilt.compiler)
+
+    implementation(libs.coil.compose)
+
+    implementation(libs.retrofit2.retrofit)
+    implementation(libs.converter.gson)
+
 }

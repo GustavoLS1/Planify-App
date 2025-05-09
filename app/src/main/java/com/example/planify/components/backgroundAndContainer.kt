@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.ThirdColor
@@ -27,11 +28,10 @@ fun backgroundScreen(modifier: Modifier, content: @Composable BoxScope.() -> Uni
 }
 
 @Composable
-fun roundedContainerScreen(modifier: Modifier,content: @Composable BoxScope.() -> Unit){
+fun roundedContainerScreen(modifier: Modifier = Modifier, content: @Composable BoxScope.() -> Unit){
     Box(
         modifier = modifier
-            .fillMaxSize()
-            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
+            .clip(RoundedCornerShape(topStart = 58.dp, topEnd = 58.dp))
             .background(ThirdColor),
         contentAlignment = Alignment.TopCenter
     ){
