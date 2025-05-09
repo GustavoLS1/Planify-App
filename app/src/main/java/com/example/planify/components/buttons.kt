@@ -39,7 +39,7 @@ fun buttonLogin(navigateTo: () -> Unit) {
     Button(
         onClick = {navigateTo()},
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
@@ -96,7 +96,7 @@ fun buttonLoginEnable(enabled: Boolean, onClick: () -> Unit){
         onClick = onClick,
         enabled = enabled,
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
@@ -116,7 +116,7 @@ fun buttonRegister(navigateTo: () -> Unit){
     Button(
         onClick = {navigateTo()},
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(50.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(SecondColor),
@@ -140,7 +140,7 @@ fun buttonRegister2(enabled: Boolean, navigateTo: () -> Unit ) {
         onClick = {navigateTo()},
         enabled = enabled,
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(50.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor),
@@ -161,7 +161,7 @@ fun buttonLoginGoogle(){
     Button(
         onClick = {"Click"},
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(12.dp),
         colors = ButtonDefaults.buttonColors(Color.White)
@@ -195,7 +195,7 @@ fun buttonNext(onClick: () -> Unit) {
     Button(
         onClick = {onClick()},
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)
@@ -217,7 +217,7 @@ fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
         onClick = {navigateTo()},
         enabled = enabled,
         modifier = Modifier
-            .fillMaxWidth(0.55f)
+            .fillMaxWidth(0.60f)
             .height(45.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(FourthColor)

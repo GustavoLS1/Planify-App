@@ -27,8 +27,8 @@ class forgetPasswordViewModel: ViewModel() {
     private val _currentStep = mutableStateOf(1)
     val currentStep: State<Int> = _currentStep
 
-    private val _uiState = mutableStateOf<forgetPasswordState>(forgetPasswordState.idle)
-    val uiState: State<forgetPasswordState> = _uiState
+    private val _forgetPasswordState = mutableStateOf<forgetPasswordState>(forgetPasswordState.idle)
+    val forgetPassword_State: State<forgetPasswordState> = _forgetPasswordState
 
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
@@ -49,6 +49,10 @@ class forgetPasswordViewModel: ViewModel() {
         validateFields()
     }
 
+    fun resetForgetPasswordState() {
+        _forgetPasswordState.value = forgetPasswordState.idle
+    }
+
 
     fun goToStep(step: Int) {
         _currentStep.value = step
@@ -66,18 +70,18 @@ class forgetPasswordViewModel: ViewModel() {
 
     fun requestReset(){
         viewModelScope.launch {
-            _uiState.value = forgetPasswordState.loading
+            _forgetPasswordState.value = forgetPasswordState.loading
             try {
                 val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
                 val response = service.requestReset(RequestResetDto(email = _email.value))
 
                 if (response.isSuccessful){
-                    _uiState.value = forgetPasswordState.success
+                    _forgetPasswordState.value = forgetPasswordState.success
                 }else{
-                    _uiState.value = forgetPasswordState.error("No se pudo enviar el código")
+                    _forgetPasswordState.value = forgetPasswordState.error("No se pudo enviar el código")
                 }
             } catch (e: Exception){
-                _uiState.value = forgetPasswordState.error("Error de conexión")
+                _forgetPasswordState.value = forgetPasswordState.error("Error de conexión")
                 Log.e("ForgetPassword", "requestReset: ${e.message}", e)
             }
         }
@@ -85,18 +89,18 @@ class forgetPasswordViewModel: ViewModel() {
 
     fun verifyCode(){
         viewModelScope.launch {
-            _uiState.value = forgetPasswordState.loading
+            _forgetPasswordState.value = forgetPasswordState.loading
             try {
                 val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
                 val response = service.verifyCode(VerifyCodeDto(email = _email.value, code= _code.value))
 
                 if (response.isSuccessful){
-                    _uiState.value = forgetPasswordState.success
+                    _forgetPasswordState.value = forgetPasswordState.success
                 } else{
-                    _uiState.value = forgetPasswordState.error("Código inválido")
+                    _forgetPasswordState.value = forgetPasswordState.error("Código inválido")
                 }
             }catch (e: Exception){
-                _uiState.value = forgetPasswordState.error("Error de conexión")
+                _forgetPasswordState.value = forgetPasswordState.error("Error de conexión")
                 Log.e("ForgetPassword", "verifyCode: ${e.message}", e)
             }
         }
@@ -104,7 +108,7 @@ class forgetPasswordViewModel: ViewModel() {
 
     fun resetPassword(){
         viewModelScope.launch {
-            _uiState.value = forgetPasswordState.loading
+            _forgetPasswordState.value = forgetPasswordState.loading
             try {
                 val service = forgetPasswordRetrofitHelper.getForgetPasswordService()
                 val response = service.resetPassword(
@@ -116,12 +120,12 @@ class forgetPasswordViewModel: ViewModel() {
                 )
 
                 if (response.isSuccessful){
-                    _uiState.value = forgetPasswordState.success
+                    _forgetPasswordState.value = forgetPasswordState.success
                 } else{
-                    _uiState.value = forgetPasswordState.error("No se pudo restablecer la contraseña")
+                    _forgetPasswordState.value = forgetPasswordState.error("No se pudo restablecer la contraseña")
                 }
             }catch (e: Exception){
-                _uiState.value = forgetPasswordState.error("Error de conexión")
+                _forgetPasswordState.value = forgetPasswordState.error("Error de conexión")
                 Log.e("ForgetPassword", "resetPassword: ${e.message}", e)
             }
         }

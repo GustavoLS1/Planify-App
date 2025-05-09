@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,11 +38,11 @@ fun launchScreen1(
         delay(2000L) // Espera 2 segundos
         navigateTolaunchScreen2()
     }
-    backgroundScreen{
+    backgroundScreen(modifier){
         Box(
-            modifier = modifier.align(Alignment.TopEnd)
+            modifier = Modifier.align(Alignment.TopEnd)
         ){
-            eclipseTop()
+            eclipseTop(modifier = Modifier)
         }
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -55,7 +56,7 @@ fun launchScreen1(
         Box(
             modifier = Modifier.align(Alignment.BottomStart)
         ){
-            eclipseBottom()
+            eclipseBottom(modifier = Modifier)
         }
     }
 }
@@ -66,32 +67,39 @@ fun launchScreen2(
     navigateToLoginScreen: () -> Unit,
     navigateToWelcomePlanify: () -> Unit
 ) {
-    backgroundScreen{
-        Box(
-            modifier = modifier.align(Alignment.TopEnd)
-        ){
-            eclipseTop()
-        }
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Spacer(modifier = Modifier.height(120.dp))
-            logo()
-            CircleWithImage()
-            Spacer(modifier = Modifier.height(31.dp))
-            textWelcome()
-            Spacer(modifier = Modifier.height(30.dp))
-            buttonLogin(navigateTo = navigateToLoginScreen)
-            Spacer(modifier = Modifier.height(7.dp))
-            buttonLoginGoogle()
-            Spacer(modifier = Modifier.height(7.dp))
-            buttonRegister(navigateTo = navigateToWelcomePlanify)
-        }
-        Box(
-            modifier = Modifier.align(Alignment.BottomStart)
-        ){
-            eclipseBottom()
+    backgroundScreen(modifier){
+        LazyColumn {
+            item {
+
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                    ){
+                        eclipseTop(modifier = Modifier.align(Alignment.TopEnd))
+                    }
+                    logo()
+                    CircleWithImage()
+                    Spacer(modifier = Modifier.height(31.dp))
+                    textWelcome()
+                    Spacer(modifier = Modifier.height(30.dp))
+                    buttonLogin(navigateTo = navigateToLoginScreen)
+                    Spacer(modifier = Modifier.height(7.dp))
+                    buttonLoginGoogle()
+                    Spacer(modifier = Modifier.height(7.dp))
+                    buttonRegister(navigateTo = navigateToWelcomePlanify)
+                    Box(
+                        modifier = Modifier.fillMaxWidth()
+                    ){
+                        eclipseBottom(modifier = Modifier.align(Alignment.BottomStart))
+                    }
+                }
+
+
+            }
         }
     }
 }

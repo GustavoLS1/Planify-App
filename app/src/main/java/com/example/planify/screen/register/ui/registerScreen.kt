@@ -66,14 +66,15 @@ fun registerScreen(modifier: Modifier,
         }
     }
 
-    backgroundScreen{
+    backgroundScreen(modifier){
         Column(
-            modifier = modifier.fillMaxSize().verticalScroll(scrollState),
+            modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             header()
             Spacer(modifier = Modifier.weight(1f))
-            Body(registerViewModel = viewModel)
+            Body(registerViewModel = viewModel,
+                modifier = Modifier)
         }
         when (registerState) {
             is registerState.loading -> {
@@ -140,10 +141,11 @@ fun header() {
 @Composable
 fun Body(
     onLoginClick: (String, String) -> Unit = { _, _ -> },
-    registerViewModel: registerViewModel
+    registerViewModel: registerViewModel,
+    modifier: Modifier
 ) {
 
-    roundedContainerScreen{
+    roundedContainerScreen(modifier){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
