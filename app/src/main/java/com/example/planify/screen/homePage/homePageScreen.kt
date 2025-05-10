@@ -191,8 +191,8 @@ fun CustomBottomBar(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-fun previewHomePageScreen() {
-    homePageScreen(Modifier)
+fun PreviewHomePageScreen() {
+    homePageScreen()
 }
 
 
