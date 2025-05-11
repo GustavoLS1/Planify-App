@@ -12,6 +12,9 @@ object launchScreen2
 object loginScreen
 
 @Serializable
+object homePageScreen
+
+@Serializable
 object forgetPasswordScreen
 
 @Serializable

@@ -42,16 +42,24 @@ import kotlinx.coroutines.delay
 fun loginScreen(modifier: Modifier,
                 navegateToRegister: () -> Unit,
                 navegateToForgetPassword: () -> Unit,
+                navegateToHome: () -> Unit,
                 viewModel : loginViewModel = viewModel()) {
 
     val loginState by viewModel.login_State
 
-    LaunchedEffect(loginState){
-        if (loginState is loginState.error) {
-            delay(2000)
-            viewModel.resetLoginState()
+    LaunchedEffect(loginState) {
+        when (loginState) {
+            is loginState.success -> {
+                delay(1500) // opcional, para mostrar el diálogo un momento
+                viewModel.resetLoginState()
+                navegateToHome() //NAVEGAR AL HOME
+            }
+            is loginState.error -> {
+                delay(2000)
+                viewModel.resetLoginState()
+            }
+            else -> Unit
         }
-
     }
 
     backgroundScreen(modifier) {

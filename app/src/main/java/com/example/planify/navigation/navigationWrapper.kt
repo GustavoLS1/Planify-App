@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.planify.screen.forgetPassword.ui.forgetPasswordScreen
+import com.example.planify.screen.homePage.homePageScreen
 import com.example.planify.screen.launch.ui.launchScreen1
 import com.example.planify.screen.launch.ui.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen
@@ -50,6 +51,11 @@ fun navigationWrapper(modifier: Modifier) {
                 },
                 navegateToForgetPassword = {
                     navController.navigate(forgetPasswordScreen)
+                },
+                navegateToHome = {
+                    navController.navigate(homePageScreen) {
+                        popUpTo(loginScreen) { inclusive = true }
+                    }
                 }
             )
         }
@@ -79,7 +85,10 @@ fun navigationWrapper(modifier: Modifier) {
                     navController.navigate(register)
                 }
             )
+        }
 
+        composable<homePageScreen> {
+            homePageScreen(modifier = modifier)
         }
 
     }
