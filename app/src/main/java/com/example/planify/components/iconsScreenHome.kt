@@ -91,13 +91,15 @@ fun SelectableIcon(
                 color = if (isPressed) PrimaryColor else SecondColor,
                 shape = RoundedCornerShape(12.dp)
             )
-            .clickable(onClick = onClick)
             .pointerInput(Unit) {
                 detectTapGestures(
                     onPress = {
                         isPressed = true
-                        tryAwaitRelease()
+                        val success = tryAwaitRelease()
                         isPressed = false
+                        if (success) {
+                            onClick()
+                        }
                     }
                 )
             },

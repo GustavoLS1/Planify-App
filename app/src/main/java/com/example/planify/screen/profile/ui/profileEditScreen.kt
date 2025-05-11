@@ -36,7 +36,7 @@ import com.example.planify.R
 import com.example.planify.components.ProfileField
 
 @Composable
-fun ProfileEditScreen(onBackClick: () -> Unit) {
+fun ProfileEditScreen(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
 
@@ -122,7 +122,7 @@ fun ProfileEditScreen(onBackClick: () -> Unit) {
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Button(
-                        onClick = { /* Cancelar */ },
+                        onClick = onCancelClick,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(42.dp),

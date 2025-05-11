@@ -1,6 +1,7 @@
 package com.example.planify.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,12 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ProfileOption(icon: ImageVector, text: String) {
+fun ProfileOption(icon: ImageVector, text: String, onClick: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(horizontal = 32.dp, vertical = 12.dp)
             .fillMaxWidth()
+            .clickable(onClick = onClick)
     ) {
         Box(
             modifier = Modifier

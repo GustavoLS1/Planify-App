@@ -25,12 +25,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.R
 
 @Composable
-fun ProfileContent() {
+fun ProfileContent(onEditProfileClick: () -> Unit,
+                   onSettingsClick: () -> Unit,
+                   onLogoutClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -57,11 +60,17 @@ fun ProfileContent() {
             Text("John Smith", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(24.dp))
 
-            ProfileOption(icon = Icons.Default.Person, text = "Editar perfil")
+            ProfileOption(icon = Icons.Default.Person, text = "Editar perfil", onClick = onEditProfileClick)
             Spacer(modifier = Modifier.height(15.dp))
-            ProfileOption(icon = Icons.Default.Settings, text = "Configuración")
+            ProfileOption(icon = Icons.Default.Settings, text = "Configuración", onClick = onSettingsClick)
             Spacer(modifier = Modifier.height(15.dp))
-            ProfileOption(icon = Icons.Default.ExitToApp, text = "Cerrar sesión")
+            ProfileOption(icon = Icons.Default.ExitToApp, text = "Cerrar sesión", onClick = onLogoutClick)
         }
     }
 }
+
+//@Preview
+//@Composable
+//fun profileContent(){
+//    ProfileContent()
+//}

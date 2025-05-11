@@ -23,3 +23,15 @@ object register
 @Serializable
 object welcomePlanifyScreen
 
+@Serializable
+object profileSettingsScreen
+
+@Serializable
+object profileChangePasswordScreen
+
+@Serializable
+object profileEditScreen
+
+@Serializable
+object profileScreen
+

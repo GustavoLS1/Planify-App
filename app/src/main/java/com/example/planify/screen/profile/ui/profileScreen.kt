@@ -12,15 +12,25 @@ import com.example.planify.components.HeaderSection
 import com.example.planify.components.ProfileContent
 
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(
+    onBackClick: () -> Unit,
+    onEditProfileClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onLogoutClick: () -> Unit
+) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFF070F2B)) // Fondo azul oscuro
         ) {
-            HeaderSection()
-            ProfileContent()
+            HeaderSection(onBackClick = onBackClick)
+            ProfileContent(
+                onEditProfileClick = onEditProfileClick,
+                onSettingsClick = onSettingsClick,
+                onLogoutClick = onLogoutClick
+            )
         }
     }
 }

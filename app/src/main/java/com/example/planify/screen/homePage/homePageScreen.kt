@@ -53,11 +53,13 @@ import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
 @Composable
-fun homePageScreen(modifier: Modifier = Modifier) {
+fun homePageScreen(modifier: Modifier = Modifier,
+                   onSettingsClick: () -> Unit)
+{
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            CustomBottomBar()
+            CustomBottomBar(onSettingsClick = onSettingsClick)
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -142,7 +144,8 @@ fun homePageScreen(modifier: Modifier = Modifier) {
 
 
 @Composable
-fun CustomBottomBar(modifier: Modifier = Modifier) {
+fun CustomBottomBar(modifier: Modifier = Modifier,
+                    onSettingsClick: () -> Unit) {
     BottomAppBar(
         modifier = modifier
             .clip(RoundedCornerShape(topStart = 42.dp, topEnd = 42.dp)),
@@ -178,7 +181,10 @@ fun CustomBottomBar(modifier: Modifier = Modifier) {
                 SelectableIcon(
                     iconRes = com.example.planify.R.drawable.icon_settings,
                     contentDescription = "Setting",
-                    onClick = {}
+                    onClick = {
+                        println("Settings presionado")
+                        onSettingsClick()
+                    }
                 )
 //                iconHome{println("Home presionado")} // -> aca iran las navegaciones
 //                iconCategory{println("Category presionado")}
@@ -189,11 +195,11 @@ fun CustomBottomBar(modifier: Modifier = Modifier) {
 }
 
 
-@Preview
-@Composable
-fun PreviewHomePageScreen() {
-    homePageScreen()
-}
+//@Preview
+//@Composable
+//fun PreviewHomePageScreen() {
+//    homePageScreen()
+//}
 
 
 
