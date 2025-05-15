@@ -16,12 +16,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.components.CircleImageSecondWelcome
 import com.example.planify.components.CircleImageWelcome
 import com.example.planify.components.RadioButtonGroup
 import com.example.planify.components.backgroundScreen
+import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textNext
 import com.example.planify.components.textSecondWelcomePlanify
@@ -69,11 +71,11 @@ fun Body(currentStep: Int,
          onStepChange: (Int) -> Unit,
          modifier: Modifier,
          navigateToSecondWelcome: () -> Unit) {
-    roundedContainerScreen(modifier){
+    roundedContainerLaunchScreen(modifier){
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 50.dp),
+                .padding(top = 108.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (currentStep) {
@@ -108,4 +110,12 @@ fun Body(currentStep: Int,
 
     }
 }
+
+@Preview
+@Composable
+fun preview(){
+    welcomePlanifyScreen(modifier = Modifier, navigateToSecondWelcome = {})
+}
+
+
 

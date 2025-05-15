@@ -30,7 +30,7 @@ class loginViewModel : ViewModel() {
 
     fun onLoginChange(email: String, password: String) {
         _email.value = email.take(50) // Limita un maximo de 50 caracteres
-        _password.value = password.take(8) // Limita un maximo de 8 caracteres
+        _password.value = password.take(8   ) // Limita un maximo de 8 caracteres
         _isLoginEnabled.value = enableLoginButton(_email.value, _password.value)
     }
 

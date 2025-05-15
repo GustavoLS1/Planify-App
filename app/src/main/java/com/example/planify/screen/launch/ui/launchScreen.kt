@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.components.CircleWithImage
 import com.example.planify.components.CircleWithImage2
+import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLogin
 import com.example.planify.components.buttonLoginGoogle
@@ -67,11 +69,9 @@ fun launchScreen2(
     navigateToLoginScreen: () -> Unit,
     navigateToWelcomePlanify: () -> Unit
 ) {
-    backgroundScreen(modifier){
+    backgroundLaunchScreen(modifier){
         LazyColumn {
             item {
-
-
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -83,7 +83,7 @@ fun launchScreen2(
                     }
                     logo()
                     CircleWithImage()
-                    Spacer(modifier = Modifier.height(31.dp))
+                    Spacer(modifier = Modifier.height(78.dp)) //Se debe analizar esta seccion de codigo
                     textWelcome()
                     Spacer(modifier = Modifier.height(30.dp))
                     buttonLogin(navigateTo = navigateToLoginScreen)
@@ -104,7 +104,6 @@ fun launchScreen2(
     }
 }
 
-
 @Composable
 fun textWelcome(){
     Text(
@@ -119,8 +118,8 @@ fun textWelcome(){
 
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewLaunch2() {
-//    launchScreen2(modifier = Modifier)
-//}
+@Preview(showBackground = true)
+@Composable
+fun PreviewLaunch2() {
+    launchScreen2(modifier = Modifier, navigateToLoginScreen = { }, navigateToWelcomePlanify = { })
+}

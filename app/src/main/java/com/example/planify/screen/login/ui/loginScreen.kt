@@ -31,7 +31,7 @@ import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister
 import com.example.planify.components.customDialog
-import com.example.planify.components.roundedContainerScreen
+import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textPassword
 import com.example.planify.components.textforgetPassword
@@ -142,7 +142,7 @@ fun Body(onLoginClick: (String, String) -> Unit = { _, _ -> },
          onRegisterClick: () -> Unit,
          navegateToForgetPassword: () -> Unit,
          loginViewModel: loginViewModel) {
-    roundedContainerScreen(modifier){
+    roundedContainerLaunchScreen(modifier){
         Column(
             modifier = modifier
                 .fillMaxWidth()

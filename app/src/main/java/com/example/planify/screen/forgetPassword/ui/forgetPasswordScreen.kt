@@ -26,7 +26,7 @@ import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonNextEnabled
 import com.example.planify.components.configPassword
 import com.example.planify.components.customDialog
-import com.example.planify.components.roundedContainerScreen
+import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.textConfirmPassword
 import com.example.planify.components.textDetailAccountForgetPassword
 import com.example.planify.components.textEmailOrNumPhoneForgetPassword
@@ -67,7 +67,7 @@ fun forgetPasswordScreen(
             Spacer(modifier = Modifier.size(50.dp))
             textForgetPassword()
             Spacer(modifier = Modifier.size(50.dp))
-            roundedContainerScreen(modifier = Modifier) {
+            roundedContainerLaunchScreen(modifier = Modifier) {
                 when (currentStep) {
                     1 -> {
                         LazyColumn(
