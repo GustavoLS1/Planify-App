@@ -35,8 +35,8 @@ fun ProfileScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun previes() {
-//    ProfileScreen()
-//}
+@Preview
+@Composable
+fun previes() {
+    ProfileScreen(onBackClick = {  }, onEditProfileClick = {  }, onSettingsClick = {  }, onLogoutClick = {  })
+}

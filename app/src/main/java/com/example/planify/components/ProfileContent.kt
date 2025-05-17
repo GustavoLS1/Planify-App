@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Text
@@ -62,7 +63,7 @@ fun ProfileContent(onEditProfileClick: () -> Unit,
 
             ProfileOption(icon = Icons.Default.Person, text = "Editar perfil", onClick = onEditProfileClick)
             Spacer(modifier = Modifier.height(15.dp))
-            ProfileOption(icon = Icons.Default.Settings, text = "Configuración", onClick = onSettingsClick)
+            ProfileOption(icon = Icons.Default.Password, text = "Configura tu contraseña", onClick = onSettingsClick)
             Spacer(modifier = Modifier.height(15.dp))
             ProfileOption(icon = Icons.Default.ExitToApp, text = "Cerrar sesión", onClick = onLogoutClick)
         }
