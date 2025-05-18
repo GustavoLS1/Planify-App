@@ -15,7 +15,7 @@ import com.example.planify.components.ProfileContent
 fun ProfileScreen(
     onBackClick: () -> Unit,
     onEditProfileClick: () -> Unit,
-    onSettingsClick: () -> Unit,
+    onChangePasswordClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
 
@@ -28,7 +28,7 @@ fun ProfileScreen(
             HeaderSection(onBackClick = onBackClick)
             ProfileContent(
                 onEditProfileClick = onEditProfileClick,
-                onSettingsClick = onSettingsClick,
+                onChangePasswordClick = onChangePasswordClick,
                 onLogoutClick = onLogoutClick
             )
         }
@@ -38,5 +38,5 @@ fun ProfileScreen(
 @Preview
 @Composable
 fun previes() {
-    ProfileScreen(onBackClick = {  }, onEditProfileClick = {  }, onSettingsClick = {  }, onLogoutClick = {  })
+    ProfileScreen(onBackClick = {  }, onEditProfileClick = {  }, onChangePasswordClick = {  }, onLogoutClick = {  })
 }

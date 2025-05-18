@@ -156,8 +156,8 @@ fun PasswordChangeScreen(onBackClick: () -> Unit) {
     }
 }
 
-//@Preview
-//@Composable
-//fun previews(){
-//    PasswordChangeScreen(onBackClick = { })
-//}
+@Preview
+@Composable
+fun previews(){
+    PasswordChangeScreen(onBackClick = { })
+}

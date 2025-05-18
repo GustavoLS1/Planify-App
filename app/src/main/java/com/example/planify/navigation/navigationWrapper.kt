@@ -16,7 +16,6 @@ import com.example.planify.screen.login.ui.loginScreen
 import com.example.planify.screen.profile.ui.PasswordChangeScreen
 import com.example.planify.screen.profile.ui.ProfileEditScreen
 import com.example.planify.screen.profile.ui.ProfileScreen
-import com.example.planify.screen.profile.ui.SettingsScreen
 import com.example.planify.screen.register.ui.registerScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel
@@ -97,43 +96,55 @@ fun navigationWrapper(modifier: Modifier) {
             homePageScreen(
                 modifier = modifier,
                 onSettingsClick = {
-                    navController.navigate(profileSettingsScreen)
+                    navController.navigate(profileScreen)
                 })
-        }
-
-        composable<profileSettingsScreen> {
-            SettingsScreen(
-                onBackClick = { navController.popBackStack() },
-                onPasswordClick = { navController.navigate(profileChangePasswordScreen) },
-                onProfileClick = { navController.navigate(profileEditScreen) }
-            )
         }
 
         composable<profileChangePasswordScreen> {
             PasswordChangeScreen(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = {
+                    navController.navigate(profileScreen) {
+                        popUpTo(profileChangePasswordScreen) { inclusive = true }
+                    }
+                }
             )
         }
 
         composable<profileEditScreen> {
             ProfileEditScreen(
-                onBackClick = { navController.popBackStack() },
-                onCancelClick = { navController.navigate(profileScreen)}
+                onBackClick = {
+                    navController.navigate(profileScreen) {
+                        popUpTo(profileEditScreen) { inclusive = true }
+                    }
+                },
+                onCancelClick = {
+                    navController.navigate(profileScreen) {
+                        popUpTo(profileEditScreen) { inclusive = true }
+                    }
+                }
             )
         }
 
-        composable<profileScreen>{
+        composable<profileScreen> {
             ProfileScreen(
-                onBackClick = {navController.popBackStack()},
-                onEditProfileClick = {
-                    navController.navigate(profileEditScreen)
+                onBackClick = {
+                    navController.navigate(homePageScreen) {
+                        popUpTo(profileScreen) { inclusive = true }
+                    }
                 },
-                onSettingsClick = {
-                    navController.navigate(profileSettingsScreen)
+                onEditProfileClick = {
+                    navController.navigate(profileEditScreen) {
+                        popUpTo(profileScreen) { inclusive = false }
+                    }
+                },
+                onChangePasswordClick = {
+                    navController.navigate(profileChangePasswordScreen){
+                        popUpTo(profileScreen) { inclusive = false }
+                    }
                 },
                 onLogoutClick = {
-                    navController.navigate(loginScreen){
-                        popUpTo(profileScreen){inclusive = true}
+                    navController.navigate(loginScreen) {
+                        popUpTo(profileScreen) { inclusive = true }
                     }
                 }
             )

@@ -24,9 +24,6 @@ object register
 object welcomePlanifyScreen
 
 @Serializable
-object profileSettingsScreen
-
-@Serializable
 object profileChangePasswordScreen
 
 @Serializable
