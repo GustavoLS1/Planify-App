@@ -33,7 +33,7 @@ import com.example.planify.R
 
 @Composable
 fun ProfileContent(onEditProfileClick: () -> Unit,
-                   onSettingsClick: () -> Unit,
+                   onChangePasswordClick: () -> Unit,
                    onLogoutClick: () -> Unit) {
     Box(
         modifier = Modifier
@@ -63,7 +63,7 @@ fun ProfileContent(onEditProfileClick: () -> Unit,
 
             ProfileOption(icon = Icons.Default.Person, text = "Editar perfil", onClick = onEditProfileClick)
             Spacer(modifier = Modifier.height(15.dp))
-            ProfileOption(icon = Icons.Default.Password, text = "Configura tu contraseña", onClick = onSettingsClick)
+            ProfileOption(icon = Icons.Default.Password, text = "Configura tu contraseña", onClick = onChangePasswordClick)
             Spacer(modifier = Modifier.height(15.dp))
             ProfileOption(icon = Icons.Default.ExitToApp, text = "Cerrar sesión", onClick = onLogoutClick)
         }
