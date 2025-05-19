@@ -32,3 +32,6 @@ object profileEditScreen
 @Serializable
 object profileScreen
 
+@Serializable
+object notebookScreen
+

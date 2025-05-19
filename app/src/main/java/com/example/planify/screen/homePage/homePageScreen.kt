@@ -34,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.planify.components.BalanceSummaryCard
 import com.example.planify.components.SelectableIcon
 import com.example.planify.components.SingleChoiceSegmentedButton
@@ -47,19 +48,27 @@ import com.example.planify.components.iconSearch
 //import com.example.planify.components.iconSettings
 import com.example.planify.components.iconStatistics
 import com.example.planify.components.roundedContainerScreen
+import com.example.planify.navigation.notebookScreen
+import com.example.planify.navigation.profileScreen
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
 @Composable
-fun homePageScreen(modifier: Modifier = Modifier,
-                   onSettingsClick: () -> Unit)
-{
+fun homePageScreen(
+    modifier: Modifier = Modifier,
+    onSettingsClick: () -> Unit,
+    onNoteBookClick: () -> Unit
+) {
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            CustomBottomBar(onSettingsClick = onSettingsClick)
+            CustomBottomBar(
+                onSettingsClick = onSettingsClick,
+                onNoteBookClick = onNoteBookClick
+
+            )
         },
         floatingActionButton = {
             FloatingActionButton(
@@ -144,8 +153,11 @@ fun homePageScreen(modifier: Modifier = Modifier,
 
 
 @Composable
-fun CustomBottomBar(modifier: Modifier = Modifier,
-                    onSettingsClick: () -> Unit) {
+fun CustomBottomBar(
+    modifier: Modifier = Modifier,
+    onSettingsClick: () -> Unit,
+    onNoteBookClick: () -> Unit
+) {
     BottomAppBar(
         modifier = modifier
             .clip(RoundedCornerShape(topStart = 42.dp, topEnd = 42.dp)),
@@ -175,23 +187,18 @@ fun CustomBottomBar(modifier: Modifier = Modifier,
                 SelectableIcon(
                     iconRes = com.example.planify.R.drawable.icon_notebook,
                     contentDescription = "NoteBook",
-                    onClick = {}
+                    onClick = onNoteBookClick
                 )
 
                 SelectableIcon(
                     iconRes = com.example.planify.R.drawable.icon_settings,
                     contentDescription = "Setting",
-                    onClick = {
-                        println("Settings presionado")
-                        onSettingsClick()
-                    }
+                    onClick = onSettingsClick
                 )
-//                iconHome{println("Home presionado")} // -> aca iran las navegaciones
-//                iconCategory{println("Category presionado")}
-//                iconNoteBook{println("NoteBook presionado")}
-//                iconSettings{println("Settings presionado")}
+
             }
-        })
+        }
+    )
 }
 
 
