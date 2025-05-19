@@ -16,13 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.planify.components.FloatingActionMenu
 import com.example.planify.components.GastosResumen
 import com.example.planify.components.Header
 import com.example.planify.components.MetasList
 
 @Composable
-fun LibretaScreen() {
+fun LibretaScreen(navController: NavController) {
     var expanded by remember { mutableStateOf(false) }
 
     Box(
@@ -34,7 +35,9 @@ fun LibretaScreen() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            Header()
+            Header(
+                onBackClick = {navController.popBackStack()}
+            )
             GastosResumen()
             Spacer(modifier = Modifier.height(16.dp))
             MetasList()
@@ -46,8 +49,8 @@ fun LibretaScreen() {
     }
 }
 
-@Preview
-@Composable
-fun previe(){
-    LibretaScreen()
-}
+//@Preview
+//@Composable
+//fun previe(){
+//    LibretaScreen()
+//}

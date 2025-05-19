@@ -13,6 +13,7 @@ import com.example.planify.screen.homePage.homePageScreen
 import com.example.planify.screen.launch.ui.launchScreen1
 import com.example.planify.screen.launch.ui.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen
+import com.example.planify.screen.notebook.ui.LibretaScreen
 import com.example.planify.screen.profile.ui.PasswordChangeScreen
 import com.example.planify.screen.profile.ui.ProfileEditScreen
 import com.example.planify.screen.profile.ui.ProfileScreen
@@ -96,8 +97,15 @@ fun navigationWrapper(modifier: Modifier) {
             homePageScreen(
                 modifier = modifier,
                 onSettingsClick = {
-                    navController.navigate(profileScreen)
-                })
+                   navController.navigate(profileScreen)
+                },
+                onNoteBookClick = {
+                    navController.navigate(notebookScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                }
+            )
         }
 
         composable<profileChangePasswordScreen> {
@@ -148,6 +156,9 @@ fun navigationWrapper(modifier: Modifier) {
                     }
                 }
             )
+        }
+        composable<notebookScreen> {
+            LibretaScreen(navController = navController)
         }
     }
 }
