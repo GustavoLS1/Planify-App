@@ -130,6 +130,16 @@ fun textNombre() {
 }
 
 @Composable
+fun textNombreProfile() {
+    Text(
+        text = "Nombre del usuario:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp),
+        textAlign = TextAlign.Start
+    )
+}
+
+@Composable
 fun textConfirmPassword() {
     Text(
         text = "Confirmar contraseña:",
@@ -151,6 +161,15 @@ fun textNewPassword() {
 fun textNumber() {
     Text(
         text = "Número de celular:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
+
+@Composable
+fun textNumberProfile() {
+    Text(
+        text = "Teléfono:",
         color = Color.White,
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
     )

@@ -32,11 +32,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.R
 import com.example.planify.components.ProfileField
+import com.example.planify.components.textNombreProfile
+import androidx.compose.runtime.getValue
+import com.example.planify.components.Email
+import com.example.planify.components.Name
+import com.example.planify.components.Number
+import com.example.planify.components.textEmail
+import com.example.planify.components.textNumberProfile
 
 @Composable
-fun ProfileEditScreen(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
+fun ProfileEditScreen(onBackClick: () -> Unit,
+                      onCancelClick: () -> Unit,
+                      viewModel: profileViewModel = viewModel()) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
 
@@ -85,6 +95,9 @@ fun ProfileEditScreen(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
                         .padding(horizontal = 24.dp)
                         .padding(top = 40.dp, bottom = 24.dp)
                 ) {
+                    val name by viewModel.name
+                    val number by viewModel.number
+                    val email by viewModel.email
                     // Imagen de perfil superpuesta
                     Box(
                         modifier = Modifier.offset(y = -80.dp) // Menos desplazamiento
@@ -97,15 +110,43 @@ fun ProfileEditScreen(onBackClick: () -> Unit, onCancelClick: () -> Unit) {
                                 .clip(CircleShape)
                         )
                     }
+                    Column(
+                        horizontalAlignment = Alignment.Start
+                    ){
+                        textNombreProfile()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        Name(name) {
+                            viewModel.onProfileChange(
+                                name = it,
+                                number = number,
+                                email = email
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(38.dp))
+                        textNumberProfile()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        Number(number) {
+                            viewModel.onProfileChange(
+                                name = name,
+                                number = it,
+                                email = email
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(38.dp))
+                        textEmail()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        Email(email) {
+                            viewModel.onProfileChange(
+                                name = name,
+                                number = number,
+                                email = it
+                            )
+                        }
 
+                    }
                     // Campos
-                    ProfileField(label = "Nombre del usuario:")
-                    Spacer(modifier = Modifier.height(12.dp))
-                    ProfileField(label = "Teléfono:")
-                    Spacer(modifier = Modifier.height(12.dp))
-                    ProfileField(label = "Dirección de correo electrónico:")
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(38.dp))
 
                     // Botones
                     Button(
