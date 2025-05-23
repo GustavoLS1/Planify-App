@@ -8,6 +8,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.planify.screen.categories.ui.CategoriasScreen
+import com.example.planify.screen.categories.ui.CategoryFormScreen
 import com.example.planify.screen.forgetPassword.ui.forgetPasswordScreen
 import com.example.planify.screen.homePage.homePageScreen
 import com.example.planify.screen.launch.ui.launchScreen1
@@ -97,16 +99,23 @@ fun navigationWrapper(modifier: Modifier) {
             homePageScreen(
                 modifier = modifier,
                 onSettingsClick = {
-                   navController.navigate(profileScreen)
+                    navController.navigate(profileScreen)
                 },
                 onNoteBookClick = {
                     navController.navigate(notebookScreen) {
                         popUpTo(homePageScreen) { inclusive = false }
                         launchSingleTop = true
                     }
+                },
+                onCategoryClick = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
+
 
         composable<profileChangePasswordScreen> {
             PasswordChangeScreen(
@@ -146,7 +155,7 @@ fun navigationWrapper(modifier: Modifier) {
                     }
                 },
                 onChangePasswordClick = {
-                    navController.navigate(profileChangePasswordScreen){
+                    navController.navigate(profileChangePasswordScreen) {
                         popUpTo(profileScreen) { inclusive = false }
                     }
                 },
@@ -160,6 +169,42 @@ fun navigationWrapper(modifier: Modifier) {
         composable<notebookScreen> {
             LibretaScreen(navController = navController)
         }
+
+        composable<categoriesScreen> {
+            CategoriasScreen(
+                onEditCategory = {
+                    navController.navigate(categoryFormScreen)
+                },
+                onBack = { navController.navigateUp() }
+            )
+        }
+
+        composable<categoryFormScreen> {
+            CategoryFormScreen(
+                isEditMode = true,
+                categoryName = "", // aquí deberías pasar la categoría a editar si la implementas luego
+                onCategoryNameChange = {},
+                onSave = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(categoryFormScreen) { inclusive = true }
+                    }
+                },
+                onCancel = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(categoryFormScreen) { inclusive = true }
+                    }
+                },
+                onBack = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(categoryFormScreen) { inclusive = true }
+                        launchSingleTop = false
+                    }
+                })
+        }
     }
 }
+
+
+
+
 
