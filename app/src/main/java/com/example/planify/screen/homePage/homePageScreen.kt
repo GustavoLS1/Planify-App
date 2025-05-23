@@ -59,14 +59,16 @@ import com.example.planify.ui.theme.ThirdColor
 fun homePageScreen(
     modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit,
-    onNoteBookClick: () -> Unit
+    onNoteBookClick: () -> Unit,
+    onCategoryClick: () -> Unit
 ) {
     Scaffold(
         modifier = modifier,
         bottomBar = {
             CustomBottomBar(
                 onSettingsClick = onSettingsClick,
-                onNoteBookClick = onNoteBookClick
+                onNoteBookClick = onNoteBookClick,
+                onCategoryClick = onCategoryClick
 
             )
         },
@@ -156,7 +158,8 @@ fun homePageScreen(
 fun CustomBottomBar(
     modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit,
-    onNoteBookClick: () -> Unit
+    onNoteBookClick: () -> Unit,
+    onCategoryClick: () -> Unit
 ) {
     BottomAppBar(
         modifier = modifier
@@ -181,7 +184,7 @@ fun CustomBottomBar(
                 SelectableIcon(
                     iconRes = com.example.planify.R.drawable.icon_category,
                     contentDescription = "Category",
-                    onClick = {}
+                    onClick = onCategoryClick
                 )
 
                 SelectableIcon(

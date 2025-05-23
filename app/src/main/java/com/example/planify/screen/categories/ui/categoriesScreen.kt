@@ -45,7 +45,7 @@ import com.example.planify.components.SearchBar
 import com.example.planify.components.TabButton
 
 @Composable
-fun CategoriasScreen() {
+fun CategoriasScreen(onEditCategory: () -> Unit, onBack: () -> Unit) {
     val selectedTab = remember { mutableStateOf("INGRESOS") }
     val searchQuery = remember { mutableStateOf("") }
     val categorias = if (selectedTab.value == "INGRESOS") {
@@ -64,9 +64,19 @@ fun CategoriasScreen() {
 
         // Header
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
+            IconButton(onClick = onBack) {
+                Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
+
+
+            }
             Spacer(Modifier.width(8.dp))
-            Text("Categorías", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+
+            Text(
+                "Categorías",
+                color = Color.White,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
 
         Spacer(Modifier.height(16.dp))
@@ -84,15 +94,22 @@ fun CategoriasScreen() {
                     .padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TabButton("INGRESOS", selectedTab.value == "INGRESOS") { selectedTab.value = "INGRESOS" }
-                TabButton("GASTOS", selectedTab.value == "GASTOS") { selectedTab.value = "GASTOS" }
+                TabButton("INGRESOS", selectedTab.value == "INGRESOS") {
+                    selectedTab.value = "INGRESOS"
+                }
+                TabButton("GASTOS", selectedTab.value == "GASTOS") {
+                    selectedTab.value = "GASTOS"
+                }
             }
         }
 
         Spacer(Modifier.height(16.dp))
 
         // Search + Add
-        SearchBar(query = searchQuery.value, onQueryChanged = { searchQuery.value = it }, onAddClick = { /* Acción agregar */ })
+        SearchBar(
+            query = searchQuery.value,
+            onQueryChanged = { searchQuery.value = it },
+            onAddClick = { /* Acción agregar */ })
 
         Spacer(Modifier.height(16.dp))
 
@@ -117,8 +134,10 @@ fun CategoriasScreen() {
     }
 }
 
+
+
 @Preview
 @Composable
 fun preview(){
-    CategoriasScreen()
+    CategoriasScreen(onEditCategory = {}, onBack = {})
 }
