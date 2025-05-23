@@ -33,9 +33,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.planify.components.Password
+import com.example.planify.components.configPassword
+import com.example.planify.components.textConfirmPassword
+import com.example.planify.components.textCurrentPassword
+import com.example.planify.components.textNewPassword
 
 @Composable
-fun PasswordChangeScreen(onBackClick: () -> Unit) {
+fun PasswordChangeScreen(onBackClick: () -> Unit,
+                         viewModel: profileViewModel = viewModel()) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
     val fieldColor = Color(0xFFE0E0E0)
@@ -52,9 +59,9 @@ fun PasswordChangeScreen(onBackClick: () -> Unit) {
         unfocusedPlaceholderColor = Color.Gray
     )
 
-    var currentPassword by remember { mutableStateOf("") }
-    var newPassword by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
+    val currentPassword by viewModel.currentPassword
+    val newPassword by viewModel.newPassword
+    val confirmPassword by viewModel.confirmPassword
 
     Box(
         modifier = Modifier
@@ -97,55 +104,53 @@ fun PasswordChangeScreen(onBackClick: () -> Unit) {
                         .padding(horizontal = 24.dp, vertical = 48.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Campos de texto
-                    TextField(
-                        value = currentPassword,
-                        onValueChange = { currentPassword = it },
-                        placeholder = { Text("Contraseña actual:") },
-                        visualTransformation = PasswordVisualTransformation(),
-                        colors = textFieldColors,
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
-                    )
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Column(
+                        horizontalAlignment = Alignment.Start
+                    ){
+                        // Campos de texto
+                        textCurrentPassword()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        Password(currentPassword) {
+                            viewModel.onProfilePasswordChange(
+                                currentPassword = it,
+                                newPassword = newPassword,
+                                confirmPassword = confirmPassword
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(38.dp))
+                        textNewPassword()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        Password(newPassword) {
+                            viewModel.onProfilePasswordChange(
+                                currentPassword = currentPassword,
+                                newPassword = it,
+                                confirmPassword = confirmPassword
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(38.dp))
+                        textConfirmPassword()
+                        Spacer(modifier = Modifier.height(9.dp))
+                        configPassword(confirmPassword) {
+                            viewModel.onProfilePasswordChange(
+                                currentPassword = currentPassword,
+                                newPassword = newPassword,
+                                confirmPassword = it
+                            )
+                        }
+                    }
 
-                    TextField(
-                        value = newPassword,
-                        onValueChange = { newPassword = it },
-                        placeholder = { Text("Nueva contraseña:") },
-                        visualTransformation = PasswordVisualTransformation(),
-                        colors = textFieldColors,
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
-                    )
 
-                    Spacer(modifier = Modifier.height(32.dp))
 
-                    TextField(
-                        value = confirmPassword,
-                        onValueChange = { confirmPassword = it },
-                        placeholder = { Text("Confirmar contraseña:") },
-                        visualTransformation = PasswordVisualTransformation(),
-                        colors = textFieldColors,
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-
-                    Spacer(modifier = Modifier.height(32.dp))
+                    Spacer(modifier = Modifier.height(38.dp))
 
                     // Botón Cambiar la contraseña
                     Button(
                         onClick = { /* Acción de cambio de contraseña */ },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(8.dp)),
+                            .height(42.dp),
+                        shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
                     ) {
                         Text("Cambiar la contraseña", color = Color.Black)

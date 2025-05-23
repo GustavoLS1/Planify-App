@@ -219,3 +219,12 @@ fun textLinkResetForgetPassword() {
         style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
     )
 }
+
+@Composable
+fun textCurrentPassword(){
+    Text(
+        text = "Contraseña actual:",
+        color = Color.White,
+        style = TextStyle(fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
+    )
+}
