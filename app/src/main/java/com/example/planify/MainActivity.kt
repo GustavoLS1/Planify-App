@@ -23,11 +23,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    //navigationWrapper(Modifier.padding(innerPadding))
-                    CategoriasScreen(
-                        onEditCategory = {/* Edit category */},
-                        onBack = { /* Handle back action */ }
-                    )
+                    navigationWrapper(Modifier.padding(innerPadding))
+
                 }
             }
         }
