@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import com.example.planify.navigation.navigationWrapper
 import com.example.planify.screen.categories.ui.CategoriasScreen
 import com.example.planify.screen.homePage.homePageScreen
+
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {
