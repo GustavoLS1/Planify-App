@@ -19,18 +19,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.planify.ui.theme.FourthColor
+import com.example.planify.ui.theme.PrimaryColor
+import com.example.planify.ui.theme.SecondColor
+import androidx.compose.runtime.getValue
 
 @Composable
 fun CategoryFormScreen(
@@ -39,8 +39,13 @@ fun CategoryFormScreen(
     onCategoryNameChange: (String) -> Unit,
     onSave: () -> Unit,
     onCancel: () -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    viewModel: categoriesViewModel = viewModel()
 ) {
+
+    val categoryName by viewModel.categoryName
+    val isSaveEnabled by viewModel.isSaveEnabled
+
     val titleText = if (isEditMode) "Editar categoría" else "Agregar una categoría"
     val labelText = if (isEditMode) "Nombre" else "Nueva categoría"
     val buttonText = if (isEditMode) "Guardar" else "Crear"
@@ -48,7 +53,7 @@ fun CategoryFormScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF0A0F2C))
+            .background(PrimaryColor)
             .padding(24.dp)
     ) {
         // Título con botón de volver
@@ -78,7 +83,7 @@ fun CategoryFormScreen(
         // Campo de texto
         TextField(
             value = categoryName,
-            onValueChange = onCategoryNameChange,
+            onValueChange = viewModel::onCategoryNameChange,
             placeholder = { Text("Nombre", color = Color.DarkGray) },
             singleLine = true,
             modifier = Modifier
@@ -94,7 +99,7 @@ fun CategoryFormScreen(
             )
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(546.dp))
 
         // Botón principal
         Button(
@@ -103,7 +108,7 @@ fun CategoryFormScreen(
                 .fillMaxWidth()
                 .height(42.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB9B9F2)) // Lila claro
+            colors = ButtonDefaults.buttonColors(containerColor = FourthColor) // Lila claro
         ) {
             Text(buttonText, color = Color.Black)
         }
@@ -117,7 +122,7 @@ fun CategoryFormScreen(
                 .fillMaxWidth()
                 .height(42.dp),
             shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F3FFD)) // Azul oscuro
+            colors = ButtonDefaults.buttonColors(containerColor = SecondColor) // Azul oscuro
         ) {
             Text("Cancelar", color = Color.White)
         }
