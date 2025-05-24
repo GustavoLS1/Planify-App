@@ -37,6 +37,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.planify.ui.theme.SecondColor
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -365,21 +366,10 @@ fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onAddClick: () ->
                 .weight(1f)
                 .clip(RoundedCornerShape(12.dp))
         )
-
         Spacer(Modifier.width(8.dp))
+        iconButtonAddCategories(
+            onAddClick = onAddClick,
+        )
 
-        IconButton(
-            onClick = onAddClick,
-            modifier = Modifier
-                .clip(RoundedCornerShape(50))
-                .background(Color(0xFF3F3FFD))
-                .size(40.dp)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "Agregar",
-                tint = Color.White
-            )
-        }
     }
 }

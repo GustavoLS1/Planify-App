@@ -14,8 +14,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsWalk
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MultiChoiceSegmentedButtonRow
 import androidx.compose.material3.MultiChoiceSegmentedButtonRowScope
 import androidx.compose.material3.RadioButton
@@ -43,6 +46,7 @@ import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 
 //Boton de iniciar sesion de la vista de launchScreen2
@@ -317,5 +321,21 @@ fun buttonClouse(onClick: () -> Unit){
         elevation = ButtonDefaults.buttonElevation(0.dp)
     ) {
         Text("✕", color = Color.Gray, fontSize = 15.sp)
+    }
+}
+@Composable
+fun iconButtonAddCategories(onAddClick: () -> Unit) {
+    IconButton(
+        onClick = onAddClick,
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .background(SecondColor)
+            .size(40.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "Agregar",
+            tint = Color.White
+        )
     }
 }
