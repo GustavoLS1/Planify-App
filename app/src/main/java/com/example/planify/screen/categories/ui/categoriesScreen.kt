@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.example.planify.components.CategoriaItem
 import com.example.planify.components.SearchBar
 import com.example.planify.components.TabButton
+import com.example.planify.ui.theme.PrimaryColor
 
 @Composable
 fun CategoriasScreen(onEditCategory: () -> Unit, onBack: () -> Unit) {
@@ -57,7 +58,7 @@ fun CategoriasScreen(onEditCategory: () -> Unit, onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF070F2B))
+            .background(PrimaryColor)
             .padding(horizontal = 16.dp)
     ) {
         Spacer(Modifier.height(16.dp))
@@ -117,16 +118,15 @@ fun CategoriasScreen(onEditCategory: () -> Unit, onBack: () -> Unit) {
         LazyColumn {
             items(categorias) { categoria ->
                 CategoriaItem(
-                    nombre = categoria,
-                    icono = when (categoria) {
-                        "Salario" -> Icons.Default.AttachMoney
-                        "Inversión" -> Icons.Default.ShowChart
-                        "Recompensas" -> Icons.Default.EmojiEvents
-                        "Comida" -> Icons.Default.Fastfood
-                        "Transporte" -> Icons.Default.DirectionsCar
-                        "Entretenimiento" -> Icons.Default.SportsEsports
-                        else -> Icons.Default.Label
-                    }
+                    nombre = when (categoria) {
+                        "Salario",
+                        "Inversión",
+                        "Recompensas",
+                        "Comida",
+                        "Transporte",
+                        "Entretenimiento" -> categoria
+                        else -> "Otros"
+                    }.toString()
                 )
                 Spacer(Modifier.height(12.dp))
             }
