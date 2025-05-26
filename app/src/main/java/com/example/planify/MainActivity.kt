@@ -27,11 +27,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    //navigationWrapper(Modifier.padding(innerPadding))
-                    NotebookAddScreen(
-                        onBackClick = { /* volver */ },
-                        onSaveClick = { /* Handle save action */ }
-                    )
+                    navigationWrapper(Modifier.padding(innerPadding))
+
                 }
             }
         }
