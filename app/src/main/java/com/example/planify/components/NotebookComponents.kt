@@ -41,6 +41,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.planify.letterStyles
+import com.example.planify.ui.theme.PrimaryColor
+import com.example.planify.ui.theme.SecondColor
+import com.example.planify.ui.theme.ThirdColor
 
 @Composable
 fun Header(onBackClick: () -> Unit = {}) {
@@ -48,7 +52,7 @@ fun Header(onBackClick: () -> Unit = {}) {
         modifier = Modifier
             .fillMaxWidth()
             .height(170.dp)
-            .background(Color(0xFF191B6C))
+            .background(ThirdColor)
             .padding(10.dp)
     ) {
         Row(
@@ -76,12 +80,12 @@ fun Header(onBackClick: () -> Unit = {}) {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Presupuesto", color = Color.White)
+            Text("Presupuesto", color = Color.White, fontFamily = letterStyles.AmaranthFont)
             Text(
                 "$500.000",
                 color = Color.White,
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Bold
+                fontFamily = letterStyles.AmaranthFont
             )
         }
     }
@@ -89,13 +93,13 @@ fun Header(onBackClick: () -> Unit = {}) {
 
 @SuppressLint("DefaultLocale")
 @Composable
-fun GastosResumen(
-    gastado: Float = 500000f,
+fun SummaryIncome(
+    income: Float = 500000f,
     presupuestado: Float = 1000000f
 ) {
-    val progreso = if (presupuestado == 0f) 0f else (gastado / presupuestado).coerceIn(0f, 1f)
+    val progreso = if (presupuestado == 0f) 0f else (income / presupuestado).coerceIn(0f, 1f)
 
-    val colorProgreso = if (gastado.toInt() == 0) Color.Transparent else Color(0xFFB33A3A)
+    val colorProgreso = if (income.toInt() == 0) Color.Transparent else Color(0xFF00FF00)
 
     Column(
         modifier = Modifier
@@ -107,11 +111,12 @@ fun GastosResumen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("Gastos", color = Color.White, fontWeight = FontWeight.SemiBold)
+            Text("Monto", color = Color.White, fontSize = 15.sp, fontFamily = letterStyles.AmaranthFont)
             Text(
-                "$${String.format("%,.0f", gastado)}",
+                "$${String.format("%,.0f", income)}",
                 color = Color(0xFF00FF00),
-                fontWeight = FontWeight.SemiBold
+                fontSize = 15.sp,
+                fontFamily = letterStyles.AmaranthFont
             )
         }
 
@@ -137,10 +142,9 @@ fun GastosResumen(
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.End
         ) {
-            Text("Gastado $${String.format("%,.0f", gastado)}", color = Color.Red, fontSize = 12.sp)
-            Text("Presupuestado $${String.format("%,.0f", presupuestado)}", color = Color.White, fontSize = 12.sp)
+            Text("Presupuestado $${String.format("%,.0f", presupuestado)}", color = Color.White, fontSize = 12.sp, fontFamily = letterStyles.AmaranthFont)
         }
     }
 }
@@ -157,7 +161,7 @@ fun MetasList() {
 @Composable
 fun MetaItem(nombre: String, actual: Int, total: Int) {
     val progreso = if (total > 0) (actual.toFloat() / total).coerceIn(0f, 1f) else 0f
-    val colorProgreso = if (actual == 0) Color.Transparent else Color(0xFFB33A3A)
+    val colorProgreso = if (actual == 0) Color.Transparent else Color(0xFF00FF00)
 
     Card(
         colors = CardDefaults.cardColors(containerColor = Color(0xFF1D1F6F)),
@@ -171,11 +175,12 @@ fun MetaItem(nombre: String, actual: Int, total: Int) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(nombre, color = Color.White, fontWeight = FontWeight.Bold)
+                Text(nombre, color = Color.White, fontFamily = letterStyles.AmaranthFont, fontSize = 20.sp)
                 Text(
                     "$${String.format("%,.0f", actual.toFloat())}",
                     color = Color(0xFF00FF00),
-                    fontWeight = FontWeight.Bold
+                    fontFamily = letterStyles.AmaranthFont,
+                    fontSize = 20.sp
                 )
             }
 
@@ -201,17 +206,13 @@ fun MetaItem(nombre: String, actual: Int, total: Int) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.End
             ) {
-                Text(
-                    "$${String.format("%,.0f", actual.toFloat())}",
-                    color = Color.Red,
-                    fontSize = 12.sp
-                )
                 Text(
                     "$${String.format("%,.0f", total.toFloat())}",
                     color = Color.White,
-                    fontSize = 12.sp
+                    fontSize = 12.sp,
+                    fontFamily = letterStyles.AmaranthFont
                 )
             }
         }
@@ -241,30 +242,16 @@ fun FloatingActionMenu(
     ) {
         Column(horizontalAlignment = Alignment.End) {
             if (expanded) {
-                // Botón: Ahorro
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .background(Color(0xFF1D1F6F), shape = RoundedCornerShape(12.dp))
-                        .padding(horizontal = 12.dp, vertical = 8.dp)
-                        .clickable { /* Acción Ahorro */ },
-                ) {
-                    Text("Ahorro", color = Color.White)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(Icons.Default.AttachMoney, contentDescription = "Ahorro", tint = Color.White)
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
 
                 // Botón: Meta de ahorro
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .background(Color(0xFF1D1F6F), shape = RoundedCornerShape(12.dp))
+                        .background(PrimaryColor, shape = RoundedCornerShape(12.dp))
                         .padding(horizontal = 12.dp, vertical = 8.dp)
                         .clickable { /* Acción Meta */ },
                 ) {
-                    Text("Meta de ahorro", color = Color.White)
+                    Text("Meta de ahorro", color = Color.White, fontFamily = letterStyles.AmaranthFont)
                     Spacer(modifier = Modifier.width(8.dp))
                     Icon(Icons.Default.Savings, contentDescription = "Meta", tint = Color.White)
                 }
@@ -272,7 +259,7 @@ fun FloatingActionMenu(
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            FloatingActionButton(onClick = onExpandedChange, containerColor = Color(0xFF1D1F6F)) {
+            FloatingActionButton(onClick = onExpandedChange, containerColor = SecondColor) {
                 Icon(Icons.Default.Add, contentDescription = "Más", tint = Color.White)
             }
         }

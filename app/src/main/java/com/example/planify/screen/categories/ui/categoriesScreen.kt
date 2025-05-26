@@ -116,6 +116,7 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
                         "Entretenimiento" -> categoria
                         else -> "Otros"
                     }.toString()
+                )
                 Spacer(Modifier.height(12.dp))
             }
         }

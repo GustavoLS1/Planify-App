@@ -101,3 +101,15 @@ fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PopUpPlanPreview() {
+    var showDialog by remember { mutableStateOf(true) }
+
+    pupUpPlan(
+        title = "Crear Plan",
+        showDialog = showDialog,
+        onDismiss = { showDialog = false }
+    )
+}
