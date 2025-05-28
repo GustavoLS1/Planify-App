@@ -3,6 +3,7 @@ package com.example.planify.screen.homePage
 import android.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -41,7 +43,16 @@ import com.example.planify.components.iconNotifications
 import com.example.planify.components.iconSearch
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.ui.theme.FourthColor
+import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
+import androidx.compose.runtime.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.text.input.TextFieldValue
+import com.example.planify.components.DatePicker
+import com.example.planify.components.FloatingActionHome
+
 
 @Composable
 fun homePageScreen(
@@ -50,6 +61,13 @@ fun homePageScreen(
     onNoteBookClick: () -> Unit,
     onCategoryClick: () -> Unit
 ) {
+    var showSearch by remember { mutableStateOf(false) }
+    var searchText by remember { mutableStateOf(TextFieldValue("")) }
+    var fabMenuExpanded by remember { mutableStateOf(false) }
+    var showGastoDialog by remember { mutableStateOf(false) }
+    var showIngresoDialog by remember { mutableStateOf(false) }
+
+
     Scaffold(
         modifier = modifier,
         bottomBar = {
@@ -61,43 +79,36 @@ fun homePageScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    //Accion que sucede cuando se presiona el boton
-                    println("Boton presionado")
-
+            FloatingActionHome(
+                expanded = fabMenuExpanded,
+                onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
+                onGastoClick = {
+                    fabMenuExpanded = false
+                    showGastoDialog = true
                 },
-                containerColor = FourthColor,
-                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
-                modifier = Modifier.offset(y = (-20).dp)
-            ) {
-                Image(
-                    painter = painterResource(id = com.example.planify.R.drawable.floatingbutton),
-                    contentDescription = "Add",
-                    modifier = Modifier.size(45.dp)
-                )
-            }
-
+                onIngresoClick = {
+                    fabMenuExpanded = false
+                    showIngresoDialog = true
+                }
+            )
         }
+
     ) { paddingValues ->
 
-        // 👉 Ahora usamos un Box para manejar fondo y contenido separados
-        Box(modifier = Modifier.fillMaxWidth()) {
 
-            backgroundScreen(modifier) {
+        backgroundScreen(modifier) {
 
-            }
             roundedContainerScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(900.dp)
-                    .padding(top = 300.dp)
+                    .padding(top = 350.dp)
             ) {
-                // Podés dejar vacío o meter fondo de pantalla acá
+// Podés dejar vacío o meter fondo de pantalla acá
 
             }
 
-            // Contenido principal: Column que respeta el padding
+// Contenido principal: Column que respeta el padding
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -107,13 +118,54 @@ fun homePageScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(27.dp)
+                        .padding(horizontal = 20.dp, vertical = 16.dp)
+                        .height(56.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Spacer(modifier = Modifier.width(5.dp))
-                    iconSearch { println("Search presionado") }
-                    Spacer(modifier = Modifier.width(245.dp))
-                    iconNotifications { println("Notifications presionado") }
+                    if (showSearch) {
+                        OutlinedTextField(
+                            value = searchText,
+                            onValueChange = { searchText = it },
+                            placeholder = { Text("Buscar...") },
+                            modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight(),
+                            shape = RoundedCornerShape(12.dp),
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedTextColor = Color.Black,
+                                focusedContainerColor = Color.White,
+                                unfocusedContainerColor = Color.White,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent
+                            ),
+                            trailingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = "Cerrar búsqueda",
+                                    modifier = Modifier
+                                        .clickable {
+                                            showSearch = false
+                                            searchText = TextFieldValue("")
+                                        }
+                                )
+                            }
+                        )
+                    } else {
+                        iconSearch {
+                            showSearch = true
+                        }
+                        Spacer(modifier = Modifier.width(270.dp))
+                    }
+
+                    Spacer(modifier = Modifier.width(12.dp)) // Espaciado flexible
+
+                    iconNotifications {
+                        println("Notifications presionado")
+                    }
                 }
+
 
                 Row(modifier = Modifier.fillMaxWidth()) {
                     BalanceSummaryCard(
@@ -122,6 +174,14 @@ fun homePageScreen(
                         gastos = ""
                     )
                 }
+
+                Spacer(modifier = Modifier.height(19.dp))
+
+                Box(modifier = Modifier.fillMaxWidth(0.9f)){
+                    DatePicker()
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Column(
                     modifier = Modifier
@@ -137,8 +197,11 @@ fun homePageScreen(
                 }
             }
         }
+
+
     }
 }
+
 
 @Composable
 fun CustomBottomBar(

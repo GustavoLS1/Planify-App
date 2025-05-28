@@ -88,7 +88,7 @@ fun BalanceSummaryCard(
             modifier = Modifier
                 .width(2.dp)
                 .height(140.dp)
-                .offset(x = 123.dp)
+                .offset(x = 130.dp)
         )
 
         Column(
@@ -180,7 +180,6 @@ fun BalanceSummaryCard(
 
     }
 }
-
 
 @Preview
 @Composable

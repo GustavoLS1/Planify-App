@@ -27,8 +27,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    navigationWrapper(Modifier.padding(innerPadding))
-
+//                    navigationWrapper(Modifier.padding(innerPadding))
+                    homePageScreen(onSettingsClick = { /*Hola*/ }, onNoteBookClick = { /*hola*/ }, onCategoryClick = { /*hola*/ })
                 }
             }
         }

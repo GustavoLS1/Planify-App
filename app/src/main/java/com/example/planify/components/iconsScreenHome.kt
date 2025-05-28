@@ -28,7 +28,7 @@ fun iconNotifications(onClick: () -> Unit = {}) {
         painter = painterResource(id = R.drawable.icon_notifications),
         contentDescription = "Icon notifications",
         modifier = Modifier
-            .size(45.dp, 38.dp)
+            .size(45.dp, 40.dp)
             .clickable { onClick() },
         contentScale = ContentScale.Crop
     )
@@ -40,7 +40,7 @@ fun iconSearch(onClick: () -> Unit = {}) {
         painter = painterResource(id = R.drawable.icon_search),
         contentDescription = "Icon search",
         modifier = Modifier
-            .size(45.dp, 38.dp)
+            .size(45.dp, 40.dp)
             .clickable { onClick() },
         contentScale = ContentScale.Crop
     )
