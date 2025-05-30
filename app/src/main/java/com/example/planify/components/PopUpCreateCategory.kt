@@ -28,19 +28,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.zIndex
 
 @Composable
 fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue.copy(alpha = 0.4f)),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    if (showDialog) {
 
-        if (showDialog) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f)) // Fondo oscurecido
+                .zIndex(3f) // Asegura que esté encima
+        ) {
             Dialog(onDismissRequest = onDismiss) {
                 Box(
                     modifier = Modifier

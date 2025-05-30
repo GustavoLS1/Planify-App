@@ -50,8 +50,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.zIndex
 import com.example.planify.components.DatePicker
 import com.example.planify.components.FloatingActionHome
+import com.example.planify.components.pupUpPlan
 
 
 @Composable
@@ -68,139 +70,175 @@ fun homePageScreen(
     var showIngresoDialog by remember { mutableStateOf(false) }
 
 
-    Scaffold(
-        modifier = modifier,
-        bottomBar = {
-            CustomBottomBar(
-                onSettingsClick = onSettingsClick,
-                onNoteBookClick = onNoteBookClick,
-                onCategoryClick = onCategoryClick
+    Box(modifier = Modifier.fillMaxSize()) {
 
-            )
-        },
-        floatingActionButton = {
-            FloatingActionHome(
-                expanded = fabMenuExpanded,
-                onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
-                onGastoClick = {
-                    fabMenuExpanded = false
-                    showGastoDialog = true
-                },
-                onIngresoClick = {
-                    fabMenuExpanded = false
-                    showIngresoDialog = true
-                }
-            )
-        }
+        Scaffold(
+            modifier = modifier,
+            bottomBar = {
+                CustomBottomBar(
+                    onSettingsClick = onSettingsClick,
+                    onNoteBookClick = onNoteBookClick,
+                    onCategoryClick = onCategoryClick
 
-    ) { paddingValues ->
-
-
-        backgroundScreen(modifier) {
-
-            roundedContainerScreen(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(900.dp)
-                    .padding(top = 350.dp)
-            ) {
-// Podés dejar vacío o meter fondo de pantalla acá
-
+                )
+            },
+            floatingActionButton = {
+                FloatingActionHome(
+                    expanded = fabMenuExpanded,
+                    onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
+                    onGastoClick = {
+                        fabMenuExpanded = false
+                        showGastoDialog = true
+                    },
+                    onIngresoClick = {
+                        fabMenuExpanded = false
+                        showIngresoDialog = true
+                    }
+                )
             }
 
-// Contenido principal: Column que respeta el padding
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues), // Ahora SOLO este contenido respeta el BottomBar
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
+        ) { paddingValues ->
+
+
+            backgroundScreen(modifier) {
+
+                roundedContainerScreen(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 16.dp)
-                        .height(56.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .height(900.dp)
+                        .padding(top = 350.dp)
                 ) {
-                    if (showSearch) {
-                        OutlinedTextField(
-                            value = searchText,
-                            onValueChange = { searchText = it },
-                            placeholder = { Text("Buscar...") },
-                            modifier = Modifier
-                                .weight(1f)
-                                .fillMaxHeight(),
-                            shape = RoundedCornerShape(12.dp),
-                            singleLine = true,
-                            colors = TextFieldDefaults.colors(
-                                focusedTextColor = Color.Black,
-                                focusedContainerColor = Color.White,
-                                unfocusedContainerColor = Color.White,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                disabledIndicatorColor = Color.Transparent
-                            ),
-                            trailingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = "Cerrar búsqueda",
-                                    modifier = Modifier
-                                        .clickable {
-                                            showSearch = false
-                                            searchText = TextFieldValue("")
-                                        }
-                                )
-                            }
-                        )
-                    } else {
-                        iconSearch {
-                            showSearch = true
-                        }
-                        Spacer(modifier = Modifier.width(270.dp))
-                    }
+// Podés dejar vacío o meter fondo de pantalla acá
 
-                    Spacer(modifier = Modifier.width(12.dp)) // Espaciado flexible
-
-                    iconNotifications {
-                        println("Notifications presionado")
-                    }
                 }
 
-
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    BalanceSummaryCard(
-                        saldoTotal = "$50.000",
-                        ingresos = "",
-                        gastos = ""
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(19.dp))
-
-                Box(modifier = Modifier.fillMaxWidth(0.9f)){
-                    DatePicker()
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
+// Contenido principal: Column que respeta el padding
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
+                        .fillMaxSize()
+                        .padding(paddingValues), // Ahora SOLO este contenido respeta el BottomBar
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "Contenido dentro del RoundedContainerScreen",
-                        color = Color.White
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 16.dp)
+                            .height(56.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (showSearch) {
+                            OutlinedTextField(
+                                value = searchText,
+                                onValueChange = { searchText = it },
+                                placeholder = { Text("Buscar...") },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight(),
+                                shape = RoundedCornerShape(12.dp),
+                                singleLine = true,
+                                colors = TextFieldDefaults.colors(
+                                    focusedTextColor = Color.Black,
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White,
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    disabledIndicatorColor = Color.Transparent
+                                ),
+                                trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Cerrar búsqueda",
+                                        modifier = Modifier
+                                            .clickable {
+                                                showSearch = false
+                                                searchText = TextFieldValue("")
+                                            }
+                                    )
+                                }
+                            )
+                        } else {
+                            iconSearch {
+                                showSearch = true
+                            }
+                            Spacer(modifier = Modifier.width(270.dp))
+                        }
 
+                        Spacer(modifier = Modifier.width(12.dp)) // Espaciado flexible
+
+                        iconNotifications {
+                            println("Notifications presionado")
+                        }
+                    }
+
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        BalanceSummaryCard(
+                            saldoTotal = "$50.000",
+                            ingresos = "",
+                            gastos = ""
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(19.dp))
+
+                    Box(modifier = Modifier.fillMaxWidth(0.9f)) {
+                        DatePicker()
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Contenido dentro del RoundedContainerScreen",
+                            color = Color.White
+                        )
+
+                    }
                 }
             }
+
         }
+
+        // Pop-up para ingreso
+        pupUpPlan(
+            title = "Nuevo ingreso",
+            showDialog = showIngresoDialog,
+            onDismiss = { showIngresoDialog = false }
+        )
+
+// Pop-up para gasto
+        pupUpPlan(
+            title = "Nuevo gasto",
+            showDialog = showGastoDialog,
+            onDismiss = { showGastoDialog = false }
+        )
 
 
     }
+
 }
+
+@Composable
+fun FloatingActionOverlayBackground(
+    expanded: Boolean,
+    onDismiss: () -> Unit
+) {
+    if (expanded) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0x991D1F6F))
+                .clickable(onClick = onDismiss)
+                .zIndex(1f)
+        )
+    }
+}
+
 
 
 @Composable

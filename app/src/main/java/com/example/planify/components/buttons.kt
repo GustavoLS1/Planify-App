@@ -57,6 +57,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.zIndex
 
 //Boton de iniciar sesion de la vista de launchScreen2
 @Composable
@@ -356,64 +357,53 @@ fun FloatingActionHome(
     onGastoClick: () -> Unit,
     onIngresoClick: () -> Unit
 ) {
-    // Fondo opaco cuando está expandido
-    if (expanded) {
+
+    Box(modifier = Modifier.fillMaxSize()) {
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0x991D1F6F))
-                .clickable { onExpandedChange() }
-        )
-    }
+                .padding(16.dp)
+                .zIndex(2f),
+            contentAlignment = Alignment.BottomEnd
+        ) {
+            Column(horizontalAlignment = Alignment.End) {
+                if (expanded) {
+                    // Opción ingresos
+                    Image(
+                        painter = painterResource(R.drawable.icon_fab_ingresos),
+                        contentDescription = "Ingresos",
+                        modifier = Modifier
+                            .size(112.dp, 50.dp )
+                            .clickable { onIngresoClick() }
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        contentAlignment = Alignment.BottomEnd
-    ) {
-        Column(horizontalAlignment = Alignment.End) {
-            if (expanded) {
-                // Opción Gasto
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .background(Color.Red, shape = RoundedCornerShape(12.dp))
-                        .padding(horizontal = 16.dp, vertical = 10.dp)
-                        .clickable { onGastoClick() }
-                ) {
-                    Icon(Icons.Default.RemoveCircle, contentDescription = "Gasto", tint = Color.White)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Gasto", color = Color.White)
+                    // Opción Gastos
+                    Image(
+                        painter = painterResource(R.drawable.icon_fab_gastos),
+                        contentDescription = "gastos",
+                        modifier = Modifier
+                            .size(112.dp, 50.dp )
+                            .clickable { onGastoClick() }
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
-                Spacer(modifier = Modifier.height(8.dp))
 
-                // Opción Ingreso
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .background(Color.Green, shape = RoundedCornerShape(12.dp))
-                        .padding(horizontal = 16.dp, vertical = 10.dp)
-                        .clickable { onIngresoClick() }
+                // FAB principal
+                FloatingActionButton(
+                    onClick = onExpandedChange,
+                    containerColor = FourthColor
                 ) {
-                    Icon(Icons.Default.AddCircle, contentDescription = "Ingreso", tint = Color.White)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Ingreso", color = Color.White)
+                    Icon(
+                        imageVector = if (expanded) Icons.Default.Close else Icons.Default.Add,
+                        contentDescription = "Menú",
+                        tint = Color.White
+                    )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-            // FAB principal
-            FloatingActionButton(
-                onClick = onExpandedChange,
-                containerColor = FourthColor
-            ) {
-                Icon(
-                    imageVector = if (expanded) Icons.Default.Close else Icons.Default.Add,
-                    contentDescription = "Menú",
-                    tint = Color.White
-                )
             }
         }
     }
+
 }
 
