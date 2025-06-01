@@ -1,7 +1,6 @@
 package com.example.planify.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,18 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 
+
 @Composable
 fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue.copy(alpha = 0.4f)),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        if (showDialog) {
+    if (showDialog) {
             Dialog(onDismissRequest = onDismiss) {
                 Box(
                     modifier = Modifier
@@ -100,7 +92,7 @@ fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
             }
         }
     }
-}
+
 
 @Preview(showBackground = true)
 @Composable

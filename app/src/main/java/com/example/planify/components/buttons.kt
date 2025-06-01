@@ -2,7 +2,10 @@ package com.example.planify.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,14 +16,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.DirectionsWalk
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MultiChoiceSegmentedButtonRow
-import androidx.compose.material3.MultiChoiceSegmentedButtonRowScope
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.SegmentedButton
@@ -28,7 +30,6 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -339,3 +340,54 @@ fun iconButtonAddCategories(onAddClick: () -> Unit) {
         )
     }
 }
+
+@Composable
+fun FloatingActionHome(
+    expanded: Boolean,
+    onExpandedChange: () -> Unit,
+    onGastoClick: () -> Unit,
+    onIngresoClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.BottomEnd
+    ) {
+        Column(horizontalAlignment = Alignment.End) {
+            if (expanded) {
+                Image(
+                    painter = painterResource(R.drawable.icon_fab_ingresos),
+                    contentDescription = "Ingresos",
+                    modifier = Modifier
+                        .size(112.dp, 50.dp)
+                        .clickable { onIngresoClick() }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Image(
+                    painter = painterResource(R.drawable.icon_fab_gastos),
+                    contentDescription = "Gastos",
+                    modifier = Modifier
+                        .size(112.dp, 50.dp)
+                        .clickable { onGastoClick() }
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+
+            FloatingActionButton(
+                onClick = onExpandedChange,
+                containerColor = FourthColor
+            ) {
+                Icon(
+                    imageVector = if (expanded) Icons.Default.Close else Icons.Default.Add,
+                    contentDescription = "Menú",
+                    tint = Color.White
+                )
+            }
+        }
+    }
+}
+
+
+
+

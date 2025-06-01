@@ -1,28 +1,25 @@
 package com.example.planify.screen.homePage
 
-import android.R
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -31,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.components.BalanceSummaryCard
@@ -40,8 +36,16 @@ import com.example.planify.components.backgroundScreen
 import com.example.planify.components.iconNotifications
 import com.example.planify.components.iconSearch
 import com.example.planify.components.roundedContainerScreen
-import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.SecondColor
+import androidx.compose.runtime.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.zIndex
+import com.example.planify.components.DatePicker
+import com.example.planify.components.FloatingActionHome
+import com.example.planify.components.pupUpPlan
 
 @Composable
 fun homePageScreen(
@@ -50,95 +54,178 @@ fun homePageScreen(
     onNoteBookClick: () -> Unit,
     onCategoryClick: () -> Unit
 ) {
-    Scaffold(
-        modifier = modifier,
-        bottomBar = {
-            CustomBottomBar(
-                onSettingsClick = onSettingsClick,
-                onNoteBookClick = onNoteBookClick,
-                onCategoryClick = onCategoryClick
+    var showSearch by remember { mutableStateOf(false) }
+    var searchText by remember { mutableStateOf(TextFieldValue("")) }
+    var fabMenuExpanded by remember { mutableStateOf(false) }
+    var showGastoDialog by remember { mutableStateOf(false) }
+    var showIngresoDialog by remember { mutableStateOf(false) }
 
-            )
-        },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    //Accion que sucede cuando se presiona el boton
-                    println("Boton presionado")
+    Box(modifier = Modifier.fillMaxSize()) {
 
-                },
-                containerColor = FourthColor,
-                elevation = FloatingActionButtonDefaults.elevation(defaultElevation = 0.dp),
-                modifier = Modifier.offset(y = (-20).dp)
-            ) {
-                Image(
-                    painter = painterResource(id = com.example.planify.R.drawable.floatingbutton),
-                    contentDescription = "Add",
-                    modifier = Modifier.size(45.dp)
+        Scaffold(
+            modifier = modifier.zIndex(0f),
+            bottomBar = {
+                CustomBottomBar(
+                    onSettingsClick = onSettingsClick,
+                    onNoteBookClick = onNoteBookClick,
+                    onCategoryClick = onCategoryClick
                 )
-            }
-
-        }
-    ) { paddingValues ->
-
-        // 👉 Ahora usamos un Box para manejar fondo y contenido separados
-        Box(modifier = Modifier.fillMaxWidth()) {
+            },
+            floatingActionButton = { /* Vacío para evitar conflicto */ }
+        ) { paddingValues ->
 
             backgroundScreen(modifier) {
 
-            }
-            roundedContainerScreen(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(900.dp)
-                    .padding(top = 300.dp)
-            ) {
-                // Podés dejar vacío o meter fondo de pantalla acá
-
-            }
-
-            // Contenido principal: Column que respeta el padding
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues), // Ahora SOLO este contenido respeta el BottomBar
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
+                roundedContainerScreen(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(27.dp)
+                        .height(900.dp)
+                        .padding(top = 350.dp)
                 ) {
-                    Spacer(modifier = Modifier.width(5.dp))
-                    iconSearch { println("Search presionado") }
-                    Spacer(modifier = Modifier.width(245.dp))
-                    iconNotifications { println("Notifications presionado") }
-                }
-
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    BalanceSummaryCard(
-                        saldoTotal = "$50.000",
-                        ingresos = "",
-                        gastos = ""
-                    )
+                    // Fondo o contenido
                 }
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
+                        .fillMaxSize()
+                        .padding(paddingValues),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "Contenido dentro del RoundedContainerScreen",
-                        color = Color.White
-                    )
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 20.dp, vertical = 16.dp)
+                            .height(56.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (showSearch) {
+                            OutlinedTextField(
+                                value = searchText,
+                                onValueChange = { searchText = it },
+                                placeholder = { Text("Buscar...") },
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .fillMaxHeight(),
+                                shape = RoundedCornerShape(12.dp),
+                                singleLine = true,
+                                colors = TextFieldDefaults.colors(
+                                    focusedTextColor = Color.Black,
+                                    focusedContainerColor = Color.White,
+                                    unfocusedContainerColor = Color.White,
+                                    focusedIndicatorColor = Color.Transparent,
+                                    unfocusedIndicatorColor = Color.Transparent,
+                                    disabledIndicatorColor = Color.Transparent
+                                ),
+                                trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Cerrar búsqueda",
+                                        modifier = Modifier.clickable {
+                                            showSearch = false
+                                            searchText = TextFieldValue("")
+                                        }
+                                    )
+                                }
+                            )
+                        } else {
+                            iconSearch {
+                                showSearch = true
+                            }
+                            Spacer(modifier = Modifier.width(270.dp))
+                        }
 
+                        Spacer(modifier = Modifier.width(12.dp))
+
+                        iconNotifications {
+                            println("Notifications presionado")
+                        }
+                    }
+
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        BalanceSummaryCard(
+                            saldoTotal = "$50.000",
+                            ingresos = "",
+                            gastos = ""
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(19.dp))
+
+                    Box(modifier = Modifier.fillMaxWidth(0.9f)) {
+                        DatePicker()
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "Contenido dentro del RoundedContainerScreen",
+                            color = Color.White
+                        )
+                    }
                 }
             }
         }
+
+        // Overlay oscuro solo si FAB expandido
+        if (fabMenuExpanded) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f))
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            fabMenuExpanded = false
+                        })
+                    }
+                    .zIndex(1f)
+            )
+        }
+
+        // Contenedor para posicionar el FAB con mayor control
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(2f)
+        ) {
+            FloatingActionHome(
+                expanded = fabMenuExpanded,
+                onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
+                onGastoClick = {
+                    fabMenuExpanded = false
+                    showGastoDialog = true
+                },
+                onIngresoClick = {
+                    fabMenuExpanded = false
+                    showIngresoDialog = true
+                },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.BottomEnd)
+                    .offset(y = (-122).dp)
+                    .navigationBarsPadding()
+            )
+        }
+
+        // Pop-ups ingreso y gasto
+        pupUpPlan(
+            title = "Nuevo ingreso",
+            showDialog = showIngresoDialog,
+            onDismiss = { showIngresoDialog = false }
+        )
+
+        pupUpPlan(
+            title = "Nuevo gasto",
+            showDialog = showGastoDialog,
+            onDismiss = { showGastoDialog = false }
+        )
     }
 }
+
 
 @Composable
 fun CustomBottomBar(
