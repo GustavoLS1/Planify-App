@@ -1,30 +1,25 @@
 package com.example.planify.screen.homePage
 
-import android.R
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -33,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.components.BalanceSummaryCard
@@ -42,19 +36,16 @@ import com.example.planify.components.backgroundScreen
 import com.example.planify.components.iconNotifications
 import com.example.planify.components.iconSearch
 import com.example.planify.components.roundedContainerScreen
-import com.example.planify.ui.theme.FourthColor
-import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import androidx.compose.runtime.*
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.zIndex
 import com.example.planify.components.DatePicker
 import com.example.planify.components.FloatingActionHome
 import com.example.planify.components.pupUpPlan
-
 
 @Composable
 fun homePageScreen(
@@ -69,36 +60,19 @@ fun homePageScreen(
     var showGastoDialog by remember { mutableStateOf(false) }
     var showIngresoDialog by remember { mutableStateOf(false) }
 
-
     Box(modifier = Modifier.fillMaxSize()) {
 
         Scaffold(
-            modifier = modifier,
+            modifier = modifier.zIndex(0f),
             bottomBar = {
                 CustomBottomBar(
                     onSettingsClick = onSettingsClick,
                     onNoteBookClick = onNoteBookClick,
                     onCategoryClick = onCategoryClick
-
                 )
             },
-            floatingActionButton = {
-                FloatingActionHome(
-                    expanded = fabMenuExpanded,
-                    onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
-                    onGastoClick = {
-                        fabMenuExpanded = false
-                        showGastoDialog = true
-                    },
-                    onIngresoClick = {
-                        fabMenuExpanded = false
-                        showIngresoDialog = true
-                    }
-                )
-            }
-
+            floatingActionButton = { /* Vacío para evitar conflicto */ }
         ) { paddingValues ->
-
 
             backgroundScreen(modifier) {
 
@@ -108,15 +82,13 @@ fun homePageScreen(
                         .height(900.dp)
                         .padding(top = 350.dp)
                 ) {
-// Podés dejar vacío o meter fondo de pantalla acá
-
+                    // Fondo o contenido
                 }
 
-// Contenido principal: Column que respeta el padding
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(paddingValues), // Ahora SOLO este contenido respeta el BottomBar
+                        .padding(paddingValues),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Row(
@@ -148,11 +120,10 @@ fun homePageScreen(
                                     Icon(
                                         imageVector = Icons.Default.Close,
                                         contentDescription = "Cerrar búsqueda",
-                                        modifier = Modifier
-                                            .clickable {
-                                                showSearch = false
-                                                searchText = TextFieldValue("")
-                                            }
+                                        modifier = Modifier.clickable {
+                                            showSearch = false
+                                            searchText = TextFieldValue("")
+                                        }
                                     )
                                 }
                             )
@@ -163,13 +134,12 @@ fun homePageScreen(
                             Spacer(modifier = Modifier.width(270.dp))
                         }
 
-                        Spacer(modifier = Modifier.width(12.dp)) // Espaciado flexible
+                        Spacer(modifier = Modifier.width(12.dp))
 
                         iconNotifications {
                             println("Notifications presionado")
                         }
                     }
-
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         BalanceSummaryCard(
@@ -188,8 +158,7 @@ fun homePageScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
+                        modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
@@ -197,48 +166,65 @@ fun homePageScreen(
                             text = "Contenido dentro del RoundedContainerScreen",
                             color = Color.White
                         )
-
                     }
                 }
             }
-
         }
 
-        // Pop-up para ingreso
+        // Overlay oscuro solo si FAB expandido
+        if (fabMenuExpanded) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.5f))
+                    .pointerInput(Unit) {
+                        detectTapGestures(onTap = {
+                            fabMenuExpanded = false
+                        })
+                    }
+                    .zIndex(1f)
+            )
+        }
+
+        // Contenedor para posicionar el FAB con mayor control
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .zIndex(2f)
+        ) {
+            FloatingActionHome(
+                expanded = fabMenuExpanded,
+                onExpandedChange = { fabMenuExpanded = !fabMenuExpanded },
+                onGastoClick = {
+                    fabMenuExpanded = false
+                    showGastoDialog = true
+                },
+                onIngresoClick = {
+                    fabMenuExpanded = false
+                    showIngresoDialog = true
+                },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .align(Alignment.BottomEnd)
+                    .offset(y = (-122).dp)
+                    .navigationBarsPadding()
+            )
+        }
+
+        // Pop-ups ingreso y gasto
         pupUpPlan(
             title = "Nuevo ingreso",
             showDialog = showIngresoDialog,
             onDismiss = { showIngresoDialog = false }
         )
 
-// Pop-up para gasto
         pupUpPlan(
             title = "Nuevo gasto",
             showDialog = showGastoDialog,
             onDismiss = { showGastoDialog = false }
         )
-
-
-    }
-
-}
-
-@Composable
-fun FloatingActionOverlayBackground(
-    expanded: Boolean,
-    onDismiss: () -> Unit
-) {
-    if (expanded) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0x991D1F6F))
-                .clickable(onClick = onDismiss)
-                .zIndex(1f)
-        )
     }
 }
-
 
 
 @Composable
