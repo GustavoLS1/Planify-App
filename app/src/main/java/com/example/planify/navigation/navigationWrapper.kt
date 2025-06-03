@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.planify.screen.categories.ui.CategoriasScreen
 import com.example.planify.screen.categories.ui.CategoryFormScreen
 import com.example.planify.screen.forgetPassword.ui.forgetPasswordScreen
-import com.example.planify.screen.homePage.homePageScreen
+import com.example.planify.screen.homePage.ui.homePageScreen
 import com.example.planify.screen.launch.ui.launchScreen1
 import com.example.planify.screen.launch.ui.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen

@@ -260,27 +260,22 @@ fun configPassword(configPassword: String, onTextChanged: (String) -> Unit) {
 }
 
 @Composable
-fun CurrencyTextField() {
-    var rawInput by remember { mutableStateOf("") }
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+fun CurrencyTextField(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    val digits = value.filter { it.isDigit() }
+    val formatted = formatPesos(digits)
 
     TextField(
-        value = textFieldValue,
+        value = TextFieldValue(
+            text = formatted,
+            selection = TextRange(formatted.length)
+        ),
         placeholder = { Text(text = "Cantidad") },
         onValueChange = { newValue ->
-            val digits = newValue.text.filter { it.isDigit() }
-
-            // Actualizar el input limpio
-            rawInput = digits
-
-            // Formatear con pesos
-            val formatted = formatPesos(digits)
-
-            // Colocar el cursor al final del texto formateado
-            textFieldValue = TextFieldValue(
-                text = formatted,
-                selection = TextRange(formatted.length)
-            )
+            val newDigits = newValue.text.filter { it.isDigit() }
+            onValueChange(newDigits)
         },
         modifier = Modifier
             .fillMaxWidth()
