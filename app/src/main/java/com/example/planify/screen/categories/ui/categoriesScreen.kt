@@ -106,17 +106,6 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
         LazyColumn {
             items(categorias) { categoria ->
                 CategoriaItem(nombre = categoria)
-                CategoriaItem(
-                    nombre = when (categoria) {
-                        "Salario",
-                        "Inversión",
-                        "Recompensas",
-                        "Comida",
-                        "Transporte",
-                        "Entretenimiento" -> categoria
-                        else -> "Otros"
-                    }.toString()
-                )
                 Spacer(Modifier.height(12.dp))
             }
         }

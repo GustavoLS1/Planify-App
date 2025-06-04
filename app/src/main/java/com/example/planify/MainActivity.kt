@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.example.planify.navigation.navigationWrapper
-import com.example.planify.screen.homePage.ui.homePageScreen
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,12 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PlanifyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   //navigationWrapper(Modifier.padding(innerPadding))
-                    homePageScreen(
-                        onSettingsClick = {},
-                        onNoteBookClick = {},
-                        onCategoryClick = {},
-                    )
+                   navigationWrapper(Modifier.padding(innerPadding))
                 }
             }
         }
