@@ -1,4 +1,4 @@
-package com.example.planify.screen.homePage
+package com.example.planify.screen.homePage.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -43,6 +44,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.zIndex
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.planify.R
 import com.example.planify.components.DatePicker
 import com.example.planify.components.FloatingActionHome
 import com.example.planify.components.pupUpPlan
@@ -52,13 +55,20 @@ fun homePageScreen(
     modifier: Modifier = Modifier,
     onSettingsClick: () -> Unit,
     onNoteBookClick: () -> Unit,
-    onCategoryClick: () -> Unit
+    onCategoryClick: () -> Unit,
+    viewModel: homePageViewModel = viewModel()
 ) {
     var showSearch by remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
     var fabMenuExpanded by remember { mutableStateOf(false) }
     var showGastoDialog by remember { mutableStateOf(false) }
     var showIngresoDialog by remember { mutableStateOf(false) }
+
+    val ingresos by viewModel.ingresos
+    val gastos by viewModel.gastos
+    val saldoTotal by viewModel.saldoTotal
+    val isLoading by viewModel.isLoading
+    val errorMessage by viewModel.errorMessage
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -141,11 +151,23 @@ fun homePageScreen(
                         }
                     }
 
+                    if (isLoading) {
+                        CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
+                    }
+
+                    errorMessage?.let {
+                        Text(
+                            text = it,
+                            color = Color.Red,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                    }
+
                     Row(modifier = Modifier.fillMaxWidth()) {
                         BalanceSummaryCard(
-                            saldoTotal = "$50.000",
-                            ingresos = "",
-                            gastos = ""
+                            saldoTotal = "$${saldoTotal.format(2)}",
+                            ingresos = "$${ingresos.format(2)}",
+                            gastos = "$${gastos.format(2)}"
                         )
                     }
 
@@ -215,16 +237,24 @@ fun homePageScreen(
         pupUpPlan(
             title = "Nuevo ingreso",
             showDialog = showIngresoDialog,
-            onDismiss = { showIngresoDialog = false }
+            onDismiss = { showIngresoDialog = false },
+            onSave = { amount ->
+                viewModel.agregarIngreso(amount)
+            }
         )
 
         pupUpPlan(
             title = "Nuevo gasto",
             showDialog = showGastoDialog,
-            onDismiss = { showGastoDialog = false }
+            onDismiss = { showGastoDialog = false },
+            onSave = { amount ->
+                viewModel.agregarGasto(amount)
+            }
         )
     }
 }
+
+fun Double.format(digits: Int) = "%.${digits}f".format(this)
 
 
 @Composable
@@ -249,25 +279,25 @@ fun CustomBottomBar(
             ) {
 
                 SelectableIcon(
-                    iconRes = com.example.planify.R.drawable.icon_home,
+                    iconRes = R.drawable.icon_home,
                     contentDescription = "Home",
                     onClick = {} // -> aca iran las navegaciones
                 )
 
                 SelectableIcon(
-                    iconRes = com.example.planify.R.drawable.icon_category,
+                    iconRes = R.drawable.icon_category,
                     contentDescription = "Category",
                     onClick = onCategoryClick
                 )
 
                 SelectableIcon(
-                    iconRes = com.example.planify.R.drawable.icon_notebook,
+                    iconRes = R.drawable.icon_notebook,
                     contentDescription = "NoteBook",
                     onClick = onNoteBookClick
                 )
 
                 SelectableIcon(
-                    iconRes = com.example.planify.R.drawable.icon_settings,
+                    iconRes = R.drawable.icon_settings,
                     contentDescription = "Setting",
                     onClick = onSettingsClick
                 )

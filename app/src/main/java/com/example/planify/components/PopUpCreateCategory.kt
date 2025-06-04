@@ -30,7 +30,12 @@ import androidx.compose.ui.window.Dialog
 
 
 @Composable
-fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
+fun pupUpPlan(title: String,
+              showDialog: Boolean,
+              onDismiss: () -> Unit,
+              onSave: (Double) -> Unit) {
+
+    var cantidadText by remember { mutableStateOf("") }
 
     if (showDialog) {
             Dialog(onDismissRequest = onDismiss) {
@@ -69,7 +74,10 @@ fun pupUpPlan(title: String, showDialog: Boolean, onDismiss: () -> Unit) {
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("Cantidad", color = Color.White)
                         Spacer(modifier = Modifier.height(5.dp))
-                        CurrencyTextField()
+                        CurrencyTextField(
+                            value = cantidadText,
+                            onValueChange = { cantidadText = it }
+                        )
 
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("Fecha", color = Color.White)
@@ -102,6 +110,7 @@ fun PopUpPlanPreview() {
     pupUpPlan(
         title = "Crear Plan",
         showDialog = showDialog,
-        onDismiss = { showDialog = false }
+        onDismiss = { showDialog = false },
+        onSave = { /* Handle save action */ }
     )
 }
