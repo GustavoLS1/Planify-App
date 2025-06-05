@@ -98,7 +98,7 @@ fun CategoriasScreen(
 
         LazyColumn {
             items(categorias) { categoria ->
-                CategoriaItem(nombre = categoria, onEditClick = onEditCategory)
+                CategoriaItem(nombre = categoria, onClick = {/* Acción eliminar */}, onEditClick = onEditCategory)
                 Spacer(Modifier.height(12.dp))
             }
         }
