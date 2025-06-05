@@ -1,6 +1,9 @@
 package com.example.planify.components
 
+import android.R.attr.onClick
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,14 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.planify.R
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
 @Composable
-fun CategoriaItem(nombre: String) {
+fun CategoriaItem(nombre: String,onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,5 +49,14 @@ fun CategoriaItem(nombre: String) {
         ) {
             Text("Edit", color = Color.White, fontSize = 15.sp, fontFamily = letterStyles.AmaranthFont)
         }
+        Spacer(Modifier.width(14.dp))
+        Image(
+            painter = painterResource(id = R.drawable.icon_delet),
+            contentDescription = "Icon search",
+            modifier = Modifier
+                .size(45.dp, 40.dp)
+                .clickable { onClick() },
+            contentScale = ContentScale.Crop
+        )
     }
 }
