@@ -5,9 +5,11 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.planify.screen.categories.ui.CategoriasScreen
 import com.example.planify.screen.categories.ui.CategoryFormScreen
 import com.example.planify.screen.forgetPassword.ui.forgetPasswordScreen
@@ -172,34 +174,51 @@ fun navigationWrapper(modifier: Modifier) {
 
         composable<categoriesScreen> {
             CategoriasScreen(
-                onEditCategory = {
-                    navController.navigate(categoryFormScreen)
+                onEditCategory = { categoryName ->
+                    navController.navigate("categoryFormScreen/$categoryName")
                 },
-                onBack = { navController.navigateUp() }
+                onAddCategory = {
+                    navController.navigate("categoryFormScreen/")
+                },
+                onBack = {
+                    navController.navigateUp()
+                }
             )
         }
 
-        composable<categoryFormScreen> {
+        composable(
+            route = "categoryFormScreen/{categoryName}",
+            arguments = listOf(navArgument("categoryName") {
+                defaultValue = ""
+                type = NavType.StringType
+            })
+        ) { backStackEntry ->
+            val categoryName = backStackEntry.arguments?.getString("categoryName") ?: ""
+            val isEditMode = categoryName.isNotEmpty()
+
             CategoryFormScreen(
-                isEditMode = true,
-                categoryName = "", // aquí deberías pasar la categoría a editar si la implementas luego
-                onCategoryNameChange = {},
+                isEditMode = isEditMode,
+                categoryName = categoryName,
+                onCategoryNameChange = {}, // opcional si se usa desde el ViewModel
                 onSave = {
                     navController.navigate(categoriesScreen) {
-                        popUpTo(categoryFormScreen) { inclusive = true }
+                        popUpTo("categoryFormScreen/$categoryName") { inclusive = true }
+                        launchSingleTop = true
                     }
                 },
                 onCancel = {
                     navController.navigate(categoriesScreen) {
-                        popUpTo(categoryFormScreen) { inclusive = true }
+                        popUpTo("categoryFormScreen/$categoryName") { inclusive = true }
+                        launchSingleTop = true
                     }
                 },
                 onBack = {
                     navController.navigate(categoriesScreen) {
-                        popUpTo(categoryFormScreen) { inclusive = true }
-                        launchSingleTop = false
+                        popUpTo("categoryFormScreen/$categoryName") { inclusive = true }
+                        launchSingleTop = true
                     }
-                })
+                }
+            )
         }
     }
 }

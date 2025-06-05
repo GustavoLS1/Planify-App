@@ -26,7 +26,7 @@ import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
 
 @Composable
-fun CategoriaItem(nombre: String) {
+fun CategoriaItem(nombre: String, onEditClick: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,7 +38,7 @@ fun CategoriaItem(nombre: String) {
         Text(nombre, color = Color.White, fontSize = 20.sp, fontFamily = letterStyles.AmaranthFont)
         Spacer(Modifier.weight(1f))
         Button(
-            onClick = { /* editar */ },
+            onClick = { onEditClick(nombre) },
             colors = ButtonDefaults.buttonColors(containerColor = SecondColor)
         ) {
             Text("Edit", color = Color.White, fontSize = 15.sp, fontFamily = letterStyles.AmaranthFont)

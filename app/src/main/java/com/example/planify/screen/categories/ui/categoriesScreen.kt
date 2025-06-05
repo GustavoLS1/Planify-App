@@ -35,9 +35,11 @@ import com.example.planify.components.TabButton
 import com.example.planify.ui.theme.PrimaryColor
 
 @Composable
-fun CategoriasScreen(onEditCategory: () -> Unit,
-                     onBack: () -> Unit,
-                     viewModel: categoriesViewModel = viewModel()
+fun CategoriasScreen(
+    onEditCategory: (String) -> Unit,
+    onAddCategory: () -> Unit,
+    onBack: () -> Unit,
+    viewModel: categoriesViewModel = viewModel()
 ) {
     val selectedTab by viewModel.selectedType
     val searchQuery by viewModel.searchQuery
@@ -51,15 +53,11 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
     ) {
         Spacer(Modifier.height(16.dp))
 
-        // Header
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = onBack) {
                 Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
-
-
             }
             Spacer(Modifier.width(8.dp))
-
             Text(
                 "Categorías",
                 color = Color.White,
@@ -70,11 +68,7 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
 
         Spacer(Modifier.height(16.dp))
 
-        // Tabs INGRESOS / GASTOS
-        Box(
-            modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.Center
-        ) {
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Row(
                 modifier = Modifier
                     .width(200.dp)
@@ -94,18 +88,17 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
 
         Spacer(Modifier.height(16.dp))
 
-        // Search + Add
         SearchBar(
             query = searchQuery,
             onQueryChanged = viewModel::onQueryChanged,
-            onAddClick = { /* Acción agregar */ })
+            onAddClick = onAddCategory // Llama a crear
+        )
 
         Spacer(Modifier.height(16.dp))
 
-        // Lista de categorías
         LazyColumn {
             items(categorias) { categoria ->
-                CategoriaItem(nombre = categoria)
+                CategoriaItem(nombre = categoria, onEditClick = onEditCategory)
                 Spacer(Modifier.height(12.dp))
             }
         }
@@ -114,8 +107,9 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
 
 
 
+
 @Preview
 @Composable
 fun preview(){
-    CategoriasScreen(onEditCategory = {}, onBack = {})
+    CategoriasScreen(onEditCategory = {}, onBack = {} , onAddCategory = {})
 }
