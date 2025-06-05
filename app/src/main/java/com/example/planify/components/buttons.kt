@@ -255,36 +255,6 @@ fun buttonNextEnabled(enabled: Boolean, navigateTo: () -> Unit) {
 }
 
 @Composable
-fun SingleChoiceSegmentedButton(modifier: Modifier = Modifier) {
-    var selectedIndex by remember{ mutableStateOf(0) }
-    val options = listOf("Diario", "Semanalmente", "Mensualmente")
-
-    SingleChoiceSegmentedButtonRow (
-        modifier = modifier
-            .padding(18.dp)
-            .fillMaxWidth()
-    ){
-        options.forEachIndexed { index, label ->
-            SegmentedButton(
-                shape = SegmentedButtonDefaults.itemShape(
-                    index = index,
-                    count = options.size
-                ),
-                onClick = { selectedIndex = index },
-                selected = index == selectedIndex,
-                label = { Text(label) }
-            )
-        }
-    }
-}
-
-@Composable
-@Preview
-fun singleChoiceSegmentedButtonPreview() {
-    SingleChoiceSegmentedButton()
-}
-
-@Composable
 fun buttonCreate(onClick: () -> Unit) {
     Button(
         onClick = { onClick() },

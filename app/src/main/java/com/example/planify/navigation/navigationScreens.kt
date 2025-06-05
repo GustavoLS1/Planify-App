@@ -38,6 +38,4 @@ object notebookScreen
 @Serializable
 object categoriesScreen
 
-@Serializable
-object categoryFormScreen
 

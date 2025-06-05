@@ -31,6 +31,9 @@ import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CategoryFormScreen(
@@ -129,17 +132,3 @@ fun CategoryFormScreen(
     }
 }
 
-//@Preview
-//@Composable
-//fun previe() {
-//    var categoryName by remember { mutableStateOf("") }
-//
-//    CategoryFormScreen(
-//        isEditMode = false, // o true para editar
-//        categoryName = categoryName,
-//        onCategoryNameChange = { categoryName = it },
-//        onSave = { /* guardar */ },
-//        onCancel = { /* volver atrás */ },
-//        onBack = { /* navegar */ }
-//    )
-//}

@@ -374,7 +374,10 @@ fun NombreTextField() {
 }
 
 @Composable
-fun SearchBar(query: String, onQueryChanged: (String) -> Unit, onAddClick: () -> Unit) {
+fun SearchBar(query: String,
+              onQueryChanged: (String) -> Unit,
+              onAddClick: () -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
