@@ -105,7 +105,7 @@ fun CategoriasScreen(onEditCategory: () -> Unit,
         // Lista de categorías
         LazyColumn {
             items(categorias) { categoria ->
-                CategoriaItem(nombre = categoria)
+                CategoriaItem(nombre = categoria, onClick = {/* Acción eliminar */})
                 Spacer(Modifier.height(12.dp))
             }
         }
