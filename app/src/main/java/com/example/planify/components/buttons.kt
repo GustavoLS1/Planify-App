@@ -269,6 +269,21 @@ fun buttonCreate(onClick: () -> Unit) {
 }
 
 @Composable
+fun buttonSave(enabled: Boolean, onClick: () -> Unit) {
+    Button(
+        onClick = { onClick() },
+        enabled = enabled,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        colors = ButtonDefaults.buttonColors(Color(0xFFA29BFE)),
+        shape = RoundedCornerShape(10.dp)
+    ) {
+        Text("Guardar")
+    }
+}
+
+@Composable
 fun buttonCancel(onClick: () -> Unit){
     Button(
         onClick = { onClick() },
