@@ -297,13 +297,59 @@ fun CurrencyTextField(
 
 @Composable
 fun CurrencyTextFieldNotebook(
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
 ) {
     var rawInput by remember { mutableStateOf("") }
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
     TextField(
         value = textFieldValue,
+        placeholder = { Text(text = "Cantidad") },
+        onValueChange = { newValue ->
+            val digits = newValue.text.filter { it.isDigit() }
+
+            // Actualizar el input limpio
+            rawInput = digits
+
+            // Formatear con pesos
+            val formatted = formatPesos(digits)
+
+            // Colocar el cursor al final del texto formateado
+            textFieldValue = TextFieldValue(
+                text = formatted,
+                selection = TextRange(formatted.length)
+            )
+            onValueChange(formatted)
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Transparent),
+        colors = TextFieldDefaults.colors(
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedContainerColor = Color.White,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Black
+        ),
+        shape = RoundedCornerShape(12.dp),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        singleLine = true
+    )
+}
+
+@Composable
+fun CurrencyTextFieldNotebookAmout(
+    onValueChange: (String) -> Unit,
+    enabled: Boolean
+) {
+    var rawInput by remember { mutableStateOf("") }
+    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+
+    TextField(
+        value = textFieldValue,
+        enabled = enabled,
         placeholder = { Text(text = "Cantidad") },
         onValueChange = { newValue ->
             val digits = newValue.text.filter { it.isDigit() }
