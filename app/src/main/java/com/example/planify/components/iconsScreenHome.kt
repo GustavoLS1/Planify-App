@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -57,7 +58,8 @@ fun SelectableIcon(
 
     Box(
         modifier = modifier
-            .size(60.dp)
+            .offset(y = 20.dp)
+            .size(50.dp)
             .background(
                 color = if (isPressed) PrimaryColor else SecondColor,
                 shape = RoundedCornerShape(12.dp)
@@ -79,7 +81,7 @@ fun SelectableIcon(
         Image(
             painter = painterResource(id =iconRes),
             contentDescription = contentDescription,
-            modifier = Modifier.size(36.dp),
+            modifier = Modifier.size(30.dp),
             contentScale =  ContentScale.Fit,
             alpha = if (isPressed) 0.8f else 1f
         )
