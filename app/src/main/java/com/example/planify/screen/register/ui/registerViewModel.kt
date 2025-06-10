@@ -51,8 +51,8 @@ class registerViewModel : ViewModel() {
     ) {
         _email.value = email.take(50) // Limita un maximo de 50 caracteres
         _name.value = name.take(50) // Limita un maximo de 50 caracteres
-        _password.value = password.take(8) // Limita un maximo de 8 caracteres
-        _confirmPassword.value = confirmPassword.take(8) // Limita un maximo de 8 caracteres
+        _password.value = password.take(15) // Limita un maximo de 15 caracteres
+        _confirmPassword.value = confirmPassword.take(15) // Limita un maximo de 15 caracteres
         _number.value = number.take(10) // Limita un maximo de 10 caracteres
         _isRegisterEnabled.value = enableRegisterButton(_email.value, _password.value, _confirmPassword.value)
     }

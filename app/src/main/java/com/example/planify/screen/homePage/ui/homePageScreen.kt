@@ -55,6 +55,7 @@ import com.example.planify.components.incomeCard
 import com.example.planify.components.pupUpPlan
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TextField
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun homePageScreen(
@@ -76,6 +77,7 @@ fun homePageScreen(
     val isLoading by viewModel.isLoading
     val errorMessage by viewModel.errorMessage
     val movements by viewModel.filteredMovements
+    val context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -282,19 +284,21 @@ fun homePageScreen(
 
         pupUpPlan(
             title = "Nuevo ingreso",
+            context = context,
             showDialog = showIngresoDialog,
             onDismiss = { showIngresoDialog = false },
-            onSave = { amount ->
-                viewModel.addIncome(amount)
+            onSave = { dto ->
+                viewModel.createTransaction(dto, context)
             }
         )
 
         pupUpPlan(
             title = "Nuevo gasto",
+            context = context,
             showDialog = showGastoDialog,
             onDismiss = { showGastoDialog = false },
-            onSave = { amount ->
-                viewModel.addExpense(amount)
+            onSave = { dto ->
+                viewModel.createTransaction(dto, context)
             }
         )
     }

@@ -1,5 +1,6 @@
 package com.example.planify.components
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,15 +28,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.planify.screen.homePage.ui.data.response.transactionCreateResponseDto
 
 
 @Composable
 fun pupUpPlan(title: String,
+              context: Context,
               showDialog: Boolean,
               onDismiss: () -> Unit,
-              onSave: (Double) -> Unit) {
+              onSave: (transactionCreateResponseDto) -> Unit) {
 
     var cantidadText by remember { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf(Category(1, "Salario")) }
+    var nombre by remember { mutableStateOf("") }
 
     if (showDialog) {
             Dialog(onDismissRequest = onDismiss) {
@@ -69,7 +74,10 @@ fun pupUpPlan(title: String,
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("Categoría", color = Color.White)
                         Spacer(modifier = Modifier.height(5.dp))
-                        CategoriaDropdown()
+                        CategoriaDropdown(
+                            selectedCategory = selectedCategory.name,
+                            onCategorySelected = { selectedCategory = Category(1, it) }
+                        )
 
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("Cantidad", color = Color.White)
@@ -87,10 +95,27 @@ fun pupUpPlan(title: String,
                         Spacer(modifier = Modifier.height(12.dp))
                         Text("Nombre", color = Color.White)
                         Spacer(modifier = Modifier.height(5.dp))
-                        NombreTextField()
+                        NombreTextField(
+                            nombre = nombre,
+                            onNombreChange = { nombre = it }
+                        )
 
                         Spacer(modifier = Modifier.height(24.dp))
-                        buttonCreate {}
+                        buttonCreate {
+                            val cantidad = cantidadText
+                                .replace("[^\\d.]".toRegex(), "")
+                                .toDoubleOrNull()
+                            if (cantidad != null && nombre.isNotBlank()){
+                                val dto = transactionCreateResponseDto(
+                                    description = nombre,
+                                    amount = cantidad,
+                                    categoryId = selectedCategory.id,
+                                )
+
+                                onSave(dto)
+                                onDismiss()
+                            }
+                        }
                         Spacer(modifier = Modifier.height(12.dp))
                         buttonCancel {
                             onDismiss()
@@ -100,17 +125,3 @@ fun pupUpPlan(title: String,
             }
         }
     }
-
-
-@Preview(showBackground = true)
-@Composable
-fun PopUpPlanPreview() {
-    var showDialog by remember { mutableStateOf(true) }
-
-    pupUpPlan(
-        title = "Crear Plan",
-        showDialog = showDialog,
-        onDismiss = { showDialog = false },
-        onSave = { /* Handle save action */ }
-    )
-}
