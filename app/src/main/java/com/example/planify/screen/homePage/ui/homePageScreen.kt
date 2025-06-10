@@ -40,7 +40,6 @@ import com.example.planify.components.iconSearch
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.ui.theme.SecondColor
 import androidx.compose.runtime.*
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
@@ -54,6 +53,8 @@ import com.example.planify.components.FloatingActionHome
 import com.example.planify.components.expenseCard
 import com.example.planify.components.incomeCard
 import com.example.planify.components.pupUpPlan
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.TextField
 
 @Composable
 fun homePageScreen(
@@ -69,11 +70,12 @@ fun homePageScreen(
     var showGastoDialog by remember { mutableStateOf(false) }
     var showIngresoDialog by remember { mutableStateOf(false) }
 
-    val ingresos by viewModel.ingresos
-    val gastos by viewModel.gastos
-    val saldoTotal by viewModel.saldoTotal
+    val income by viewModel.income
+    val expense by viewModel.expense
+    val totalbalance by viewModel.totalbalance
     val isLoading by viewModel.isLoading
     val errorMessage by viewModel.errorMessage
+    val movements by viewModel.filteredMovements
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -110,132 +112,46 @@ fun homePageScreen(
                                 fontSize = 18.sp,
                                 modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                             )
-                            //Se debe analizar bien el posicionamiento de los cards dentro del roundedContainer
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-
-                                expenseCard(
-                                    titulo = "Gasto",
-                                    monto = "1000"
-                                )
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-                            }
-                            //
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-
-                                expenseCard(
-                                    titulo = "Gasto",
-                                    monto = "1000"
-                                )
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-                            }
-
-                            //2
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-
-                                expenseCard(
-                                    titulo = "Gasto",
-                                    monto = "1000"
-                                )
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-                            }
-                            //3
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-
-                                expenseCard(
-                                    titulo = "Gasto",
-                                    monto = "1000"
-                                )
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-
-                                expenseCard(
-                                    titulo = "Gasto",
-                                    monto = "1000"
-                                )
-                                incomeCard(
-                                    titulo = "Recibo",
-                                    monto = "1000"
-                                )
-                            }
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 16.dp)
-                                    .height(100.dp),
-                                horizontalArrangement = Arrangement.spacedBy(16.dp, alignment = Alignment.CenterHorizontally),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {}
-
                         }
+                        items(items = movements.chunked(3)) { row ->
 
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp)
+                                    .height(100.dp),
+                                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                row.forEach { movimiento ->
+                                    when (movimiento.type) {
+                                        typeMovements.INCOME -> incomeCard(
+                                            titulo = movimiento.title,
+                                            monto = movimiento.amount.toString(),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(100.dp)
+                                        )
+                                        typeMovements.EXPENSE -> expenseCard(
+                                            titulo = movimiento.title,
+                                            monto = movimiento.amount.toString(),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(100.dp)
+
+                                        )
+                                    }
+                                }
+
+                                // Rellenar para que la fila tenga siempre 3 elementos visibles
+                                /*repeat(3 - row.size) {
+                                    Box(modifier = Modifier.weight(1f).height(100.dp))
+                                }*/
+                            }
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(100.dp))
+                        }
                     }
                 }
 
@@ -253,9 +169,9 @@ fun homePageScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (showSearch) {
-                            OutlinedTextField(
-                                value = searchText,
-                                onValueChange = { searchText = it },
+                            TextField(
+                                value = viewModel.searchQuery.value,
+                                onValueChange = { viewModel.updateSearchQuery(it) },
                                 placeholder = { Text("Buscar...") },
                                 modifier = Modifier
                                     .weight(1f)
@@ -309,9 +225,9 @@ fun homePageScreen(
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         BalanceSummaryCard(
-                            saldoTotal = "$${saldoTotal.format(2)}",
-                            ingresos = "$${ingresos.format(2)}",
-                            gastos = "$${gastos.format(2)}"
+                            saldoTotal = "$${totalbalance.format(2)}",
+                            ingresos = "$${income.format(2)}",
+                            gastos = "$${expense.format(2)}"
                         )
                     }
 
@@ -369,7 +285,7 @@ fun homePageScreen(
             showDialog = showIngresoDialog,
             onDismiss = { showIngresoDialog = false },
             onSave = { amount ->
-                viewModel.agregarIngreso(amount)
+                viewModel.addIncome(amount)
             }
         )
 
@@ -378,7 +294,7 @@ fun homePageScreen(
             showDialog = showGastoDialog,
             onDismiss = { showGastoDialog = false },
             onSave = { amount ->
-                viewModel.agregarGasto(amount)
+                viewModel.addExpense(amount)
             }
         )
     }
