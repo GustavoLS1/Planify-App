@@ -44,8 +44,8 @@ class forgetPasswordViewModel: ViewModel() {
     ) {
         _email.value = email.take(50)
         _code.value = code.take(6)
-        _password.value = password.take(8)
-        _confirmPassword.value = confirmPassword.take(8)
+        _password.value = password.take(15)
+        _confirmPassword.value = confirmPassword.take(15)
         validateFields()
     }
 

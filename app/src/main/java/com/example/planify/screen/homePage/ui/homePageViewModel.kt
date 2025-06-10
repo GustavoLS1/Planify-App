@@ -1,10 +1,14 @@
 package com.example.planify.screen.homePage.ui
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.planify.screen.homePage.ui.data.response.transactionCreateResponseDto
+import com.example.planify.screen.homePage.ui.di.homePageRetrofitHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -31,6 +35,9 @@ class homePageViewModel: ViewModel() {
     private val _errorMessage = mutableStateOf<String?>(null)
     val errorMessage: State<String?> = _errorMessage
 
+    private val _transactionState = mutableStateOf<homePageState>(homePageState.idle)
+    val transactionState: State<homePageState> = _transactionState
+
     init {
         loadData()
     }
@@ -42,8 +49,8 @@ class homePageViewModel: ViewModel() {
                 delay(1000) // Simula una carga de datos desde una fuente remota o local
 
                 // Reemplaza estas líneas con datos reales desde repositorio
-
-                val SimulatedData = listOf(
+                
+                val SimulatedData = listOf(//Datos simulados que luego se reemplazarán por datos reales
                     movements(1, "Salario", 1500.0, typeMovements.INCOME),
                     movements(2, "Alquiler", 500.0, typeMovements.EXPENSE),
                     movements(3, "Venta", 300.0, typeMovements.INCOME),
@@ -105,6 +112,30 @@ class homePageViewModel: ViewModel() {
         if (monto > 0) {
             _expense.value += monto
         }
+    }
+
+    fun createTransaction(dto: transactionCreateResponseDto, context: Context) {
+        viewModelScope.launch {
+            _transactionState.value = homePageState.loading
+            try {
+                val service = homePageRetrofitHelper.getHomePageService(context)
+                val response = service.transactionCreate(dto)
+
+                if (response.isSuccessful && response.body()?.success == true) {
+                    _transactionState.value = homePageState.success
+                    reloadData() // Para reflejar los cambios
+                } else {
+                    _transactionState.value = homePageState.error(response.body()?.message ?: "Error en la creación")
+                }
+            } catch (e: Exception) {
+                _transactionState.value = homePageState.error("Error de conexión")
+                Log.e("HomePage", "createTransaction: ${e.message}", e)
+            }
+        }
+    }
+
+    fun resetTransactionState() {
+        _transactionState.value = homePageState.idle
     }
 
 }

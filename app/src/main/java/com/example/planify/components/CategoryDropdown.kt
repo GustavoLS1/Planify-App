@@ -24,10 +24,13 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriaDropdown() {
+fun CategoriaDropdown(
+    selectedCategory: String,
+    onCategorySelected: (String) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
-    val opciones = listOf("💲 Salario", "🏦 Inversión", "🎁 Regalo")
-    var seleccion by remember { mutableStateOf(opciones[0]) }
+    val categorias  = listOf(Category(1,"Salario"), Category(2,"Inversión"), Category(3,"Regalo"))
+    //var seleccion by remember { mutableStateOf(categorias [0]) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -35,7 +38,7 @@ fun CategoriaDropdown() {
         modifier = Modifier.fillMaxWidth()
     ) {
         TextField(
-            value = seleccion,
+            value = selectedCategory,
             onValueChange = {},
             readOnly = true,
             trailingIcon = {
@@ -65,18 +68,16 @@ fun CategoriaDropdown() {
             onDismissRequest = { expanded = false },
             modifier = Modifier.background(Color.White)
         ) {
-            opciones.forEach { opcion ->
+            categorias.forEach { category ->
                 DropdownMenuItem(
-                    text = { Text(
-                        text = opcion,
-                        color = Color.Black
+                    text = { Text(text = category.name, color = Color.Black
                     ) },
                     onClick = {
-                        seleccion = opcion
+                        onCategorySelected(category.name)
                         expanded = false
                     }
                 )
             }
         }
     }
-}
+}data class Category(val id: Int, val name: String)

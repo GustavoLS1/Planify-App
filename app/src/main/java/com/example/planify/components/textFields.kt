@@ -397,12 +397,14 @@ fun formatPesos(input: String): String {
 }
 
 @Composable
-fun NombreTextField() {
-    var nombre by remember { mutableStateOf("") }
+fun NombreTextField(
+    nombre: String,
+    onNombreChange: (String) -> Unit
+) {
 
     TextField(
         value = nombre,
-        onValueChange = { nombre = it },
+        onValueChange = onNombreChange,
         placeholder = { Text("Nombre") },
         modifier = Modifier.fillMaxWidth(),
         colors = TextFieldDefaults.colors(
