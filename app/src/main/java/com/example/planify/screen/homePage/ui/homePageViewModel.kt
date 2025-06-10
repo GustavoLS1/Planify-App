@@ -10,14 +10,20 @@ import kotlinx.coroutines.launch
 
 class homePageViewModel: ViewModel() {
 
-    private val _ingresos = mutableStateOf(0.0)
-    val ingresos: State<Double> = _ingresos
+    private val _income = mutableStateOf(0.0)
+    val income: State<Double> = _income
 
-    private val _gastos = mutableStateOf(0.0)
-    val gastos: State<Double> = _gastos
+    private val _expense = mutableStateOf(0.0)
+    val expense: State<Double> = _expense
 
-    private  val _saldoTotal = derivedStateOf {_ingresos.value - _gastos.value}
-    val saldoTotal: State<Double> = _saldoTotal
+    private  val _totalbalance = derivedStateOf {_income.value - _expense.value}
+    val totalbalance: State<Double> = _totalbalance
+
+    private val _movements = mutableStateOf<List<movements>>(emptyList())
+    val movements: State<List<movements>> = _movements
+
+    private val _searchQuery = mutableStateOf("")
+    val searchQuery: State<String> = _searchQuery
 
     private val _isLoading = mutableStateOf(false)
     val isLoading: State<Boolean> = _isLoading
@@ -26,21 +32,40 @@ class homePageViewModel: ViewModel() {
     val errorMessage: State<String?> = _errorMessage
 
     init {
-        cargarDatos()
+        loadData()
     }
 
-    private fun cargarDatos() {
+    private fun loadData() {
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 delay(1000) // Simula una carga de datos desde una fuente remota o local
 
                 // Reemplaza estas líneas con datos reales desde repositorio
-                val ingresosSimulados = 2000.0
-                val gastosSimulados = 750.0
 
-                _ingresos.value = ingresosSimulados
-                _gastos.value = gastosSimulados
+                val SimulatedData = listOf(
+                    movements(1, "Salario", 1500.0, typeMovements.INCOME),
+                    movements(2, "Alquiler", 500.0, typeMovements.EXPENSE),
+                    movements(3, "Venta", 300.0, typeMovements.INCOME),
+                    movements(4, "Transporte", 120.0, typeMovements.EXPENSE),
+                    movements(5, "Comida", 200.0, typeMovements.EXPENSE),
+                    movements(6, "Cine", 100.0, typeMovements.EXPENSE),
+                    movements(7, "Freelance", 400.0, typeMovements.INCOME),
+                    movements(8, "Suscripción", 50.0, typeMovements.EXPENSE),
+                    movements(9, "Regalo", 80.0, typeMovements.EXPENSE),
+                    movements(10, "Ahorros", 600.0, typeMovements.INCOME),
+                    movements(11, "Internet", 60.0, typeMovements.EXPENSE),
+                    movements(12, "Electricidad", 90.0, typeMovements.EXPENSE),
+                    movements(13, "Agua", 40.0, typeMovements.EXPENSE),
+                    movements(14, "Gas", 70.0, typeMovements.EXPENSE),
+                    movements(16, "Seguro", 200.0, typeMovements.EXPENSE),
+                    movements(17, "Impuestos", 300.0, typeMovements.EXPENSE),
+                    movements(18, "Donación", 100.0, typeMovements.EXPENSE),
+                )
+                _movements.value = SimulatedData
+
+                _income.value = SimulatedData.filter { it.type == typeMovements.INCOME }.sumOf { it.amount }
+                _expense.value = SimulatedData.filter { it.type == typeMovements.EXPENSE }.sumOf { it.amount }
                 _errorMessage.value = null
 
             } catch (e: Exception) {
@@ -52,20 +77,33 @@ class homePageViewModel: ViewModel() {
     }
 
     // Si necesitas actualizar desde UI (como un "swipe to refresh"):
-    fun recargarDatos() {
-        cargarDatos()
+    fun reloadData() {
+        loadData()
     }
-
-    // Si planeas agregar ingresos/gastos desde pop-ups:
-    fun agregarIngreso(monto: Double) {
-        if (monto > 0) {
-            _ingresos.value += monto
+    fun updateSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+    val filteredMovements: State<List<movements>> = derivedStateOf {
+        val query = _searchQuery.value.trim().lowercase()
+        if (query.isBlank()) {
+            _movements.value
+        } else {
+            _movements.value.filter {
+                it.title.lowercase().contains(query)
+            }
         }
     }
 
-    fun agregarGasto(monto: Double) {
+    // Si planeas agregar ingresos/gastos desde pop-ups:
+    fun addIncome(monto: Double) {
         if (monto > 0) {
-            _gastos.value += monto
+            _income.value += monto
+        }
+    }
+
+    fun addExpense(monto: Double) {
+        if (monto > 0) {
+            _expense.value += monto
         }
     }
 

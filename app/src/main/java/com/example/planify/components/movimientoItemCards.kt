@@ -25,7 +25,8 @@ import com.example.planify.R
 @Composable
 fun incomeCard(
     titulo: String,
-    monto: String
+    monto: String,
+    modifier: Modifier
 ) {
     Box(
         modifier = Modifier
@@ -72,7 +73,8 @@ fun incomeCard(
 @Composable
 fun expenseCard(
     titulo: String,
-    monto: String
+    monto: String,
+    modifier: Modifier
 ) {
     Box(
         modifier = Modifier
@@ -116,13 +118,3 @@ fun expenseCard(
 
 }
 
-
-
-@Preview
-@Composable
-fun previewMovimientoItemCard() {
-    expenseCard(
-        titulo = "Recibos",
-        monto = "1000"
-    )
-}
