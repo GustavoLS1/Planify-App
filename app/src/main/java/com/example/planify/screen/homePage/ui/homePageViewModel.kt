@@ -49,7 +49,7 @@ class homePageViewModel: ViewModel() {
                 delay(1000) // Simula una carga de datos desde una fuente remota o local
 
                 // Reemplaza estas líneas con datos reales desde repositorio
-
+                
                 val SimulatedData = listOf(//Datos simulados que luego se reemplazarán por datos reales
                     movements(1, "Salario", 1500.0, typeMovements.INCOME),
                     movements(2, "Alquiler", 500.0, typeMovements.EXPENSE),
