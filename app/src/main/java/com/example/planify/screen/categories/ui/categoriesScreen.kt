@@ -16,14 +16,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,6 +47,15 @@ fun CategoriasScreen(
     val selectedTab by viewModel.selectedType
     val searchQuery by viewModel.searchQuery
     val categorias by viewModel.displayedCategories
+    val isLoading by viewModel.isLoading
+    val errorMassage by viewModel.errorMessage
+
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.loadCategories(context)
+    }
+
 
     Column(
         modifier = Modifier
@@ -96,10 +108,30 @@ fun CategoriasScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        LazyColumn {
-            items(categorias) { categoria ->
-                CategoriaItem(nombre = categoria, onClick = {/* Acción eliminar */}, onEditClick = onEditCategory)
-                Spacer(Modifier.height(12.dp))
+        when {
+            isLoading -> {
+                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
+            }
+
+            errorMassage != null -> {
+                Text(
+                    text = errorMassage ?: "",
+                    color = Color.Red,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            }
+
+            else -> {
+                LazyColumn {
+                    items(categorias) { categoria ->
+                        CategoriaItem(
+                            nombre = categoria.name,
+                            onClick = { /* eliminar */ },
+                            onEditClick = { onEditCategory(categoria.name) }
+                        )
+                        Spacer(Modifier.height(12.dp))
+                    }
+                }
             }
         }
     }
@@ -108,8 +140,3 @@ fun CategoriasScreen(
 
 
 
-@Preview
-@Composable
-fun preview(){
-    CategoriasScreen(onEditCategory = {}, onBack = {} , onAddCategory = {})
-}
