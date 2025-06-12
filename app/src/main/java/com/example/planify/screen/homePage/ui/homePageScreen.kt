@@ -1,6 +1,7 @@
 package com.example.planify.screen.homePage.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -56,6 +57,7 @@ import com.example.planify.components.pupUpPlan
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TextField
 import androidx.compose.ui.platform.LocalContext
+import com.example.planify.screen.categories.ui.categoriesViewModel
 
 
 @Composable
@@ -64,7 +66,8 @@ fun homePageScreen(
     onSettingsClick: () -> Unit,
     onNoteBookClick: () -> Unit,
     onCategoryClick: () -> Unit,
-    viewModel: homePageViewModel = viewModel()
+    viewModel: homePageViewModel = viewModel(),
+    categories: categoriesViewModel = viewModel()
 ) {
     var showSearch by remember { mutableStateOf(false) }
     var searchText by remember { mutableStateOf(TextFieldValue("")) }
@@ -79,6 +82,16 @@ fun homePageScreen(
     val errorMessage by viewModel.errorMessage
     val movements by viewModel.filteredMovements
     val context = LocalContext.current
+    //val categorias by categories.displayedCategories
+
+    // Listas de categorías filtradas
+    val incomeCategories by remember { categories.incomeCategories }
+    val expenseCategories by remember { categories.expenseCategories }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadData(context)
+        categories.loadCategories(context)
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -283,10 +296,14 @@ fun homePageScreen(
             )
         }
 
+        //println("Income categories: ${incomeCategories.map { it.name }}")
+        //println("Expense categories: ${expenseCategories.map { it.name }}")
+
         pupUpPlan(
             title = "Nuevo ingreso",
             context = context,
             showDialog = showIngresoDialog,
+            categorias = incomeCategories,
             onDismiss = { showIngresoDialog = false },
             onSave = { dto ->
                 viewModel.createTransaction(dto, context)
@@ -298,6 +315,7 @@ fun homePageScreen(
             context = context,
             showDialog = showGastoDialog,
             onDismiss = { showGastoDialog = false },
+            categorias = expenseCategories,
             onSave = { dto ->
                 viewModel.createTransaction(dto, context)
             }

@@ -1,5 +1,6 @@
 package com.example.planify.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,15 +22,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.planify.screen.categories.ui.data.response.categoryDto
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriaDropdown(
     selectedCategory: String,
-    onCategorySelected: (String) -> Unit
+    onCategorySelected: (String) -> Unit,
+    categorias: List<categoryDto>
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val categorias  = listOf(Category(1,"Salario"), Category(2,"Inversión"), Category(3,"Regalo"))
+    //val categorias  = listOf(Category(1,"Salario"), Category(2,"Inversión"), Category(3,"Regalo"))
     //var seleccion by remember { mutableStateOf(categorias [0]) }
 
     ExposedDropdownMenuBox(
@@ -68,6 +71,7 @@ fun CategoriaDropdown(
             onDismissRequest = { expanded = false },
             modifier = Modifier.background(Color.White)
         ) {
+            Log.d("DropdownDebug", "Mostrando ${categorias.size} categorías")
             categorias.forEach { category ->
                 DropdownMenuItem(
                     text = { Text(text = category.name, color = Color.Black
@@ -80,4 +84,4 @@ fun CategoriaDropdown(
             }
         }
     }
-}data class Category(val id: Int, val name: String)
+}
