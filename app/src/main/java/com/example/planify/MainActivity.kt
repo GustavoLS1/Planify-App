@@ -10,7 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+//import com.example.planify.navigation.PreviewNavigation
 import com.example.planify.navigation.navigationWrapper
+import com.example.planify.screen.notebook.ui.LibretaScreen
 import com.example.planify.ui.theme.PlanifyTheme
 
 class MainActivity : ComponentActivity() {

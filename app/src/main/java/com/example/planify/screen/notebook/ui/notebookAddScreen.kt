@@ -111,7 +111,7 @@ fun NotebookAddScreen(
                 }
                 Spacer(modifier = Modifier.height(200.dp))
                 buttonCreate {
-                    onSaveClick
+                    onSaveClick()
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 buttonCancel {
