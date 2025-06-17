@@ -17,10 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.planify.R
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 @Composable
 fun incomeCard(
@@ -58,7 +60,7 @@ fun incomeCard(
 
                 )
             Text(
-                text = monto,
+                text = formatCurrencyCustom(monto),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp,
@@ -106,7 +108,7 @@ fun expenseCard(
 
                 )
             Text(
-                text = monto,
+                text = formatCurrencyCustom(monto),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp,
@@ -116,5 +118,30 @@ fun expenseCard(
 
     }
 
+}
+
+fun formatCurrencyCustom(amount: String): String {
+    return try {
+        val number = amount.toDouble()
+
+        when {
+            number >= 1_000_000_000_000 -> String.format("$%.1f trillón", number / 1_000_000_000_000)
+            number >= 1_000_000_000 -> String.format("$%.1f billón", number / 1_000_000_000)
+            number >= 1_000_000 -> {
+                val millones = number / 1_000_000
+                val decimales = (number % 1_000_000) / 100_000
+                "$${millones.toInt()}'${decimales.toInt()} millón"
+            }
+            number >= 1_000 -> {
+                val formatter = DecimalFormat("#,###", DecimalFormatSymbols().apply {
+                    groupingSeparator = '.'
+                })
+                "$${formatter.format(number)}"
+            }
+            else -> "$${number.toInt()}"
+        }
+    } catch (e: Exception) {
+        amount // En caso de error, devolver sin modificar
+    }
 }
 

@@ -27,6 +27,7 @@ import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.components.Email
 import com.example.planify.components.Password
+import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonLoginEnable
 import com.example.planify.components.buttonRegister
@@ -62,7 +63,7 @@ fun loginScreen(modifier: Modifier,
         }
     }
 
-    backgroundScreen(modifier) {
+    backgroundLaunchScreen(modifier) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally

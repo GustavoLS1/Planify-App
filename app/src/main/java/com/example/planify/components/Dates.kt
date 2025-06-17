@@ -71,6 +71,49 @@ fun DatePicker() {
     )
 }
 
+@Composable
+fun DatePickerRegister(dateOfBirth: String, onTextChanged: (String) -> Unit) {
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+
+    // DatePickerDialog
+    val datePickerDialog = DatePickerDialog(
+        context,
+        { _, year: Int, month: Int, dayOfMonth: Int ->
+            val selectedDate = String.format("%04d-%02d-%02d", year, month + 1, dayOfMonth)
+            onTextChanged(selectedDate) // Actualiza el valor del campo
+        },
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH),
+        calendar.get(Calendar.DAY_OF_MONTH)
+    )
+
+
+    OutlinedTextField(
+        value = dateOfBirth,
+        onValueChange = { onTextChanged(it)}, // Actualiza el valor del campo
+        placeholder = { Text(text = "Fecha") },
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .clickable { datePickerDialog.show() }, // Abre el DatePicker al tocar
+        enabled = false, // Deshabilita la escritura directa
+        trailingIcon = {
+            IconButton(onClick = { datePickerDialog.show() }) {
+                Icon(Icons.Default.DateRange, contentDescription = "Seleccionar fecha")
+            }
+        },
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = Color.Black,
+            unfocusedContainerColor = Color.White,
+            disabledContainerColor = Color.White,
+            cursorColor = Color.White,
+            disabledTextColor = PrimaryColor,
+            disabledLabelColor = PrimaryColor,
+            disabledTrailingIconColor = TranparentColor
+        ),
+    )
+}
 
 
 

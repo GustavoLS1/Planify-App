@@ -22,7 +22,7 @@ import com.example.planify.components.BouncingDotsAnimation
 import com.example.planify.components.Code
 import com.example.planify.components.Email
 import com.example.planify.components.Password
-import com.example.planify.components.backgroundScreen
+import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.components.buttonNextEnabled
 import com.example.planify.components.configPassword
 import com.example.planify.components.customDialog
@@ -59,7 +59,7 @@ fun forgetPasswordScreen(
         }
     }
 
-    backgroundScreen(modifier) {
+    backgroundLaunchScreen(modifier) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally

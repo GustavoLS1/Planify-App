@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.R
 import com.example.planify.components.BouncingDotsAnimation
-import com.example.planify.components.DatePicker
+import com.example.planify.components.DatePickerRegister
 import com.example.planify.letterStyles
 import com.example.planify.ui.theme.FourthColor
 import com.example.planify.components.Email
@@ -158,6 +158,8 @@ fun Body(
             val configPassword:String by registerViewModel.confirmPassword
             val number:String by registerViewModel.number
             val isRegisterEnabled:Boolean by registerViewModel.isRegisterEnabled
+            val dateOfBirth:String by registerViewModel.dateOfBirth
+
             // Grupo de Correo Electrónico y nombre
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -171,7 +173,8 @@ fun Body(
                         password = password,
                         confirmPassword = configPassword,
                         name = name,
-                        number = number
+                        number = number,
+                        dateOfBirth = dateOfBirth
                     )
                 }
                 Spacer(modifier = Modifier.size(11.dp))
@@ -183,7 +186,8 @@ fun Body(
                         password = password,
                         confirmPassword = configPassword,
                         name = it,
-                        number = number
+                        number = number,
+                        dateOfBirth = dateOfBirth
                     )
                 }
             }
@@ -203,7 +207,8 @@ fun Body(
                         password = it,
                         confirmPassword = configPassword,
                         name = name,
-                        number = number
+                        number = number,
+                        dateOfBirth = dateOfBirth
                     )
                 }
                 Spacer(modifier = Modifier.size(13.dp))
@@ -215,7 +220,8 @@ fun Body(
                         password = password,
                         confirmPassword = it,
                         name = name,
-                        number = number
+                        number = number,
+                        dateOfBirth = dateOfBirth
                     )
                 }
             }
@@ -229,7 +235,16 @@ fun Body(
             ) {
                 textDate()
                 Spacer(modifier = Modifier.size(13.dp))
-                DatePicker()
+                DatePickerRegister(dateOfBirth){
+                    registerViewModel.onRegisterChange(
+                        email = email,
+                        password = password,
+                        confirmPassword = configPassword,
+                        name = name,
+                        number = number,
+                        dateOfBirth = it
+                    )
+                }
                 Spacer(modifier = Modifier.size(13.dp))
                 textNumber()
                 Spacer(modifier = Modifier.size(13.dp))
@@ -239,7 +254,8 @@ fun Body(
                         password = password,
                         confirmPassword = configPassword,
                         name = name,
-                        number = it
+                        number = it,
+                        dateOfBirth = dateOfBirth
                     )
                 }
 

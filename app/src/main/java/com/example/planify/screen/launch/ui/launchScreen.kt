@@ -40,7 +40,7 @@ fun launchScreen1(
         delay(2000L) // Espera 2 segundos
         navigateTolaunchScreen2()
     }
-    backgroundScreen(modifier){
+    backgroundLaunchScreen(modifier){
         Box(
             modifier = Modifier.align(Alignment.TopEnd)
         ){
@@ -83,14 +83,13 @@ fun launchScreen2(
                     }
                     logo()
                     CircleWithImage()
-                    Spacer(modifier = Modifier.height(78.dp)) //Se debe analizar esta seccion de codigo
+                    Spacer(modifier = Modifier.height(40.dp)) //Se debe analizar esta seccion de codigo
                     textWelcome()
                     Spacer(modifier = Modifier.height(30.dp))
                     buttonLogin(navigateTo = navigateToLoginScreen)
                     Spacer(modifier = Modifier.height(7.dp))
-                    buttonLoginGoogle()
-                    Spacer(modifier = Modifier.height(7.dp))
                     buttonRegister(navigateTo = navigateToWelcomePlanify)
+                    Spacer(modifier = Modifier.height(20.dp))
                     Box(
                         modifier = Modifier.fillMaxWidth()
                     ){

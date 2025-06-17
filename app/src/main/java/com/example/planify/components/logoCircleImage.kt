@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.R
@@ -78,11 +79,17 @@ fun CircleImageSecondWelcome(){
 
 @Composable
 fun logo(){
-    Image(
-        painter = painterResource(id = R.drawable.logolaunch),
-        contentDescription = "Logo",
-        modifier = Modifier
-            .fillMaxWidth(1f)
-            .heightIn(min = 112.dp)
-    )
+        Image(
+            painter = painterResource(id = R.drawable.logolaunch),
+            contentDescription = "Logo",
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .heightIn(max = 112.dp)
+        )
+}
+
+@Composable
+@Preview
+fun LogoPreview() {
+    logo()
 }

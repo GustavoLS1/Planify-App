@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface authRegisterApiService {
-    @POST("auth/register")
+    @POST("V1/auth/register")
     suspend fun getRegisterService(@Body registerDto: registerDto): Response<apiResponseRegisterDto>
 
 }
