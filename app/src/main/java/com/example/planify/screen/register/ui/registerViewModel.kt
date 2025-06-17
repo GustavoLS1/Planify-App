@@ -15,6 +15,7 @@ import com.example.planify.screen.register.ui.data.response.registerDto
 import com.example.planify.screen.register.ui.di.registerRetrofitHelper
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.format.DateTimeParseException
 
 class registerViewModel : ViewModel() {
 
@@ -29,6 +30,9 @@ class registerViewModel : ViewModel() {
 
     private val _confirmPassword = mutableStateOf("")
     val confirmPassword: State<String> = _confirmPassword
+
+    private val _dateOfBirth = mutableStateOf("")
+    val dateOfBirth: State<String> = _dateOfBirth
 
     private val _number = mutableStateOf("")
     val number: State<String> = _number
@@ -47,21 +51,54 @@ class registerViewModel : ViewModel() {
         name: String,
         password: String,
         confirmPassword: String,
+        dateOfBirth: String,
         number: String
     ) {
         _email.value = email.take(50) // Limita un maximo de 50 caracteres
         _name.value = name.take(50) // Limita un maximo de 50 caracteres
         _password.value = password.take(15) // Limita un maximo de 15 caracteres
         _confirmPassword.value = confirmPassword.take(15) // Limita un maximo de 15 caracteres
+        _dateOfBirth.value = dateOfBirth // Asigna la fecha de nacimiento directamente
         _number.value = number.take(10) // Limita un maximo de 10 caracteres
-        _isRegisterEnabled.value = enableRegisterButton(_email.value, _password.value, _confirmPassword.value)
+        _isRegisterEnabled.value = enableRegisterButton(
+            _email.value,
+            _password.value,
+            _confirmPassword.value,
+            _dateOfBirth.value)
     }
 
+    private fun isValidDate(dateString: String): Boolean {
+        return try {
+            LocalDate.parse(dateString) // formato ISO-8601: yyyy-MM-dd
+            true
+        } catch (e: DateTimeParseException) {
+            false
+        }
+    }
 
-    fun enableRegisterButton(email: String, password: String, confirmPassword: String): Boolean{
+    private fun isOldEnough(dateString: String, minimumAge: Int): Boolean {
+        return try {
+            val birthDate = LocalDate.parse(dateString)
+            val today = LocalDate.now()
+            val age = today.year - birthDate.year -
+                    if (today < birthDate.plusYears((today.year - birthDate.year).toLong())) 1 else 0
+            age >= minimumAge
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun enableRegisterButton(
+        email: String,
+        password: String,
+        confirmPassword: String,
+        dateOfBirth: String
+    ): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() &&
-                password.isNotBlank() && password == confirmPassword
-
+                password.isNotBlank() &&
+                password == confirmPassword &&
+                isValidDate(dateOfBirth) &&
+                isOldEnough(dateOfBirth, 18)
     }
 
     fun resetRegisterState(){
@@ -70,7 +107,7 @@ class registerViewModel : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun register() {
-        if (!enableRegisterButton(email.value, password.value, confirmPassword.value)) {
+        if (!enableRegisterButton(email.value, password.value, confirmPassword.value, dateOfBirth.value)) {
             _errorMessage.value = "Por favor, llena todos los campos correctamente."
             return
         }
@@ -82,9 +119,10 @@ class registerViewModel : ViewModel() {
                     name = name.value,
                     password = password.value,
                     confirmPassword = confirmPassword.value,
-                    dateOfBirth = LocalDate.now().toString(),
+                    dateOfBirth = dateOfBirth.value,
                     number = number.value
                 )
+                Log.d("Register", "Intentando registrar: $registerDto")
                 val authRegisterService = registerRetrofitHelper.getRegisterService()
                 val response = authRegisterService.getRegisterService(registerDto)
 

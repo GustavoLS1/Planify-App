@@ -27,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -56,6 +55,7 @@ import com.example.planify.components.incomeCard
 import com.example.planify.components.pupUpPlan
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TextField
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import com.example.planify.screen.categories.ui.categoriesViewModel
 
@@ -128,6 +128,15 @@ fun homePageScreen(
                                 fontSize = 18.sp,
                                 modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                             )
+                        }
+                        item {
+                            if (isLoading) {
+                                Box(modifier = Modifier.fillMaxSize()) {
+                                    Spacer(modifier = Modifier.height(200.dp))
+                                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                                }
+
+                            }
                         }
                         items(items = movements.chunked(3)) { row ->
 
@@ -227,9 +236,6 @@ fun homePageScreen(
                         }
                     }
 
-                    if (isLoading) {
-                        CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-                    }
 
                     errorMessage?.let {
                         Text(
