@@ -81,6 +81,7 @@ fun launchScreen2(
                     ){
                         eclipseTop(modifier = Modifier.align(Alignment.TopEnd))
                     }
+                    Spacer(modifier = Modifier.height(35.dp))
                     logo()
                     CircleWithImage()
                     Spacer(modifier = Modifier.height(40.dp)) //Se debe analizar esta seccion de codigo
@@ -89,7 +90,7 @@ fun launchScreen2(
                     buttonLogin(navigateTo = navigateToLoginScreen)
                     Spacer(modifier = Modifier.height(7.dp))
                     buttonRegister(navigateTo = navigateToWelcomePlanify)
-                    Spacer(modifier = Modifier.height(20.dp))
+                    Spacer(modifier = Modifier.height(35.dp))
                     Box(
                         modifier = Modifier.fillMaxWidth()
                     ){

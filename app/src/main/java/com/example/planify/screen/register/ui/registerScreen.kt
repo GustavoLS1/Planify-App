@@ -32,10 +32,12 @@ import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Password
 import com.example.planify.components.Number
+import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.buttonRegister2
 import com.example.planify.components.configPassword
 import com.example.planify.components.customDialog
+import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.roundedContainerScreen
 import com.example.planify.components.textConfirmPassword
 import com.example.planify.components.textDate
@@ -66,7 +68,7 @@ fun registerScreen(modifier: Modifier,
         }
     }
 
-    backgroundScreen(modifier){
+    backgroundLaunchScreen(modifier){
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -145,7 +147,7 @@ fun Body(
     modifier: Modifier
 ) {
 
-    roundedContainerScreen(modifier){
+    roundedContainerLaunchScreen(modifier){
         Column(
             modifier = Modifier
                 .fillMaxWidth()

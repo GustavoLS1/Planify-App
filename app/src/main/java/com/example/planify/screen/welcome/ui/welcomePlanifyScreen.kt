@@ -22,6 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.components.CircleImageSecondWelcome
 import com.example.planify.components.CircleImageWelcome
 import com.example.planify.components.RadioButtonGroup
+import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.components.backgroundScreen
 import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.roundedContainerScreen
@@ -38,7 +39,7 @@ fun welcomePlanifyScreen(
     viewModel: welcomePlanifyViewModel = viewModel()
 ) {
     val currentStep by viewModel.currentStep
-    backgroundScreen(modifier){
+    backgroundLaunchScreen (modifier){
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start
