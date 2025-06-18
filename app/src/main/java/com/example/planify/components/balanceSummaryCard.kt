@@ -42,13 +42,16 @@ import com.example.planify.ui.theme.FourthColor
 import com.example.planify.ui.theme.PrimaryColor
 import com.example.planify.ui.theme.SecondColor
 import com.example.planify.ui.theme.ThirdColor
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import kotlin.math.abs
 
 
 @Composable
 fun BalanceSummaryCard(
-    saldoTotal: String,
-    ingresos: String,
-    gastos: String
+    saldoTotal: Double,
+    ingresos: Double,
+    gastos: Double
 ) {
     Box(
         modifier = Modifier
@@ -76,11 +79,12 @@ fun BalanceSummaryCard(
                 .padding(start = 27.dp, top = 18.dp)
         )
         Text(
-            text = saldoTotal,
+            text = formatCurrencyCustom(saldoTotal),
             color = Color.White,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 35.dp, bottom = 10.dp)
+                .offset(x = -(12.dp))
         )
         VerticalDivider(
             color = FourthColor,
@@ -121,12 +125,12 @@ fun BalanceSummaryCard(
                             .size(120.dp)
                             .padding(bottom = 1.dp) // Espaciado inferior para separarlo del divider
                     )
-                    if (ingresos.isNotEmpty()) {
+                    if (ingresos != 0.0) {
                         Text(
-                            text = ingresos,
+                            text = formatCurrencyCustom(ingresos),
                             color = Color.White,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.offset(y = 7.dp)
+                            modifier = Modifier.offset(y = 10.dp)
                         )
                     }
                 }
@@ -163,12 +167,12 @@ fun BalanceSummaryCard(
                             .size(120.dp)
                             .padding(top = 1.dp)
                     )
-                    if (gastos.isNotEmpty()) {
+                    if (gastos != 0.0) {
                         Text(
-                            text = gastos,
+                            text = formatCurrencyCustom(gastos),
                             color = Color.White,
                             textAlign = TextAlign.Center,
-                            modifier = Modifier.offset(y = 7.dp)
+                            modifier = Modifier.offset(y = 10.dp)
                         )
                     }
 
@@ -181,8 +185,24 @@ fun BalanceSummaryCard(
     }
 }
 
-@Preview
-@Composable
-fun ViewBalanceSummaryCard() {
-    BalanceSummaryCard("$50000", "10000", "10000")
+fun formatCurrencyCustom(amount: Double): String {
+    val absAmount = abs(amount)
+    val sign = if (amount < 0) "-" else ""
+
+    return when {
+        absAmount >= 1_000_000_000_000 -> String.format("%s$%.1f trillón", sign, absAmount / 1_000_000_000_000)
+        absAmount >= 1_000_000_000 -> String.format("%s$%.1f billón", sign, absAmount / 1_000_000_000)
+        absAmount >= 1_000_000 -> {
+            val millones = (absAmount / 1_000_000).toInt()
+            val decimales = ((absAmount % 1_000_000) / 100_000).toInt()
+            "%s$%d'%d millón".format(sign, millones, decimales)
+        }
+        absAmount >= 1_000 -> {
+            val formatter = DecimalFormat("#,###", DecimalFormatSymbols().apply {
+                groupingSeparator = '.'
+            })
+            "$sign$${formatter.format(absAmount)}"
+        }
+        else -> "$sign$${absAmount.toInt()}"
+    }
 }

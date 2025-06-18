@@ -247,9 +247,9 @@ fun homePageScreen(
 
                     Row(modifier = Modifier.fillMaxWidth()) {
                         BalanceSummaryCard(
-                            saldoTotal = "$${totalbalance.format(2)}",
-                            ingresos = "$${income.format(2)}",
-                            gastos = "$${expense.format(2)}"
+                            saldoTotal = totalbalance,
+                            ingresos = income,
+                            gastos = expense
                         )
                     }
 
