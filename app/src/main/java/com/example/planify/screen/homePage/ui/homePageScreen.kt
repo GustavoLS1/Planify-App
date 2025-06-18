@@ -217,7 +217,7 @@ fun homePageScreen(
                                         contentDescription = "Cerrar búsqueda",
                                         modifier = Modifier.clickable {
                                             showSearch = false
-                                            searchText = TextFieldValue("")
+                                            viewModel.updateSearchQuery("") // <- Limpia el estado del ViewModel
                                         }
                                     )
                                 }
