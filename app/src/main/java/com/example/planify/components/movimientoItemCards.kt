@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.example.planify.R
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.util.Locale
+
 
 @Composable
 fun incomeCard(

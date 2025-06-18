@@ -38,4 +38,8 @@ object notebookScreen
 @Serializable
 object categoriesScreen
 
+@Serializable
+object notebookAddScreen
+
+
 

@@ -18,6 +18,7 @@ import com.example.planify.screen.launch.ui.launchScreen1
 import com.example.planify.screen.launch.ui.launchScreen2
 import com.example.planify.screen.login.ui.loginScreen
 import com.example.planify.screen.notebook.ui.LibretaScreen
+import com.example.planify.screen.notebook.ui.NotebookAddScreen
 import com.example.planify.screen.profile.ui.PasswordChangeScreen
 import com.example.planify.screen.profile.ui.ProfileEditScreen
 import com.example.planify.screen.profile.ui.ProfileScreen
@@ -25,11 +26,11 @@ import com.example.planify.screen.register.ui.registerScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyScreen
 import com.example.planify.screen.welcome.ui.welcomePlanifyViewModel
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun navigationWrapper(modifier: Modifier) {
     val navController = rememberNavController()
+
     NavHost(navController = navController, startDestination = launchScreen1) {
         composable<launchScreen1> {
             launchScreen1(
@@ -169,8 +170,20 @@ fun navigationWrapper(modifier: Modifier) {
             )
         }
         composable<notebookScreen> {
-            LibretaScreen(navController = navController)
+            LibretaScreen(navController = navController,
+                onAddGoalClick = {
+                    navController.navigate(notebookAddScreen)
+                }
+            )
         }
+
+        composable<notebookAddScreen> {
+            NotebookAddScreen(
+                onBackClick = { navController.popBackStack() },
+                onSaveClick = { navController.popBackStack() }
+            )
+        }
+
 
         composable<categoriesScreen> {
             CategoriasScreen(
