@@ -18,19 +18,14 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -42,6 +37,7 @@ import com.example.planify.components.textNewPassword
 
 @Composable
 fun PasswordChangeScreen(onBackClick: () -> Unit,
+                         modifier: Modifier,
                          viewModel: profileViewModel = viewModel()) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
@@ -64,7 +60,7 @@ fun PasswordChangeScreen(onBackClick: () -> Unit,
     val confirmPassword by viewModel.confirmPassword
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(darkBlue)
     ) {
@@ -93,14 +89,13 @@ fun PasswordChangeScreen(onBackClick: () -> Unit,
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        color = purpleBlue,
-                        shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp)
-                    )
+                    .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
+                    .background(color = purpleBlue),
+                contentAlignment = Alignment.TopCenter
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxSize()
                         .padding(horizontal = 24.dp, vertical = 48.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -161,8 +156,12 @@ fun PasswordChangeScreen(onBackClick: () -> Unit,
     }
 }
 
-@Preview
 @Composable
-fun previews(){
-    PasswordChangeScreen(onBackClick = { })
+@Preview(showBackground = true)
+fun PasswordChangeScreenPreview() {
+    PasswordChangeScreen(
+        onBackClick = {},
+        modifier = Modifier.fillMaxSize(),
+        viewModel = viewModel()
+    )
 }

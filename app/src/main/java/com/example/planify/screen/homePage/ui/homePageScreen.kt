@@ -63,6 +63,7 @@ import com.example.planify.screen.categories.ui.categoriesViewModel
 @Composable
 fun homePageScreen(
     modifier: Modifier = Modifier,
+    onHomeClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onNoteBookClick: () -> Unit,
     onCategoryClick: () -> Unit,
@@ -99,6 +100,7 @@ fun homePageScreen(
             modifier = modifier.zIndex(0f),
             bottomBar = {
                 CustomBottomBar(
+                    onHomeClick = onHomeClick,
                     onSettingsClick = onSettingsClick,
                     onNoteBookClick = onNoteBookClick,
                     onCategoryClick = onCategoryClick
@@ -337,6 +339,7 @@ fun Double.format(digits: Int) = "%.${digits}f".format(this)
 @Composable
 fun CustomBottomBar(
     modifier: Modifier = Modifier,
+    onHomeClick: () -> Unit,
     onSettingsClick: () -> Unit,
     onNoteBookClick: () -> Unit,
     onCategoryClick: () -> Unit
@@ -358,7 +361,7 @@ fun CustomBottomBar(
                 SelectableIcon(
                     iconRes = R.drawable.icon_home,
                     contentDescription = "Home",
-                    onClick = {} // -> aca iran las navegaciones
+                    onClick = onHomeClick // -> aca iran las navegaciones
                 )
 
                 SelectableIcon(
@@ -388,7 +391,7 @@ fun CustomBottomBar(
 @Preview
 @Composable
 fun PreviewHomePageScreen() {
-    homePageScreen(onSettingsClick = {}, onNoteBookClick = {}, onCategoryClick = {})
+    homePageScreen(onSettingsClick = {}, onNoteBookClick = {}, onCategoryClick = {}, onHomeClick = {})
 }
 
 

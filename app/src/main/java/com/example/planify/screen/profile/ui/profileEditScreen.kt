@@ -29,12 +29,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.R
-import com.example.planify.components.ProfileField
 import com.example.planify.components.textNombreProfile
 import androidx.compose.runtime.getValue
 import com.example.planify.components.Email
@@ -45,13 +43,14 @@ import com.example.planify.components.textNumberProfile
 
 @Composable
 fun ProfileEditScreen(onBackClick: () -> Unit,
+                      modifier: Modifier,
                       onCancelClick: () -> Unit,
                       viewModel: profileViewModel = viewModel()) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(darkBlue)
     ) {
@@ -85,7 +84,7 @@ fun ProfileEditScreen(onBackClick: () -> Unit,
                     .fillMaxSize()
                     .background(
                         purpleBlue,
-                        shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp)
+                        shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
                     )
             ) {
                 Column(
@@ -177,11 +176,3 @@ fun ProfileEditScreen(onBackClick: () -> Unit,
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun previe() {
-//    ProfileEditScreen(
-//        onBackClick = {}
-//    )
-//}

@@ -28,20 +28,24 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.components.CategoriaItem
 import com.example.planify.components.SearchBar
 import com.example.planify.components.TabButton
-import com.example.planify.ui.theme.PrimaryColor
+import com.example.planify.components.backgroundLaunchScreen
+import com.example.planify.screen.homePage.ui.CustomBottomBar
 
 @Composable
-fun CategoriasScreen(
+fun CategoriasScreen(modifier: Modifier,
     onEditCategory: (String) -> Unit,
     onAddCategory: () -> Unit,
     onBack: () -> Unit,
+    onHomeClick: () -> Unit,
+    onSettingsClick: () -> Unit,
+    onNoteBookClick: () -> Unit,
+    onCategoryClick: () -> Unit,
     viewModel: categoriesViewModel = viewModel()
 ) {
     val selectedTab by viewModel.selectedType
@@ -56,86 +60,97 @@ fun CategoriasScreen(
         viewModel.loadCategories(context)
     }
 
+   backgroundLaunchScreen(modifier){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 90.dp, start = 16.dp, end = 16.dp) // deja espacio para el bottom bar
+        ) {
+            Spacer(Modifier.height(16.dp))
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(PrimaryColor)
-            .padding(horizontal = 16.dp)
-    ) {
-        Spacer(Modifier.height(16.dp))
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onBack) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
-            }
-            Spacer(Modifier.width(8.dp))
-            Text(
-                "Categorías",
-                color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-            Row(
-                modifier = Modifier
-                    .width(200.dp)
-                    .clip(RoundedCornerShape(20.dp))
-                    .background(Color(0xFF1B1F3B))
-                    .padding(4.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TabButton("INGRESOS", selectedTab == "INGRESOS") {
-                    viewModel.setCategoryType("INGRESOS")
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onBack) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.White)
                 }
-                TabButton("GASTOS", selectedTab == "GASTOS") {
-                    viewModel.setCategoryType("GASTOS")
-                }
-            }
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        SearchBar(
-            query = searchQuery,
-            onQueryChanged = viewModel::onQueryChanged,
-            onAddClick = onAddCategory // Llama a crear
-        )
-
-        Spacer(Modifier.height(16.dp))
-
-        when {
-            isLoading -> {
-                CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
-            }
-
-            errorMassage != null -> {
+                Spacer(Modifier.width(8.dp))
                 Text(
-                    text = errorMassage ?: "",
-                    color = Color.Red,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                    "Categorías",
+                    color = Color.White,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
 
-            else -> {
-                LazyColumn {
-                    items(categorias) { categoria ->
-                        CategoriaItem(
-                            nombre = categoria.name,
-                            onClick = { /* eliminar */ },
-                            onEditClick = { onEditCategory(categoria.name) }
-                        )
-                        Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(16.dp))
+
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Row(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(Color(0xFF1B1F3B))
+                        .padding(4.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TabButton("INGRESOS", selectedTab == "INGRESOS") {
+                        viewModel.setCategoryType("INGRESOS")
+                    }
+                    TabButton("GASTOS", selectedTab == "GASTOS") {
+                        viewModel.setCategoryType("GASTOS")
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(16.dp))
+
+            SearchBar(
+                query = searchQuery,
+                onQueryChanged = viewModel::onQueryChanged,
+                onAddClick = onAddCategory
+            )
+
+            Spacer(Modifier.height(16.dp))
+
+            when {
+                isLoading -> {
+                    CircularProgressIndicator(Modifier.align(Alignment.CenterHorizontally))
+                }
+
+                errorMassage != null -> {
+                    Text(
+                        text = errorMassage ?: "",
+                        color = Color.Red,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                }
+
+                else -> {
+                    LazyColumn {
+                        items(categorias) { categoria ->
+                            CategoriaItem(
+                                nombre = categoria.name,
+                                onClick = { /* eliminar */ },
+                                onEditClick = { onEditCategory(categoria.name) }
+                            )
+                            Spacer(Modifier.height(12.dp))
+                        }
                     }
                 }
             }
         }
+
+        // Aquí llamas al CustomBottomBar anclado al fondo
+        CustomBottomBar(
+            modifier = Modifier
+                .align(Alignment.BottomCenter),
+            onHomeClick = onHomeClick,
+            onSettingsClick = onSettingsClick,
+            onNoteBookClick = onNoteBookClick,
+            onCategoryClick = onCategoryClick
+        )
     }
 }
+
 
 
 

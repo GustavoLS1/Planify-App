@@ -11,15 +11,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.planify.components.HeaderSection
 import com.example.planify.components.ProfileContent
 
+
 @Composable
 fun ProfileScreen(
     onBackClick: () -> Unit,
     onEditProfileClick: () -> Unit,
+    modifier: Modifier,
     onChangePasswordClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -38,5 +40,5 @@ fun ProfileScreen(
 @Preview
 @Composable
 fun previes() {
-    ProfileScreen(onBackClick = {  }, onEditProfileClick = {  }, onChangePasswordClick = {  }, onLogoutClick = {  })
+    ProfileScreen(onBackClick = {  }, onEditProfileClick = {  }, onChangePasswordClick = {  }, onLogoutClick = {  }, modifier = Modifier)
 }
