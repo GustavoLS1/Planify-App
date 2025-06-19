@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.planify.components.HeaderSection
 import com.example.planify.components.ProfileContent
-import com.example.planify.components.backgroundLaunchScreen
+
 
 @Composable
 fun ProfileScreen(

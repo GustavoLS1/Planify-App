@@ -29,19 +29,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.planify.R
-import com.example.planify.components.ProfileField
 import com.example.planify.components.textNombreProfile
 import androidx.compose.runtime.getValue
 import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Number
-import com.example.planify.components.backgroundLaunchScreen
-import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textNumberProfile
 
@@ -180,11 +176,3 @@ fun ProfileEditScreen(onBackClick: () -> Unit,
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun previe() {
-//    ProfileEditScreen(
-//        onBackClick = {}
-//    )
-//}

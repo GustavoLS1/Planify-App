@@ -1,7 +1,5 @@
 package com.example.planify.screen.notebook.ui
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,70 +19,6 @@ import com.example.planify.components.MetasList
 import com.example.planify.components.SummaryIncome
 import com.example.planify.components.backgroundLaunchScreen
 import com.example.planify.screen.homePage.ui.CustomBottomBar
-import com.example.planify.ui.theme.PrimaryColor
-
-
-//@Composable
-//fun LibretaScreen(
-//    navController: NavController,
-//    onAddGoalClick: () -> Unit = {},
-//    viewModel: notebookViewModel = viewModel()
-//) {
-//    val expanded by viewModel.expanded
-//    val isModalOpen by viewModel.isModalOpen
-//    val selectedGoal by viewModel.selectedGoal
-//    val goals = viewModel.goals // Lista de metas, puedes obtenerla del ViewModel
-//
-//    Box(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .background(PrimaryColor) // Fondo general
-//    ) {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//        ) {
-//            Header(
-//                onBackClick = {navController.popBackStack()},
-//                metas = goals
-//            )
-//            SummaryIncome(metas = goals)
-//            Spacer(modifier = Modifier.height(16.dp))
-//
-//            // Simulación de lista de metas (puedes traerlo del estado real)
-//            MetasList(
-//                metas = viewModel.goals,
-//                onAmountAdded = { meta, monto ->
-//                    viewModel.addAmountToGoal(meta, monto)
-//                }
-//            )
-//        }
-//
-//        if (isModalOpen && selectedGoal != null) {
-//            val (nombre, valores) = selectedGoal!!
-//            val (actual, total) = valores
-//            AmountPopUp(
-//                nombre = nombre,
-//                actual = actual,
-//                total = total,
-//                onAmountAdded = { amount ->
-//                    viewModel.addAmountToGoal(meta = goal(nombre, actual, total), monto = amount)
-//                },
-//                onDismiss = { viewModel.closeAmountModal() }
-//            )
-//        }
-//
-//        FloatingActionMenu(
-//            expanded = expanded,
-//            onExpandedChange = { viewModel.toggleExpanded() },
-//            onAddGoalClick = {
-//                onAddGoalClick()
-//                viewModel.toggleExpanded() // cerrar menú al navegar
-//            }
-//        )
-//
-//    }
-//}
 
 @Composable
 fun LibretaScreen(
@@ -160,9 +94,3 @@ fun LibretaScreen(
     }
 }
 
-
-//@Preview
-//@Composable
-//fun previe(){
-//    LibretaScreen()
-//}
