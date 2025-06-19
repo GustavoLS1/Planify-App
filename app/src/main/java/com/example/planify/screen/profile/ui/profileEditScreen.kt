@@ -40,18 +40,21 @@ import androidx.compose.runtime.getValue
 import com.example.planify.components.Email
 import com.example.planify.components.Name
 import com.example.planify.components.Number
+import com.example.planify.components.backgroundLaunchScreen
+import com.example.planify.components.roundedContainerLaunchScreen
 import com.example.planify.components.textEmail
 import com.example.planify.components.textNumberProfile
 
 @Composable
 fun ProfileEditScreen(onBackClick: () -> Unit,
+                      modifier: Modifier,
                       onCancelClick: () -> Unit,
                       viewModel: profileViewModel = viewModel()) {
     val darkBlue = Color(0xFF0D0D4B)
     val purpleBlue = Color(0xFF1D1F6F)
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(darkBlue)
     ) {
@@ -85,7 +88,7 @@ fun ProfileEditScreen(onBackClick: () -> Unit,
                     .fillMaxSize()
                     .background(
                         purpleBlue,
-                        shape = RoundedCornerShape(topStart = 48.dp, topEnd = 48.dp)
+                        shape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp)
                     )
             ) {
                 Column(

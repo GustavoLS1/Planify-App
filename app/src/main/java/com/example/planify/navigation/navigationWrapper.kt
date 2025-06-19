@@ -115,6 +115,12 @@ fun navigationWrapper(modifier: Modifier) {
                         popUpTo(homePageScreen) { inclusive = false }
                         launchSingleTop = true
                     }
+                },
+                onHomeClick = {
+                    navController.navigate(homePageScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -122,6 +128,7 @@ fun navigationWrapper(modifier: Modifier) {
 
         composable<profileChangePasswordScreen> {
             PasswordChangeScreen(
+                modifier = modifier,
                 onBackClick = {
                     navController.navigate(profileScreen) {
                         popUpTo(profileChangePasswordScreen) { inclusive = true }
@@ -132,6 +139,7 @@ fun navigationWrapper(modifier: Modifier) {
 
         composable<profileEditScreen> {
             ProfileEditScreen(
+                modifier = modifier,
                 onBackClick = {
                     navController.navigate(profileScreen) {
                         popUpTo(profileEditScreen) { inclusive = true }
@@ -147,6 +155,7 @@ fun navigationWrapper(modifier: Modifier) {
 
         composable<profileScreen> {
             ProfileScreen(
+                modifier = modifier,
                 onBackClick = {
                     navController.navigate(homePageScreen) {
                         popUpTo(profileScreen) { inclusive = true }
@@ -170,9 +179,30 @@ fun navigationWrapper(modifier: Modifier) {
             )
         }
         composable<notebookScreen> {
-            LibretaScreen(navController = navController,
+            LibretaScreen(
+                modifier = modifier,
+                navController = navController,
                 onAddGoalClick = {
                     navController.navigate(notebookAddScreen)
+                },
+                onHomeClick = {
+                    navController.navigate(homePageScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                onSettingsClick = {navController.navigate(profileScreen)},
+                onNoteBookClick = {
+                    navController.navigate(notebookScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                onCategoryClick = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -187,6 +217,7 @@ fun navigationWrapper(modifier: Modifier) {
 
         composable<categoriesScreen> {
             CategoriasScreen(
+                modifier = modifier,
                 onEditCategory = { categoryName ->
                     navController.navigate("categoryFormScreen/$categoryName")
                 },
@@ -195,6 +226,25 @@ fun navigationWrapper(modifier: Modifier) {
                 },
                 onBack = {
                     navController.navigateUp()
+                },
+                onSettingsClick = { navController.navigate(profileScreen) },
+                onNoteBookClick = {
+                    navController.navigate(notebookScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                onCategoryClick = {
+                    navController.navigate(categoriesScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                onHomeClick = {
+                    navController.navigate(homePageScreen) {
+                        popUpTo(homePageScreen) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -235,6 +285,9 @@ fun navigationWrapper(modifier: Modifier) {
         }
     }
 }
+
+
+
 
 
 

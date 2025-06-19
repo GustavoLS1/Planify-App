@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -100,7 +101,8 @@ fun SummaryIncome(metas: List<goal>) {
     val income = metas.sumOf { it.actualState.toDouble() }
     val presupuestado = metas.sumOf { it.total.toDouble() }
 
-    val progreso = if (presupuestado == 0.0) 0f else (income / presupuestado).toFloat().coerceIn(0f, 1f)
+    val progreso =
+        if (presupuestado == 0.0) 0f else (income / presupuestado).toFloat().coerceIn(0f, 1f)
     val colorProgreso = if (income.toInt() == 0) Color.Transparent else Color(0xFF00FF00)
 
     Column(
@@ -162,8 +164,10 @@ fun SummaryIncome(metas: List<goal>) {
 
 
 @Composable
-fun MetasList(metas: List<goal>,
-              onAmountAdded: (goal, Int) -> Unit) {
+fun MetasList(
+    metas: List<goal>,
+    onAmountAdded: (goal, Int) -> Unit
+) {
 
     val showDialog = remember { mutableStateOf(false) }
     val selectedMeta = remember { mutableStateOf<goal?>(null) }
@@ -392,6 +396,7 @@ fun FloatingActionMenu(
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
+                        .offset(y = (-90).dp)
                         .background(PrimaryColor, shape = RoundedCornerShape(12.dp))
                         .padding(horizontal = 12.dp, vertical = 8.dp)
                         .clickable {
@@ -410,9 +415,12 @@ fun FloatingActionMenu(
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
-            FloatingActionButton(onClick = onExpandedChange, containerColor = SecondColor) {
-                Icon(Icons.Default.Add, contentDescription = "Más", tint = Color.White)
-            }
+            FloatingActionButton(
+                onClick = onExpandedChange,
+                containerColor = SecondColor,
+                modifier = Modifier.offset(y = (-90).dp)) {
+                    Icon(Icons.Default.Add, contentDescription = "Más", tint = Color.White)
+                }
         }
     }
 }
