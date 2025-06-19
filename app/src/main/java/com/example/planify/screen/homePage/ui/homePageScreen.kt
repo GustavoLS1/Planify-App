@@ -57,7 +57,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.TextField
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import com.example.planify.components.DatePickerHome
 import com.example.planify.screen.categories.ui.categoriesViewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -90,7 +93,10 @@ fun homePageScreen(
     val expenseCategories by remember { categories.expenseCategories }
 
     LaunchedEffect(Unit) {
-        viewModel.loadData(context)
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val fechaActual = LocalDate.now().format(formatter)
+
+        viewModel.loadData(context, fechaActual)
         categories.loadCategories(context)
     }
 
@@ -258,7 +264,9 @@ fun homePageScreen(
                     Spacer(modifier = Modifier.height(19.dp))
 
                     Box(modifier = Modifier.fillMaxWidth(0.9f)) {
-                        DatePicker()
+                        DatePickerHome { selectedDate ->
+                            viewModel.loadData(context, selectedDate)
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))

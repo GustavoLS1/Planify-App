@@ -11,6 +11,8 @@ import com.example.planify.screen.homePage.ui.data.response.transactionCreateRes
 import com.example.planify.screen.homePage.ui.di.homePageRetrofitHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class homePageViewModel : ViewModel() {
 
@@ -39,12 +41,12 @@ class homePageViewModel : ViewModel() {
     val transactionState: State<homePageState> = _transactionState
 
 
-    fun loadData(context: Context) {
+    fun loadData(context: Context, fecha: String) {
         _isLoading.value = true
         viewModelScope.launch {
             try {
                 val service = homePageRetrofitHelper.getHomePageService(context = context)
-                val response = service.getTransaction()
+                val response = service.getTransaction(fecha)
 
                 if (response.isSuccessful && response.body()?.success == true) {
                     val transactions = response.body()?.response ?: emptyList()
@@ -79,8 +81,8 @@ class homePageViewModel : ViewModel() {
     }
 
         // Si necesitas actualizar desde UI (como un "swipe to refresh"):
-        fun reloadData(context: Context) {
-            loadData(context)
+        fun reloadData(context: Context, fecha: String) {
+            loadData(context, fecha)
         }
 
         fun updateSearchQuery(query: String) {
@@ -117,10 +119,12 @@ class homePageViewModel : ViewModel() {
                 try {
                     val service = homePageRetrofitHelper.getHomePageService(context)
                     val response = service.transactionCreate(dto)
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    val fechaActual = LocalDate.now().format(formatter)
 
                     if (response.isSuccessful && response.body()?.success == true) {
                         _transactionState.value = homePageState.success
-                        reloadData(context) // Para reflejar los cambios
+                        reloadData(context, fechaActual) // Para reflejar los cambios
                     } else {
                         _transactionState.value =
                             homePageState.error(response.body()?.message ?: "Error en la creación")
