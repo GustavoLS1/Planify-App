@@ -19,6 +19,7 @@ hilt = "2.55"
 retrofit = "2.9.0"
 coilCompose = "2.6.0"
 hiltNavigationCompose = "1.2.0"
+junitJunit = "4.12"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,7 @@ dagger-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", ver
 
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+junit-junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

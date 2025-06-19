@@ -46,7 +46,7 @@ class categoriesViewModel:ViewModel() {
         val filter = categories.filter {
             it.name.contains(searchQuery.value, ignoreCase = true) &&
                     it.flowTypeName.equals(selectedType.value, ignoreCase = true) }
-        Log.d("DropdownDebug", "Mostrando ${filter.size} categorías")
+        // Log.d("DropdownDebug", "Mostrando ${filter.size} categorías")
         filter
     }
 
